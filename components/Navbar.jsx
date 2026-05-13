@@ -3,9 +3,11 @@
 
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { useSession, signOut } from "next-auth/react";
 
 export default function Navbar() {
   const [mobileMenu, setMobileMenu] = useState(false);
+  const { data: session, status } = useSession();
 
   const navLinks = [
     { name: "About", href: "/about" },
@@ -13,6 +15,8 @@ export default function Navbar() {
     { name: "Events", href: "/events" },
     { name: "Contact", href: "/contact" },
   ];
+
+  const isLoggedIn = status === "authenticated";
 
   return (
     <header className="fixed left-0 top-0 z-50 w-full border-b border-white/10 bg-black/80 backdrop-blur">
@@ -32,19 +36,48 @@ export default function Navbar() {
             </a>
           ))}
 
-          <a
-            href="/login"
-            className="text-sm font-medium text-white/70 transition hover:text-white"
-          >
-            Login
-          </a>
+          {isLoggedIn ? (
+            <>
+              <a
+                href="/portal"
+                className="text-sm font-medium text-white/70 transition hover:text-white"
+              >
+                Portal
+              </a>
 
-          <a
-            href="/register"
-            className="rounded-full bg-white px-5 py-2 text-sm font-semibold text-black transition hover:bg-white/90"
-          >
-            Register
-          </a>
+              {session?.user?.role === "SUPER_ADMIN" && (
+                <a
+                  href="/admin"
+                  className="text-sm font-medium text-white/70 transition hover:text-white"
+                >
+                  Admin
+                </a>
+              )}
+
+              <button
+                onClick={() => signOut({ callbackUrl: "/" })}
+                className="rounded-full bg-white px-5 py-2 text-sm font-semibold text-black transition hover:bg-white/90"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <a
+                href="/login"
+                className="text-sm font-medium text-white/70 transition hover:text-white"
+              >
+                Login
+              </a>
+
+              <a
+                href="/register"
+                className="rounded-full bg-white px-5 py-2 text-sm font-semibold text-black transition hover:bg-white/90"
+              >
+                Register
+              </a>
+            </>
+          )}
         </div>
 
         <button
@@ -59,17 +92,65 @@ export default function Navbar() {
       {mobileMenu && (
         <div className="border-t border-white/10 bg-black md:hidden">
           <div className="flex flex-col px-6 py-6">
-            {[...navLinks, { name: "Login", href: "/login" }, { name: "Register", href: "/register" }].map(
-              (link) => (
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={() => setMobileMenu(false)}
+                className="border-b border-white/10 py-4 text-white/80 transition hover:text-white"
+              >
+                {link.name}
+              </a>
+            ))}
+
+            {isLoggedIn ? (
+              <>
                 <a
-                  key={link.name}
-                  href={link.href}
+                  href="/portal"
                   onClick={() => setMobileMenu(false)}
                   className="border-b border-white/10 py-4 text-white/80 transition hover:text-white"
                 >
-                  {link.name}
+                  Portal
                 </a>
-              )
+
+                {session?.user?.role === "SUPER_ADMIN" && (
+                  <a
+                    href="/admin"
+                    onClick={() => setMobileMenu(false)}
+                    className="border-b border-white/10 py-4 text-white/80 transition hover:text-white"
+                  >
+                    Admin
+                  </a>
+                )}
+
+                <button
+                  onClick={() => {
+                    setMobileMenu(false);
+                    signOut({ callbackUrl: "/" });
+                  }}
+                  className="py-4 text-left text-white/80 transition hover:text-white"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <a
+                  href="/login"
+                  onClick={() => setMobileMenu(false)}
+                  className="border-b border-white/10 py-4 text-white/80 transition hover:text-white"
+                >
+                  Login
+                </a>
+
+                <a
+                  href="/register"
+                  onClick={() => setMobileMenu(false)}
+                  className="py-4 text-white/80 transition hover:text-white"
+                >
+                  Register
+                </a>
+              </>
             )}
           </div>
         </div>
