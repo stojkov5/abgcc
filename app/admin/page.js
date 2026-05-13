@@ -1,6 +1,7 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/lib/auth";
+import { a } from "framer-motion/client";
 
 export default async function AdminPage() {
   const session = await getServerSession(authOptions);
@@ -25,11 +26,15 @@ export default async function AdminPage() {
         </h1>
 
         <div className="grid gap-6 md:grid-cols-3">
+          
           <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
-            <h2 className="mb-2 text-xl font-semibold">Memberships</h2>
+         <a href="/admin/memberships">
+              <h2 className="mb-2 text-xl font-semibold">Memberships</h2>
+           
             <p className="text-white/70">
               Manage membership tiers and pricing.
             </p>
+            </a>
           </div>
 
           <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
