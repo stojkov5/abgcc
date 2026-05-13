@@ -1,8 +1,9 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import { authOptions } from "@/lib/auth";
 
 export default async function PortalPage() {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
 
   if (!session) {
     redirect("/login");
@@ -20,9 +21,8 @@ export default async function PortalPage() {
         </h1>
 
         <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
-          <p className="text-white/70">
-            Email: {session.user?.email}
-          </p>
+          <p className="text-white/70">Email: {session.user?.email}</p>
+          <p className="text-white/70">Role: {session.user?.role}</p>
         </div>
       </section>
     </main>
