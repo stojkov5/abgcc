@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String       @id @default(cuid())
+  name          String?
+  email         String       @unique
+  password      String?
+  role          Role         @default(MEMBER)
+  createdAt     DateTime     @default(now())
+
+  memberships   Membership[]
+  eventBookings EventBooking[]
+}
+
+model MembershipTier {
+  id          String       @id @default(cuid())
+  title       String
+  description String
+  price       Float
+  period      String
+  active      Boolean      @default(true)
+  createdAt   DateTime     @default(now())
+
+  memberships Membership[]
+}
+
+model Membership {
+  id          String           @id @default(cuid())
+  status      MembershipStatus @default(PENDING)
+  startDate   DateTime?
+  endDate     DateTime?
+  createdAt   DateTime         @default(now())
+
+  userId      String
+  tierId      String
+
+  user        User             @relation(fields: [userId], references: [id])
+  tier        MembershipTier   @relation(fields: [tierId], references: [id])
+}
+
+model Event {
+  id          String         @id @default(cuid())
+  title       String
+  description String
+  location    String
+  price       Float
+  capacity    Int?
+  startDate   DateTime
+  createdAt   DateTime       @default(now())
+
+  bookings    EventBooking[]
+}
+
+model EventBooking {
+  id          String      @id @default(cuid())
+  createdAt   DateTime    @default(now())
+
+  userId      String
+  eventId     String
+
+  user        User        @relation(fields: [userId], references: [id])
+  event       Event       @relation(fields: [eventId], references: [id])
+}
+
+model ContactMessage {
+  id          String      @id @default(cuid())
+  name        String
+  email       String
+  subject     String
+  message     String
+  createdAt   DateTime    @default(now())
+}
+
+enum Role {
+  SUPER_ADMIN
+  EDITOR
+  MEMBER
+}
+
+enum MembershipStatus {
+  ACTIVE
+  PENDING
+  EXPIRED
+  CANCELLED
+}
