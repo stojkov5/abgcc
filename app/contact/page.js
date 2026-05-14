@@ -1,6 +1,6 @@
 export default function ContactPage() {
   return (
-    <main className="min-h-screen bg-black px-6 pb-20 pt-32 text-white">
+    <main className="min-h-screen px-6 pb-20 pt-32 ">
       <section className="mx-auto max-w-5xl">
         <p className="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-white/50">
           Contact

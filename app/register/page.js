@@ -39,7 +39,7 @@ export default function RegisterPage() {
   }
 
   return (
-    <main className="min-h-screen bg-black px-6 pb-20 pt-32 text-white">
+    <main className="min-h-screen px-6 pb-20 pt-32 ">
       <section className="mx-auto max-w-md rounded-3xl border border-white/10 bg-white/5 p-6">
         <h1 className="mb-6 text-3xl font-bold">Create account</h1>
 

@@ -48,14 +48,31 @@ model Membership {
 model Event {
   id          String         @id @default(cuid())
   title       String
+  slug        String         @unique
   description String
   location    String
+  image       String
   price       Float
   capacity    Int?
+  active      Boolean        @default(true)
+  featured    Boolean        @default(false)
+
   startDate   DateTime
+
   createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
 
   bookings    EventBooking[]
+  images      EventImage[]
+}
+
+model EventImage {
+  id        String   @id @default(cuid())
+  url       String
+  createdAt DateTime @default(now())
+
+  eventId   String
+  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
 }
 
 model EventBooking {

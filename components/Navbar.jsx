@@ -1,160 +1,190 @@
-/* eslint-disable @next/next/no-html-link-for-pages */
 "use client";
 
-import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { Menu, X, Sun, Moon } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
+import "../styles/navbar.css";
 
 export default function Navbar() {
   const [mobileMenu, setMobileMenu] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  const pathname = usePathname();
   const { data: session, status } = useSession();
+
+  const isLoading = status === "loading";
+  const isLoggedIn = status === "authenticated";
+  const isAdmin = session?.user?.role === "SUPER_ADMIN";
 
   const navLinks = [
     { name: "About", href: "/about" },
     { name: "Membership", href: "/membership" },
     { name: "Events", href: "/events" },
     { name: "Contact", href: "/contact" },
+    ...(isLoggedIn ? [{ name: "Portal", href: "/portal" }] : []),
+    ...(isAdmin ? [{ name: "Admin", href: "/admin" }] : []),
   ];
 
-  const isLoggedIn = status === "authenticated";
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+
+      if (currentY > lastScrollY && currentY > 80) {
+        setHidden(true);
+        setMobileMenu(false);
+      } else {
+        setHidden(false);
+      }
+
+      setLastScrollY(currentY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   return (
-    <header className="fixed left-0 top-0 z-50 w-full border-b border-white/10 bg-black/80 backdrop-blur">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <a href="/" className="text-2xl font-bold tracking-tight text-white">
-          ABGCC
-        </a>
+    <motion.header
+      className="navbar-shell"
+      animate={{ y: hidden ? "-120%" : "0%" }}
+      transition={{ duration: 0.35, ease: "easeInOut" }}
+    >
+      <nav className="navbar-container">
+        <Link href="/" className="navbar-logo">
+          <span className="navbar-logo-mark">A</span>
+          <span>ABGCC</span>
+        </Link>
 
-        <div className="hidden items-center gap-8 md:flex">
+        <div className="navbar-center">
           {navLinks.map((link) => (
-            <a
+            <motion.div
               key={link.name}
-              href={link.href}
-              className="text-sm font-medium text-white/70 transition hover:text-white"
+              whileHover={{ y: -2, scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
             >
-              {link.name}
-            </a>
+              <Link
+                href={link.href}
+                className={`navbar-pill ${
+                  pathname === link.href ? "active" : ""
+                }`}
+              >
+                {link.name}
+              </Link>
+            </motion.div>
           ))}
-
-          {isLoggedIn ? (
-            <>
-              <a
-                href="/portal"
-                className="text-sm font-medium text-white/70 transition hover:text-white"
-              >
-                Portal
-              </a>
-
-              {session?.user?.role === "SUPER_ADMIN" && (
-                <a
-                  href="/admin"
-                  className="text-sm font-medium text-white/70 transition hover:text-white"
-                >
-                  Admin
-                </a>
-              )}
-
-              <button
-                onClick={() => signOut({ callbackUrl: "/" })}
-                className="rounded-full bg-white px-5 py-2 text-sm font-semibold text-black transition hover:bg-white/90"
-              >
-                Logout
-              </button>
-            </>
-          ) : (
-            <>
-              <a
-                href="/login"
-                className="text-sm font-medium text-white/70 transition hover:text-white"
-              >
-                Login
-              </a>
-
-              <a
-                href="/register"
-                className="rounded-full bg-white px-5 py-2 text-sm font-semibold text-black transition hover:bg-white/90"
-              >
-                Register
-              </a>
-            </>
-          )}
         </div>
 
-        <button
+        <div className="navbar-right">
+          {isLoading ? (
+            <div className="navbar-loading" />
+          ) : isLoggedIn ? (
+            <motion.button
+              onClick={() => signOut({ callbackUrl: "/" })}
+              className="navbar-primary-btn"
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
+            >
+              Logout
+            </motion.button>
+          ) : (
+            <>
+              <Link href="/login" className="navbar-login">
+                Login
+              </Link>
+
+              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
+                <Link href="/register" className="navbar-primary-btn">
+                  Register
+                </Link>
+              </motion.div>
+            </>
+          )}
+
+          <button className="navbar-theme-switch" aria-label="Theme switch">
+            <Sun size={15} />
+            <span />
+            <Moon size={15} />
+          </button>
+        </div>
+
+        <motion.button
           onClick={() => setMobileMenu(!mobileMenu)}
-          className="flex items-center justify-center text-white md:hidden"
+          className={`navbar-mobile-toggle ${mobileMenu ? "open" : ""}`}
           aria-label="Toggle menu"
+          whileTap={{ scale: 0.9 }}
         >
-          {mobileMenu ? <X size={28} /> : <Menu size={28} />}
-        </button>
+          {mobileMenu ? <X size={27} /> : <Menu size={27} />}
+        </motion.button>
       </nav>
 
-      {mobileMenu && (
-        <div className="border-t border-white/10 bg-black md:hidden">
-          <div className="flex flex-col px-6 py-6">
+      <AnimatePresence>
+        {mobileMenu && (
+          <motion.div
+            className="navbar-mobile-menu"
+            initial={{ opacity: 0, y: -18 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -18 }}
+            transition={{ duration: 0.25 }}
+          >
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
                 href={link.href}
                 onClick={() => setMobileMenu(false)}
-                className="border-b border-white/10 py-4 text-white/80 transition hover:text-white"
+                className={`navbar-mobile-link ${
+                  pathname === link.href ? "active" : ""
+                }`}
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
 
-            {isLoggedIn ? (
-              <>
-                <a
-                  href="/portal"
-                  onClick={() => setMobileMenu(false)}
-                  className="border-b border-white/10 py-4 text-white/80 transition hover:text-white"
-                >
-                  Portal
-                </a>
-
-                {session?.user?.role === "SUPER_ADMIN" && (
-                  <a
-                    href="/admin"
-                    onClick={() => setMobileMenu(false)}
-                    className="border-b border-white/10 py-4 text-white/80 transition hover:text-white"
-                  >
-                    Admin
-                  </a>
-                )}
-
+            <div className="navbar-mobile-actions">
+              {isLoading ? (
+                <div className="navbar-mobile-loading" />
+              ) : isLoggedIn ? (
                 <button
                   onClick={() => {
                     setMobileMenu(false);
                     signOut({ callbackUrl: "/" });
                   }}
-                  className="py-4 text-left text-white/80 transition hover:text-white"
+                  className="navbar-mobile-primary"
                 >
                   Logout
                 </button>
-              </>
-            ) : (
-              <>
-                <a
-                  href="/login"
-                  onClick={() => setMobileMenu(false)}
-                  className="border-b border-white/10 py-4 text-white/80 transition hover:text-white"
-                >
-                  Login
-                </a>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    onClick={() => setMobileMenu(false)}
+                    className="navbar-mobile-secondary"
+                  >
+                    Login
+                  </Link>
 
-                <a
-                  href="/register"
-                  onClick={() => setMobileMenu(false)}
-                  className="py-4 text-white/80 transition hover:text-white"
-                >
-                  Register
-                </a>
-              </>
-            )}
-          </div>
-        </div>
-      )}
-    </header>
+                  <Link
+                    href="/register"
+                    onClick={() => setMobileMenu(false)}
+                    className="navbar-mobile-primary"
+                  >
+                    Register
+                  </Link>
+                </>
+              )}
+
+              <button className="navbar-mobile-theme">
+                <Sun size={15} />
+                <span />
+                <Moon size={15} />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
   );
 }

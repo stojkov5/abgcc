@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 const pillars = [
@@ -10,52 +11,58 @@ const pillars = [
 export default function Home() {
   return (
     <main className="min-h-screen bg-black text-white">
-      <section className="px-6 pb-20 pt-32 md:pt-40">
-        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-2 lg:items-center">
-          <div>
-            <p className="mb-5 text-xs font-semibold uppercase tracking-[0.25em] text-white/50 sm:text-sm">
-              American Balkan Global Chamber of Commerce
-            </p>
+      <section className="relative w-full overflow-hidden  pb-24">
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,rgba(234,179,8,0.16),transparent_35%)]" />
 
-            <h1 className="mb-6 max-w-4xl text-4xl font-bold leading-tight sm:text-5xl md:text-6xl xl:text-7xl">
-              Connecting Balkan and American business.
-            </h1>
+        <div className="mx-auto w-full max-w-7xl px-6">
+          <div className="grid min-h-162.5 items-center gap-16 lg:grid-cols-[1.05fr_0.95fr]">
+            <div className="max-w-170">
+              <p className="mb-5 text-xs font-bold uppercase tracking-[0.35em] text-yellow-400 sm:text-sm">
+                American Balkan Global Chamber of Commerce
+              </p>
 
-            <p className="mb-8 max-w-2xl text-base leading-8 text-white/70 sm:text-lg">
-              ABGCC strengthens commercial relationships, strategic partnerships,
-              and economic collaboration between the United States, the Balkans,
-              and global partners.
-            </p>
+              <h1 className="text-[52px] font-bold leading-[0.95] tracking-[-0.04em] text-white sm:text-[64px] lg:text-[76px]">
+                Connecting Balkan and American business.
+              </h1>
 
-            <div className="flex flex-col gap-4 sm:flex-row">
-              <a
-                href="/membership"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-white/90"
-              >
-                Become a Member <ArrowRight size={18} />
-              </a>
+              <p className="mt-8 max-w-155 text-lg leading-8 text-white/65">
+                ABGCC strengthens commercial relationships, strategic
+                partnerships, and economic collaboration between the United
+                States, the Balkans, and global partners.
+              </p>
 
-              <a
-                href="/about"
-                className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
-              >
-                Learn More
-              </a>
-            </div>
-          </div>
-
-          <div className="rounded-[2rem] border border-white/10 bg-white/5 p-5 shadow-2xl sm:p-8">
-            <h2 className="mb-6 text-2xl font-semibold">Core Pillars</h2>
-
-            <div className="grid gap-4 sm:grid-cols-2">
-              {pillars.map((item) => (
-                <div
-                  key={item}
-                  className="rounded-2xl border border-white/10 bg-black/40 p-5"
+              <div className="mt-10 flex flex-wrap gap-4">
+                <Link
+                  href="/membership"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-3 text-sm font-bold text-black transition hover:bg-yellow-400"
                 >
-                  <p className="font-medium">{item}</p>
-                </div>
-              ))}
+                  Become a Member <ArrowRight size={17} />
+                </Link>
+
+                <Link
+                  href="/about"
+                  className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-7 py-3 text-sm font-bold text-white transition hover:bg-white/10"
+                >
+                  Learn More
+                </Link>
+              </div>
+            </div>
+
+            <div className="w-full rounded-4xl border border-white/10 bg-white/4 p-8 shadow-2xl backdrop-blur">
+              <h2 className="mb-7 text-3xl font-bold text-white">
+                Core Pillars
+              </h2>
+
+              <div className="grid gap-4">
+                {pillars.map((item) => (
+                  <div
+                    key={item}
+                    className="rounded-2xl border border-white/10 bg-black/50 px-6 py-5 text-lg font-semibold text-white transition hover:border-yellow-400/50 hover:bg-white/6"
+                  >
+                    {item}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
