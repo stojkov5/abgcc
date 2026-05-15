@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import "../styles/navbar.css";
-
+import Image from "next/image";
 export default function Navbar() {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [hidden, setHidden] = useState(false);
@@ -54,10 +54,16 @@ export default function Navbar() {
       transition={{ duration: 0.35, ease: "easeInOut" }}
     >
       <nav className="navbar-container">
-        <Link href="/" className="navbar-logo">
-          <span className="navbar-logo-mark">A</span>
-          <span>ABGCC</span>
-        </Link>
+        <Link href="/" className="navbar-logo rounded-full">
+  <Image
+    src="/abgcc.webp"
+    alt="ABGCC Logo"
+    width={160}
+    height={60}
+    priority
+    className="navbar-logo-image"
+  />
+</Link>
 
         <div className="navbar-center">
           {navLinks.map((link) => (

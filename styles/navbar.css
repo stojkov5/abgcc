@@ -1,3 +1,17 @@
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  background-color: white;
+
+}
+
+.navbar-logo-image {
+  width: auto;
+  height: 52px;
+  object-fit: contain;
+}
+
 .navbar-shell {
   position: fixed;
   top: 0;
