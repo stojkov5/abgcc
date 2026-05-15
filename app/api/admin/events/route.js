@@ -1,6 +1,10 @@
 import { getServerSession } from "next-auth";
+import { revalidatePath } from "next/cache";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 function createSlug(title) {
   return title
@@ -34,23 +38,21 @@ export async function POST(request) {
 
     if (!title || !description || !location || !image || !startDate) {
       return Response.json(
-        { message: "Title, description, location, image, and date are required." },
+        {
+          message:
+            "Missing required fields. Title, description, location, image, and date are required.",
+        },
         { status: 400 }
       );
     }
 
-    const slug = createSlug(title);
+    const baseSlug = createSlug(title);
 
     const existingEvent = await prisma.event.findUnique({
-      where: { slug },
+      where: { slug: baseSlug },
     });
 
-    if (existingEvent) {
-      return Response.json(
-        { message: "An event with this title already exists." },
-        { status: 409 }
-      );
-    }
+    const slug = existingEvent ? `${baseSlug}-${Date.now()}` : baseSlug;
 
     const event = await prisma.event.create({
       data: {
@@ -67,6 +69,9 @@ export async function POST(request) {
       },
     });
 
+    revalidatePath("/events");
+    revalidatePath(`/events/${event.slug}`);
+
     return Response.json(
       {
         message: "Event created successfully.",
@@ -75,10 +80,12 @@ export async function POST(request) {
       { status: 201 }
     );
   } catch (error) {
-    console.error("CREATE_EVENT_ERROR", error);
+    console.error("CREATE_EVENT_ERROR:", error);
 
     return Response.json(
-      { message: "Something went wrong." },
+      {
+        message: error?.message || "Something went wrong while creating event.",
+      },
       { status: 500 }
     );
   }

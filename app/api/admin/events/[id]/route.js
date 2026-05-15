@@ -1,6 +1,10 @@
 import { prisma } from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 function createSlug(title) {
   return title
@@ -19,6 +23,15 @@ export async function PUT(request, { params }) {
     }
 
     const { id } = await params;
+
+    const oldEvent = await prisma.event.findUnique({
+      where: { id },
+    });
+
+    if (!oldEvent) {
+      return Response.json({ message: "Event not found." }, { status: 404 });
+    }
+
     const body = await request.json();
 
     const {
@@ -32,6 +45,13 @@ export async function PUT(request, { params }) {
       active,
       featured,
     } = body;
+
+    if (!title || !description || !location || !image || !startDate) {
+      return Response.json(
+        { message: "All required fields must be filled." },
+        { status: 400 }
+      );
+    }
 
     const updatedEvent = await prisma.event.update({
       where: { id },
@@ -48,6 +68,10 @@ export async function PUT(request, { params }) {
         featured: Boolean(featured),
       },
     });
+
+    revalidatePath("/events");
+    revalidatePath(`/events/${oldEvent.slug}`);
+    revalidatePath(`/events/${updatedEvent.slug}`);
 
     return Response.json({
       message: "Event updated successfully.",
