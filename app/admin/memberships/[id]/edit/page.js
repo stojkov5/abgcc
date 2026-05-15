@@ -1,4 +1,6 @@
-import { prisma } from "@/lib/prisma";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;import { prisma } from "@/lib/prisma";
 import EditMembershipForm from "@/components/EditMembershipForm";
 
 export default async function EditMembershipTierPage({ params }) {
