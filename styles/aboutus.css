@@ -1,0 +1,310 @@
+.about-page {
+  min-height: 100vh;
+  color: #fff;
+  background:
+    radial-gradient(circle at top left, rgba(190, 151, 92, 0.18), transparent 35%),
+    linear-gradient(180deg, #07111f 0%, #0b1625 45%, #08111d 100%);
+  overflow: hidden;
+}
+
+.about-container {
+  width: min(100% - 2rem, 80rem);
+  margin: 0 auto;
+}
+
+/* HERO */
+
+.about-hero {
+  padding: clamp(1.5rem, 12vw, 10rem) 0 clamp(4rem, 7vw, 5.625rem);
+}
+
+.about-eyebrow,
+.section-label {
+  display: inline-block;
+  margin-bottom: 1.125rem;
+  color: #c8a76a;
+  font-size: clamp(0.72rem, 1vw, 0.78rem);
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.about-hero h1 {
+  max-width: 61.25rem;
+  margin: 0;
+  font-size: clamp(2.7rem, 6vw, 6.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+}
+
+.about-hero p {
+  max-width: 47.5rem;
+  margin-top: 1.75rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  line-height: 1.8;
+}
+
+/* INTRO */
+
+.about-intro,
+.team-section,
+.pillars-section,
+.vision-section {
+  padding: clamp(4rem, 7vw, 5rem) 0;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: clamp(2.5rem, 6vw, 4.375rem);
+  align-items: start;
+}
+
+.about-grid h2,
+.section-heading h2,
+.vision-card h2 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
+.intro-content p,
+.vision-card p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: clamp(0.95rem, 1.2vw, 1rem);
+  line-height: 1.9;
+}
+
+.intro-content p + p {
+  margin-top: 1.25rem;
+}
+
+/* INDUSTRIES */
+
+.industries-section {
+  padding: clamp(4rem, 7vw, 6.5rem) 0;
+  background: rgba(255, 255, 255, 0.03);
+  border-block: 0.0625rem solid rgba(255, 255, 255, 0.08);
+}
+
+.section-heading {
+  max-width: 53rem;
+  margin-bottom: clamp(2rem, 4vw, 2.625rem);
+}
+
+.industries-card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+.industry-card {
+  position: relative;
+  overflow: hidden;
+  min-height: clamp(11rem, 18vw, 16rem);
+  border-radius: 1.5rem;
+  border: 0.0625rem solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.22);
+}
+
+.industry-image {
+  position: absolute;
+  inset: 0;
+}
+
+.industry-img {
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+
+.industry-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(7, 17, 31, 0.08), rgba(7, 17, 31, 0.88)),
+    linear-gradient(135deg, rgba(200, 167, 106, 0.18), transparent 55%);
+}
+
+.industry-content {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: clamp(1rem, 2vw, 1.4rem);
+}
+
+.industry-content h3 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.industry-card:hover .industry-img {
+  transform: scale(1.08);
+}
+
+/* TEAM */
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.25rem, 2vw, 1.625rem);
+}
+
+.team-card {
+  overflow: hidden;
+  border: 0.0625rem solid rgba(255, 255, 255, 0.09);
+  border-radius: 1.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 1.5rem 5rem rgba(0, 0, 0, 0.25);
+}
+
+.team-image-wrap {
+  position: relative;
+  height: clamp(18rem, 28vw, 22.5rem);
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.team-img {
+  object-fit: cover;
+}
+
+.team-info {
+  padding: clamp(1.25rem, 2vw, 1.625rem);
+}
+
+.team-info h3,
+.pillar-card h3 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.2rem, 1.7vw, 1.4rem);
+}
+
+.team-info span {
+  display: block;
+  margin-bottom: 1rem;
+  color: #c8a76a;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.team-info p,
+.pillar-card p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+
+/* PILLARS */
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(1rem, 1.6vw, 1.125rem);
+}
+
+.pillar-card {
+  min-height: 16.875rem;
+  padding: clamp(1.35rem, 2.2vw, 1.75rem);
+  border: 0.0625rem solid rgba(255, 255, 255, 0.09);
+  border-radius: 1.625rem;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.07),
+    rgba(255, 255, 255, 0.035)
+  );
+}
+
+.pillar-card span {
+  display: block;
+  margin-bottom: 2.375rem;
+  color: #c8a76a;
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+/* VISION */
+
+.vision-card {
+  padding: clamp(2rem, 6vw, 4.375rem);
+  border: 0.0625rem solid rgba(200, 167, 106, 0.25);
+  border-radius: 2.125rem;
+  background:
+    linear-gradient(135deg, rgba(200, 167, 106, 0.16), rgba(255, 255, 255, 0.04)),
+    rgba(255, 255, 255, 0.04);
+}
+
+.vision-card p {
+  max-width: 45rem;
+  margin-top: 1.5rem;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 75em) {
+  .industries-card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .pillars-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 64em) {
+  .about-grid,
+  .team-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 56.25em) {
+  .industries-card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .industry-card {
+    min-height: 13rem;
+  }
+}
+
+@media (max-width: 43.75em) {
+  .about-container {
+    width: min(100% - 1.5rem, 80rem);
+  }
+
+  .about-grid,
+  .team-grid,
+  .pillars-grid,
+  .industries-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-hero {
+    padding-top: 1.5rem;
+  }
+
+  .industry-card {
+    min-height: 12.5rem;
+    border-radius: 1.25rem;
+  }
+
+  .team-image-wrap {
+    height: 20rem;
+  }
+
+  .pillar-card {
+    min-height: auto;
+  }
+
+  .vision-card {
+    border-radius: 1.5rem;
+  }
+}

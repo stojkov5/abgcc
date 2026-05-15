@@ -104,11 +104,7 @@ export default function Navbar() {
             </>
           )}
 
-          <button className="navbar-theme-switch" aria-label="Theme switch">
-            <Sun size={15} />
-            <span />
-            <Moon size={15} />
-          </button>
+          
         </div>
 
         <motion.button
@@ -176,11 +172,7 @@ export default function Navbar() {
                 </>
               )}
 
-              <button className="navbar-mobile-theme">
-                <Sun size={15} />
-                <span />
-                <Moon size={15} />
-              </button>
+              
             </div>
           </motion.div>
         )}
