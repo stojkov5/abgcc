@@ -1,7 +1,34 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
+import { ArrowLeft, Upload } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import "../../../../styles/admin.css";
+
+const cardReveal = {
+  hidden: { opacity: 0, y: 28, scale: 0.97 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.7,
+      ease: [0.22, 1, 0.36, 1],
+      staggerChildren: 0.08,
+    },
+  },
+};
+
+const itemReveal = {
+  hidden: { opacity: 0, y: 16 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+  },
+};
 
 export default function NewEventPage() {
   const [form, setForm] = useState({
@@ -76,142 +103,191 @@ export default function NewEventPage() {
   }
 
   return (
-    <main className="min-h-screen bg-black px-6 pb-20 pt-32 text-white">
-      <section className="mx-auto max-w-3xl rounded-3xl border border-white/10 bg-white/5 p-6">
-        <p className="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-white/50">
-          Admin
-        </p>
+    <main className="admin-page">
+      <section className="admin-form-shell">
+        <motion.div
+          className="admin-form-card"
+          variants={cardReveal}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.div variants={itemReveal}>
+            <Link href="/admin/events" className="admin-back-link">
+              <ArrowLeft size={16} />
+              Back to Events
+            </Link>
+          </motion.div>
 
-        <h1 className="mb-8 text-4xl font-bold">Create Event</h1>
+          <motion.p variants={itemReveal} className="admin-eyebrow">
+            Admin
+          </motion.p>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <input
-            type="text"
-            placeholder="Event title"
-            value={form.title}
-            onChange={(e) =>
-              setForm({ ...form, title: e.target.value })
-            }
-            className="w-full rounded-xl border border-white/10 bg-black px-4 py-3 text-white outline-none"
-          />
+          <motion.h1 variants={itemReveal} className="admin-form-title">
+            Create Event
+          </motion.h1>
 
-          <textarea
-            placeholder="Description"
-            value={form.description}
-            onChange={(e) =>
-              setForm({ ...form, description: e.target.value })
-            }
-            rows={6}
-            className="w-full rounded-xl border border-white/10 bg-black px-4 py-3 text-white outline-none"
-          />
+          <motion.p variants={itemReveal} className="admin-form-text">
+            Add a new ABGCC event with image, location, capacity, price,
+            publishing status, and featured visibility.
+          </motion.p>
 
-          <input
-            type="text"
-            placeholder="Location"
-            value={form.location}
-            onChange={(e) =>
-              setForm({ ...form, location: e.target.value })
-            }
-            className="w-full rounded-xl border border-white/10 bg-black px-4 py-3 text-white outline-none"
-          />
-
-          <div className="rounded-2xl border border-white/10 bg-black p-4">
-            <label className="mb-3 block text-sm font-semibold text-white/70">
-              Event Image
-            </label>
-
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageUpload}
-              className="w-full rounded-xl border border-white/10 bg-black px-4 py-3 text-white outline-none"
-            />
-
-            {uploading && (
-              <p className="mt-3 text-sm text-white/60">
-                Uploading image...
-              </p>
-            )}
-
-            {form.image && (
-              <div className="mt-5 overflow-hidden rounded-2xl border border-white/10">
-                <div className="relative aspect-video">
-                  <Image
-                    src={form.image}
-                    alt="Uploaded event image"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              </div>
-            )}
-          </div>
-
-          <input
-            type="number"
-            placeholder="Price"
-            value={form.price}
-            onChange={(e) =>
-              setForm({ ...form, price: e.target.value })
-            }
-            className="w-full rounded-xl border border-white/10 bg-black px-4 py-3 text-white outline-none"
-          />
-
-          <input
-            type="number"
-            placeholder="Capacity"
-            value={form.capacity}
-            onChange={(e) =>
-              setForm({ ...form, capacity: e.target.value })
-            }
-            className="w-full rounded-xl border border-white/10 bg-black px-4 py-3 text-white outline-none"
-          />
-
-          <input
-            type="datetime-local"
-            value={form.startDate}
-            onChange={(e) =>
-              setForm({ ...form, startDate: e.target.value })
-            }
-            className="w-full rounded-xl border border-white/10 bg-black px-4 py-3 text-white outline-none"
-          />
-
-          <label className="flex items-center gap-3 text-white/80">
-            <input
-              type="checkbox"
-              checked={form.active}
-              onChange={(e) =>
-                setForm({ ...form, active: e.target.checked })
-              }
-            />
-            Active
-          </label>
-
-          <label className="flex items-center gap-3 text-white/80">
-            <input
-              type="checkbox"
-              checked={form.featured}
-              onChange={(e) =>
-                setForm({ ...form, featured: e.target.checked })
-              }
-            />
-            Featured
-          </label>
-
-          <button
-            type="submit"
-            disabled={loading || uploading}
-            className="w-full rounded-xl bg-white px-4 py-3 font-semibold text-black transition hover:bg-white/90 disabled:opacity-60"
+          <motion.form
+            variants={itemReveal}
+            onSubmit={handleSubmit}
+            className="admin-form"
           >
-            {loading ? "Creating..." : "Create Event"}
-          </button>
-        </form>
+            <motion.input
+              whileFocus={{ scale: 1.01 }}
+              type="text"
+              placeholder="Event title"
+              value={form.title}
+              onChange={(e) =>
+                setForm({ ...form, title: e.target.value })
+              }
+              className="admin-input"
+            />
 
-        {message && (
-          <p className="mt-4 text-sm text-white/70">
-            {message}
-          </p>
-        )}
+            <motion.textarea
+              whileFocus={{ scale: 1.01 }}
+              placeholder="Description"
+              value={form.description}
+              onChange={(e) =>
+                setForm({ ...form, description: e.target.value })
+              }
+              rows={6}
+              className="admin-input admin-textarea"
+            />
+
+            <motion.input
+              whileFocus={{ scale: 1.01 }}
+              type="text"
+              placeholder="Location"
+              value={form.location}
+              onChange={(e) =>
+                setForm({ ...form, location: e.target.value })
+              }
+              className="admin-input"
+            />
+
+            <div className="admin-upload-box">
+              <label className="admin-upload-label">
+                <Upload size={16} />
+                Event Image
+              </label>
+
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="admin-input"
+              />
+
+              {uploading && (
+                <p className="admin-upload-note">
+                  Uploading image...
+                </p>
+              )}
+
+              {form.image && (
+                <motion.div
+                  className="admin-image-preview"
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.35 }}
+                >
+                  <div className="admin-image-preview-inner">
+                    <Image
+                      src={form.image}
+                      alt="Uploaded event image"
+                      fill
+                      className="admin-preview-img"
+                    />
+                  </div>
+                </motion.div>
+              )}
+            </div>
+
+            <motion.input
+              whileFocus={{ scale: 1.01 }}
+              type="number"
+              placeholder="Price"
+              value={form.price}
+              onChange={(e) =>
+                setForm({ ...form, price: e.target.value })
+              }
+              className="admin-input"
+            />
+
+            <motion.input
+              whileFocus={{ scale: 1.01 }}
+              type="number"
+              placeholder="Capacity"
+              value={form.capacity}
+              onChange={(e) =>
+                setForm({ ...form, capacity: e.target.value })
+              }
+              className="admin-input"
+            />
+
+            <motion.input
+              whileFocus={{ scale: 1.01 }}
+              type="datetime-local"
+              value={form.startDate}
+              onChange={(e) =>
+                setForm({ ...form, startDate: e.target.value })
+              }
+              className="admin-input"
+            />
+
+            <div className="admin-check-grid">
+              <label className="admin-check-row">
+                <input
+                  type="checkbox"
+                  checked={form.active}
+                  onChange={(e) =>
+                    setForm({ ...form, active: e.target.checked })
+                  }
+                />
+                <span>Active</span>
+              </label>
+
+              <label className="admin-check-row">
+                <input
+                  type="checkbox"
+                  checked={form.featured}
+                  onChange={(e) =>
+                    setForm({ ...form, featured: e.target.checked })
+                  }
+                />
+                <span>Featured</span>
+              </label>
+            </div>
+
+            <motion.button
+              type="submit"
+              disabled={loading || uploading}
+              className="admin-submit-btn"
+              whileHover={!loading && !uploading ? { y: -2 } : undefined}
+              whileTap={!loading && !uploading ? { scale: 0.98 } : undefined}
+            >
+              {loading ? "Creating..." : "Create Event"}
+            </motion.button>
+          </motion.form>
+
+          <AnimatePresence>
+            {message && (
+              <motion.p
+                className="admin-form-message"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.25 }}
+              >
+                {message}
+              </motion.p>
+            )}
+          </AnimatePresence>
+        </motion.div>
       </section>
     </main>
   );

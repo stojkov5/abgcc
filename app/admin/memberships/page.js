@@ -1,9 +1,22 @@
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
+
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import Link from "next/link";
+import { ArrowRight, Plus } from "lucide-react";
+
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+
+import {
+  HeroReveal,
+  HeroItem,
+  Stagger,
+  StaggerItem,
+} from "@/components/MotionReveal";
+
+import "../../../styles/admin.css";
 
 export default async function AdminMembershipsPage() {
   const session = await getServerSession(authOptions);
@@ -23,67 +36,78 @@ export default async function AdminMembershipsPage() {
   });
 
   return (
-    <main className="min-h-screen bg-black px-6 pb-20 pt-32 text-white">
-      <section className="mx-auto max-w-7xl">
-        <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-white/50">
+    <main className="admin-page">
+      <section className="admin-container">
+        <div className="admin-topbar">
+          <HeroReveal>
+            <HeroItem as="p" className="admin-eyebrow">
               Admin
-            </p>
+            </HeroItem>
 
-            <h1 className="text-4xl font-bold md:text-6xl">
+            <HeroItem as="h1" className="admin-title">
               Membership Tiers
-            </h1>
-          </div>
+            </HeroItem>
 
-          <a
+            <HeroItem as="p" className="admin-text">
+              Manage membership pricing, visibility, descriptions, and tier
+              structure for the ABGCC platform.
+            </HeroItem>
+          </HeroReveal>
+
+          <Link
             href="/admin/memberships/new"
-            className="rounded-full bg-white px-6 py-3 text-center text-sm font-semibold text-black transition hover:bg-white/90"
+            className="admin-primary-btn"
           >
+            <Plus size={17} />
             Add New Tier
-          </a>
+          </Link>
         </div>
 
-        <div className="grid gap-6">
-          {tiers.map((tier) => (
-            <article
+        <Stagger className="admin-membership-grid">
+          {tiers.map((tier, index) => (
+            <StaggerItem
+              as="article"
               key={tier.id}
-              className="rounded-3xl border border-white/10 bg-white/5 p-6"
+              className="admin-membership-card"
             >
-              <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+              <div className="admin-membership-top">
                 <div>
-                  <h2 className="text-2xl font-bold">{tier.title}</h2>
+                  <span className="admin-card-number">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
 
-                  <p className="mt-2 text-white/60">
-                    ${tier.price.toLocaleString()} / {tier.period}
-                  </p>
+                  <h2>{tier.title}</h2>
 
-                  <p className="mt-4 max-w-3xl leading-7 text-white/70">
-                    {tier.description}
-                  </p>
-
-                  <p className="mt-4 text-sm">
-                    Status:{" "}
-                    <span
-                      className={
-                        tier.active ? "text-green-300" : "text-red-300"
-                      }
-                    >
-                      {tier.active ? "Active" : "Inactive"}
-                    </span>
-                  </p>
+                  <div className="admin-tier-price">
+                    ${tier.price.toLocaleString()}
+                    <span> / {tier.period}</span>
+                  </div>
                 </div>
 
-                <a
-                  href={`/admin/memberships/${tier.id}/edit`}
-                  className="rounded-full border border-white/20 px-5 py-2 text-center text-sm font-semibold text-white transition hover:bg-white/10"
+                <div
+                  className={`admin-status ${
+                    tier.active ? "active" : "inactive"
+                  }`}
                 >
-                  Edit
-                </a>
+                  {tier.active ? "Active" : "Inactive"}
+                </div>
               </div>
-            </article>
+
+              <p className="admin-membership-description">
+                {tier.description}
+              </p>
+
+              <div className="admin-membership-footer">
+                <Link
+                  href={`/admin/memberships/${tier.id}/edit`}
+                  className="admin-secondary-btn"
+                >
+                  Edit Tier <ArrowRight size={15} />
+                </Link>
+              </div>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       </section>
     </main>
   );

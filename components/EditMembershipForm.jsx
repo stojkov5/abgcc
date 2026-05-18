@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function EditMembershipForm({ tier }) {
   const [form, setForm] = useState({
@@ -37,84 +38,89 @@ export default function EditMembershipForm({ tier }) {
   }
 
   return (
-    <main className="min-h-screen px-6 pb-20 pt-32">
-      <section className="mx-auto max-w-3xl rounded-3xl border border-white/10 bg-white/5 p-6">
-        <p className="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-white/50">
-          Admin
-        </p>
+    <>
+      <form onSubmit={handleSubmit} className="admin-form">
+        <motion.input
+          whileFocus={{ scale: 1.01 }}
+          type="text"
+          placeholder="Title"
+          value={form.title}
+          onChange={(e) =>
+            setForm({ ...form, title: e.target.value })
+          }
+          className="admin-input"
+        />
 
-        <h1 className="mb-8 text-4xl font-bold">
-          Edit Membership Tier
-        </h1>
+        <motion.textarea
+          whileFocus={{ scale: 1.01 }}
+          placeholder="Description"
+          value={form.description}
+          onChange={(e) =>
+            setForm({ ...form, description: e.target.value })
+          }
+          rows={5}
+          className="admin-input admin-textarea"
+        />
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <motion.input
+          whileFocus={{ scale: 1.01 }}
+          type="number"
+          placeholder="Price"
+          value={form.price}
+          onChange={(e) =>
+            setForm({ ...form, price: e.target.value })
+          }
+          className="admin-input"
+        />
+
+        <motion.select
+          whileFocus={{ scale: 1.01 }}
+          value={form.period}
+          onChange={(e) =>
+            setForm({ ...form, period: e.target.value })
+          }
+          className="admin-input"
+        >
+          <option value="monthly">Monthly</option>
+          <option value="yearly">Yearly</option>
+        </motion.select>
+
+        <label className="admin-check-row">
           <input
-            type="text"
-            placeholder="Title"
-            value={form.title}
+            type="checkbox"
+            checked={form.active}
             onChange={(e) =>
-              setForm({ ...form, title: e.target.value })
+              setForm({ ...form, active: e.target.checked })
             }
-            className="w-full rounded-xl border border-white/10 bg-black px-4 py-3 text-white outline-none"
           />
 
-          <textarea
-            placeholder="Description"
-            value={form.description}
-            onChange={(e) =>
-              setForm({ ...form, description: e.target.value })
-            }
-            rows={5}
-            className="w-full rounded-xl border border-white/10 bg-black px-4 py-3 text-white outline-none"
-          />
+          <span>Active</span>
+        </label>
 
-          <input
-            type="number"
-            placeholder="Price"
-            value={form.price}
-            onChange={(e) =>
-              setForm({ ...form, price: e.target.value })
-            }
-            className="w-full rounded-xl border border-white/10 bg-black px-4 py-3 text-white outline-none"
-          />
+        <motion.button
+          type="submit"
+          disabled={loading}
+          className="admin-submit-btn"
+          whileHover={!loading ? { y: -2 } : undefined}
+          whileTap={!loading ? { scale: 0.98 } : undefined}
+        >
+          {loading ? "Saving..." : "Save Changes"}
+        </motion.button>
+      </form>
 
-          <select
-            value={form.period}
-            onChange={(e) =>
-              setForm({ ...form, period: e.target.value })
-            }
-            className="w-full rounded-xl border border-white/10 bg-black px-4 py-3 text-white outline-none"
-          >
-            <option value="monthly">Monthly</option>
-            <option value="yearly">Yearly</option>
-          </select>
-
-          <label className="flex items-center gap-3 text-white/80">
-            <input
-              type="checkbox"
-              checked={form.active}
-              onChange={(e) =>
-                setForm({ ...form, active: e.target.checked })
-              }
-            />
-            Active
-          </label>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full rounded-xl bg-white px-4 py-3 font-semibold text-black transition hover:bg-white/90 disabled:opacity-60"
-          >
-            {loading ? "Saving..." : "Save Changes"}
-          </button>
-        </form>
-
+      <AnimatePresence>
         {message && (
-          <p className="mt-4 text-sm text-white/70">
+          <motion.p
+            className="admin-form-message"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.25 }}
+          >
             {message}
-          </p>
+          </motion.p>
         )}
-      </section>
-    </main>
+      </AnimatePresence>
+    </>
   );
 }

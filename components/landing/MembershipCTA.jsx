@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { Reveal } from "@/components/MotionReveal";
 
 export default function MembershipCTA() {
   return (
@@ -7,7 +8,7 @@ export default function MembershipCTA() {
       <div className="membership-bg" />
 
       <div className="landing-container">
-        <div className="membership-card">
+        <Reveal className="membership-card" amount={0.35}>
           <div>
             <span className="section-label">Membership</span>
 
@@ -19,7 +20,7 @@ export default function MembershipCTA() {
           <Link href="/membership" className="membership-btn">
             Become a Member <ArrowRight size={17} />
           </Link>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

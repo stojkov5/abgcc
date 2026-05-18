@@ -1,3 +1,9 @@
+import {
+  Reveal,
+  Stagger,
+  StaggerItem,
+} from "@/components/MotionReveal";
+
 const partnerCards = [
   {
     title: "Invest Connect",
@@ -21,7 +27,7 @@ export default function PartnerSection() {
   return (
     <section className="landing-section partner-section">
       <div className="landing-container">
-        <div className="section-heading center">
+        <Reveal className="section-heading center" amount={0.35}>
           <span className="section-label">What We Do</span>
 
           <h2>
@@ -34,20 +40,24 @@ export default function PartnerSection() {
             exchange, and business partnerships between the United States, the
             Balkans, and globally.
           </p>
-        </div>
+        </Reveal>
 
-        <div className="partner-grid">
+        <Stagger className="partner-grid">
           {partnerCards.map((card, index) => (
-            <article key={card.title} className="partner-card">
+            <StaggerItem
+              as="article"
+              key={card.title}
+              className="partner-card"
+            >
               <span className="card-number">
                 {String(index + 1).padStart(2, "0")}
               </span>
 
               <h3>{card.title}</h3>
               <p>{card.text}</p>
-            </article>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       </div>
     </section>
   );

@@ -1,7 +1,7 @@
 .home-page {
   min-height: 100vh;
   background: transparent;
-  color: #fff;
+  color: #10243f;
   overflow: hidden;
   padding-top: 0;
 }
@@ -27,11 +27,12 @@
   background:
     linear-gradient(
       180deg,
-      rgba(7, 17, 31, 0.18) 0%,
-      rgba(7, 17, 31, 0.5) 45%,
-      rgba(7, 17, 31, 0.92) 100%
+      rgba(255, 255, 255, 0.14) 0%,
+      rgba(232, 246, 255, 0.42) 45%,
+      rgba(247, 251, 255, 0.96) 100%
     ),
-    radial-gradient(circle at center, rgba(200, 167, 106, 0.12), transparent 48%);
+    radial-gradient(circle at 18% 14%, rgba(255, 219, 145, 0.28), transparent 34%),
+    radial-gradient(circle at 84% 18%, rgba(115, 195, 255, 0.22), transparent 38%);
 }
 
 .home-content {
@@ -42,7 +43,7 @@
 .section-label {
   display: inline-block;
   margin-bottom: 1rem;
-  color: #c8a76a;
+  color: #10243f;
   font-size: clamp(0.64rem, 0.9vw, 0.78rem);
   font-weight: 800;
   letter-spacing: 0.24em;
@@ -51,6 +52,7 @@
 
 .home-title {
   margin: 0;
+  color: #10243f;
   font-size: clamp(2.6rem, 6vw, 4.5rem);
   line-height: 0.95;
   font-weight: 800;
@@ -61,7 +63,7 @@
 .home-text {
   max-width: 43rem;
   margin-top: 1.5rem;
-  color: rgba(255, 255, 255, 0.78);
+  color: rgba(16, 36, 63, 0.76);
   font-size: clamp(0.98rem, 1.35vw, 1.15rem);
   line-height: 1.75;
 }
@@ -92,18 +94,19 @@
 .mission-main-card h2,
 .membership-card h2 {
   margin: 0;
+  color: #10243f;
   font-size: clamp(2.1rem, 4.7vw, 4.7rem);
   line-height: 1;
   letter-spacing: -0.055em;
 }
 
 .section-heading h2 span {
-  color: #c8a76a;
+  color: #d39b2f;
 }
 
 .section-heading h3 {
   margin: 1.3rem 0 0;
-  color: #fff;
+  color: #1f3a5a;
   font-size: clamp(1.1rem, 1.7vw, 1.35rem);
   line-height: 1.4;
 }
@@ -111,15 +114,13 @@
 .section-heading p {
   max-width: 48rem;
   margin: 1.4rem auto 0;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(16, 36, 63, 0.7);
   font-size: clamp(0.98rem, 1.25vw, 1.08rem);
   line-height: 1.8;
 }
 
 .partner-section {
-  /* background:
-    radial-gradient(circle at top right, rgba(200, 167, 106, 0.14), transparent 34%),
-    linear-gradient(180deg, #08111d 0%, #0b1625 100%); */
+  background: transparent;
 }
 
 .partner-grid {
@@ -132,17 +133,23 @@
 .partner-card {
   min-height: 22rem;
   padding: clamp(1.35rem, 2vw, 1.75rem);
-  border: 0.0625rem solid rgba(255, 255, 255, 0.09);
+  border: 0.0625rem solid rgba(100, 181, 246, 0.22);
   border-radius: 1.5rem;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.035));
-  box-shadow: 0 1.5rem 5rem rgba(0, 0, 0, 0.2);
+    radial-gradient(circle at top right, rgba(255, 219, 145, 0.18), transparent 38%),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.94),
+      rgba(239, 248, 255, 0.74)
+    );
+  box-shadow: 0 1.5rem 4rem rgba(46, 111, 160, 0.14);
+  backdrop-filter: blur(0.7rem);
 }
 
 .card-number {
   display: block;
   margin-bottom: 2.5rem;
-  color: #c8a76a;
+  color: #d39b2f;
   font-size: 0.85rem;
   font-weight: 900;
 }
@@ -150,6 +157,7 @@
 .partner-card h3,
 .mission-card h3 {
   margin: 0 0 1rem;
+  color: #10243f;
   font-size: clamp(1.25rem, 1.8vw, 1.55rem);
   line-height: 1.1;
   letter-spacing: -0.035em;
@@ -159,7 +167,7 @@
 .mission-card p,
 .mission-main-card p {
   margin: 0;
-  color: rgba(255, 255, 255, 0.68);
+  color: rgba(16, 36, 63, 0.68);
   font-size: 0.96rem;
   line-height: 1.75;
 }
@@ -176,8 +184,12 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(7, 17, 31, 0.92), rgba(7, 17, 31, 0.52)),
-    radial-gradient(circle at center, rgba(200, 167, 106, 0.12), transparent 45%);
+    linear-gradient(
+      90deg,
+      rgba(247, 251, 255, 0.25),
+      rgba(235, 247, 255, 0.45)
+    ),
+    radial-gradient(circle at center, rgba(255, 219, 145, 0.1), transparent 50%);
 }
 
 .mission-layout {
@@ -191,12 +203,17 @@
 
 .mission-main-card {
   padding: clamp(2rem, 4vw, 3.5rem);
-  border: 0.0625rem solid rgba(200, 167, 106, 0.25);
+  border: 0.0625rem solid rgba(100, 181, 246, 0.24);
   border-radius: 1.75rem;
   background:
-    linear-gradient(135deg, rgba(200, 167, 106, 0.18), rgba(255, 255, 255, 0.04)),
-    rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(0.7rem);
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.94),
+      rgba(232, 246, 255, 0.8)
+    ),
+    radial-gradient(circle at top right, rgba(255, 219, 145, 0.22), transparent 40%);
+  backdrop-filter: blur(0.8rem);
+  box-shadow: 0 1.5rem 4rem rgba(46, 111, 160, 0.14);
 }
 
 .mission-main-card p {
@@ -213,19 +230,25 @@
 .mission-card {
   min-height: 15.5rem;
   padding: clamp(1.35rem, 2vw, 1.8rem);
-  border: 0.0625rem solid rgba(255, 255, 255, 0.12);
+  border: 0.0625rem solid rgba(100, 181, 246, 0.2);
   border-radius: 1.35rem;
-  background: rgba(255, 255, 255, 0.82);
-  color: #07111f;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.95),
+      rgba(240, 248, 255, 0.78)
+    );
+  color: #10243f;
   backdrop-filter: blur(0.6rem);
+  box-shadow: 0 1.2rem 3rem rgba(46, 111, 160, 0.12);
 }
 
 .mission-card h3 {
-  color: #07111f;
+  color: #10243f;
 }
 
 .mission-card p {
-  color: rgba(7, 17, 31, 0.78);
+  color: rgba(16, 36, 63, 0.76);
 }
 
 .events-preview {
@@ -248,18 +271,30 @@
   transition:
     transform 0.25s ease,
     background 0.25s ease,
-    border-color 0.25s ease;
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .landing-outline-btn {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.065);
-  border: 0.0625rem solid rgba(255, 255, 255, 0.16);
+  color: #10243f;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.92),
+      rgba(232, 246, 255, 0.78)
+    );
+  border: 0.0625rem solid rgba(100, 181, 246, 0.24);
+  box-shadow: 0 1rem 2.5rem rgba(46, 111, 160, 0.12);
 }
 
 .landing-outline-btn:hover {
   transform: translateY(-0.15rem);
-  background: rgba(255, 255, 255, 0.12);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 1),
+      rgba(220, 241, 255, 0.95)
+    );
 }
 
 .membership-cta {
@@ -273,9 +308,13 @@
 .membership-bg {
   position: absolute;
   inset: 0;
-  /* background:
-    linear-gradient(90deg, rgba(7, 17, 31, 0.92), rgba(7, 17, 31, 0.5)),
-    radial-gradient(circle at top right, rgba(200, 167, 106, 0.18), transparent 40%); */
+  background:
+    linear-gradient(
+      90deg,
+      rgba(247, 251, 255, 0.94),
+      rgba(233, 247, 255, 0.76)
+    ),
+    radial-gradient(circle at top right, rgba(255, 219, 145, 0.2), transparent 40%);
 }
 
 .membership-card {
@@ -286,12 +325,17 @@
   gap: 2rem;
   align-items: center;
   padding: clamp(2rem, 5vw, 4rem);
-  border: 0.0625rem solid rgba(200, 167, 106, 0.25);
+  border: 0.0625rem solid rgba(100, 181, 246, 0.24);
   border-radius: 2rem;
   background:
-    linear-gradient(135deg, rgba(200, 167, 106, 0.18), rgba(255, 255, 255, 0.04)),
-    rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(0.7rem);
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.94),
+      rgba(232, 246, 255, 0.8)
+    ),
+    radial-gradient(circle at top right, rgba(255, 219, 145, 0.22), transparent 38%);
+  backdrop-filter: blur(0.8rem);
+  box-shadow: 0 1.6rem 4rem rgba(46, 111, 160, 0.14);
 }
 
 .membership-card h2 {
@@ -300,15 +344,18 @@
 
 .membership-btn {
   margin-top: 0;
-  color: #07111f;
-  background: #c8a76a;
-  border: 0.0625rem solid #c8a76a;
+  color: #10243f;
+  background:
+    linear-gradient(135deg, #ffd889 0%, #f5bf54 100%);
+  border: 0.0625rem solid rgba(245, 191, 84, 0.7);
   white-space: nowrap;
+  box-shadow: 0 1rem 2.5rem rgba(245, 191, 84, 0.24);
 }
 
 .membership-btn:hover {
   transform: translateY(-0.15rem);
-  background: #e0bf80;
+  background:
+    linear-gradient(135deg, #ffe3a8 0%, #f7c96a 100%);
 }
 
 @media (max-width: 75em) {
@@ -323,7 +370,7 @@
 
 @media (max-width: 64em) {
   .home-title {
-    font-size: clamp(1.2rem, 8vw, 4.0rem);
+    font-size: clamp(1.2rem, 8vw, 4rem);
   }
 
   .mission-layout,

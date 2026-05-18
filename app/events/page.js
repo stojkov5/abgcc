@@ -7,6 +7,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, CalendarDays, MapPin } from "lucide-react";
 
+import {
+  HeroReveal,
+  HeroItem,
+  HeroImageZoom,
+  Reveal,
+  Stagger,
+  StaggerItem,
+} from "@/components/MotionReveal";
+
 export default async function EventsPage() {
   const events = await prisma.event.findMany({
     where: {
@@ -20,48 +29,61 @@ export default async function EventsPage() {
   return (
     <main className="events-page">
       <section className="events-hero">
-        <Image
-          src="/Events.webp"
-          alt="ABGCC Events"
-          fill
-          priority
-          className="events-hero-img"
-        />
+        
+          <Image
+            src="/Events.webp"
+            alt="ABGCC Events"
+            fill
+            priority
+            className="events-hero-img"
+          />
+        
 
         <div className="events-hero-overlay" />
 
-       <div className="page-hero-shell">
-  <div className="events-hero-content page-hero-content">
-            <p className="events-eyebrow">ABGCC Events</p>
+        <div className="page-hero-shell">
+          <HeroReveal className="events-hero-content page-hero-content">
+            <HeroItem as="p" className="events-eyebrow">
+              ABGCC Events
+            </HeroItem>
 
-            <h1 className="events-title">
+            <HeroItem as="h1" className="events-title">
               Strategic global events and networking experiences.
-            </h1>
+            </HeroItem>
 
-            <p className="events-hero-text mx-auto">
+            <HeroItem as="p" className="events-hero-text mx-auto">
               Discover upcoming gatherings, forums, networking experiences,
               business summits, and collaborative international initiatives
               organized by the American Balkan Global Chamber of Commerce.
-            </p>
+            </HeroItem>
 
-            <Link href="#events-list" className="events-hero-btn">
-              View Events <ArrowRight size={17} />
-            </Link>
-          </div>
+            <HeroItem>
+              <Link href="#events-list" className="events-hero-btn">
+                View Events <ArrowRight size={17} />
+              </Link>
+            </HeroItem>
+          </HeroReveal>
         </div>
       </section>
 
       <section className="events-list-section" id="events-list">
         <div className="events-container">
-          <div className="section-heading">
+          <Reveal className="section-heading" amount={0.35}>
             <span className="section-label">Upcoming Events</span>
-            <h2>Connect with leaders, investors, and global partners.</h2>
-          </div>
+
+            <h2>
+              Connect with leaders, investors, and global partners.
+            </h2>
+          </Reveal>
 
           {events.length > 0 ? (
-            <div className="events-grid">
+            <Stagger className="events-grid">
               {events.map((event) => (
-                <article key={event.id} className="event-card">
+                <StaggerItem
+                  as="article"
+                  key={event.id}
+                  className="event-card"
+                >
                   <div className="event-image-wrap">
                     <Image
                       src={event.image}
@@ -77,11 +99,15 @@ export default async function EventsPage() {
                     <div className="event-meta">
                       <span>
                         <CalendarDays size={16} />
-                        {new Date(event.startDate).toLocaleDateString("en-US", {
-                          month: "long",
-                          day: "numeric",
-                          year: "numeric",
-                        })}
+
+                        {new Date(event.startDate).toLocaleDateString(
+                          "en-US",
+                          {
+                            month: "long",
+                            day: "numeric",
+                            year: "numeric",
+                          }
+                        )}
                       </span>
 
                       {event.location && (
@@ -96,22 +122,27 @@ export default async function EventsPage() {
 
                     <p>{event.description}</p>
 
-                    <Link href={`/events/${event.slug}`} className="event-btn">
+                    <Link
+                      href={`/events/${event.slug}`}
+                      className="event-btn"
+                    >
                       View Event <ArrowRight size={16} />
                     </Link>
                   </div>
-                </article>
+                </StaggerItem>
               ))}
-            </div>
+            </Stagger>
           ) : (
-            <div className="events-empty-card">
+            <Reveal className="events-empty-card" amount={0.35}>
               <span className="section-label">No Events</span>
+
               <h2>No upcoming events right now.</h2>
+
               <p>
                 Please check back soon for upcoming ABGCC forums, networking
                 experiences, and business gatherings.
               </p>
-            </div>
+            </Reveal>
           )}
         </div>
       </section>

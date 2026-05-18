@@ -1,3 +1,9 @@
+import {
+  Reveal,
+  Stagger,
+  StaggerItem,
+} from "@/components/MotionReveal";
+
 const missionCards = [
   {
     title: "Network",
@@ -23,7 +29,7 @@ export default function MissionSection() {
       <div className="mission-overlay" />
 
       <div className="landing-container mission-layout">
-        <div className="mission-main-card">
+        <Reveal className="mission-main-card" amount={0.35}>
           <span className="section-label">Our Mission</span>
 
           <h2>Sustainable Economic Growth and Prosperity</h2>
@@ -34,16 +40,20 @@ export default function MissionSection() {
             focusing on long-term value creation rather than short-term
             transactions.
           </p>
-        </div>
+        </Reveal>
 
-        <div className="mission-grid">
+        <Stagger className="mission-grid">
           {missionCards.map((card) => (
-            <article key={card.title} className="mission-card">
+            <StaggerItem
+              as="article"
+              key={card.title}
+              className="mission-card"
+            >
               <h3>{card.title}</h3>
               <p>{card.text}</p>
-            </article>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       </div>
     </section>
   );

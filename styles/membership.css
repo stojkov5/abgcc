@@ -1,9 +1,8 @@
 .membership-page {
   min-height: 100vh;
-
-  color: #fff;
+  color: #10243f;
   overflow: hidden;
-  padding-top: 0 ;
+  padding-top: 0;
 }
 
 .membership-container {
@@ -15,7 +14,7 @@
 .section-label {
   display: inline-block;
   margin-bottom: 1rem;
-  color: #c8a76a;
+  color: #10243f;
   font-size: clamp(0.64rem, 0.9vw, 0.78rem);
   font-weight: 800;
   letter-spacing: 0.24em;
@@ -35,6 +34,7 @@
 .section-heading h2,
 .membership-intro-card h2 {
   margin: 0;
+  color: #10243f;
   font-size: clamp(2.1rem, 4.7vw, 4.7rem);
   line-height: 1;
   letter-spacing: -0.055em;
@@ -64,11 +64,12 @@
   background:
     linear-gradient(
       180deg,
-      rgba(7, 17, 31, 0.18) 0%,
-      rgba(7, 17, 31, 0.5) 45%,
-      rgba(7, 17, 31, 0.92) 100%
+      rgba(255, 255, 255, 0.16) 0%,
+      rgba(231, 246, 255, 0.42) 45%,
+      rgba(247, 251, 255, 0.96) 100%
     ),
-    radial-gradient(circle at center, rgba(200, 167, 106, 0.12), transparent 48%);
+    radial-gradient(circle at 18% 16%, rgba(255, 219, 145, 0.28), transparent 34%),
+    radial-gradient(circle at 82% 20%, rgba(116, 195, 255, 0.22), transparent 38%);
 }
 
 .membership-hero-content {
@@ -77,6 +78,7 @@
 
 .membership-title {
   margin: 0;
+  color: #10243f;
   font-size: clamp(2.6rem, 6vw, 4.5rem);
   line-height: 0.95;
   font-weight: 800;
@@ -87,7 +89,7 @@
 .membership-hero-text {
   max-width: 43rem;
   margin-top: 1.5rem;
-  color: rgba(255, 255, 255, 0.78);
+  color: rgba(16, 36, 63, 0.76);
   font-size: clamp(0.98rem, 1.35vw, 1.15rem);
   line-height: 1.75;
 }
@@ -106,30 +108,32 @@
   transition:
     transform 0.25s ease,
     background 0.25s ease,
-    border-color 0.25s ease;
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .membership-hero-btn {
   margin-top: 2rem;
   padding: 0.85rem 1.55rem;
-  color: #07111f;
-  background: #c8a76a;
-  border: 0.0625rem solid #c8a76a;
+  color: #10243f;
+  background:
+    linear-gradient(135deg, #ffd889 0%, #f5bf54 100%);
+  border: 0.0625rem solid rgba(245, 191, 84, 0.7);
+  box-shadow: 0 1rem 2.5rem rgba(245, 191, 84, 0.26);
 }
 
 .membership-hero-btn:hover,
 .membership-tier-btn:hover {
   transform: translateY(-0.15rem);
-  background: #e0bf80;
+  background:
+    linear-gradient(135deg, #ffe3a8 0%, #f7c96a 100%);
+  box-shadow: 0 1.3rem 3rem rgba(245, 191, 84, 0.32);
 }
 
 /* INTRO */
 
 .membership-intro-section {
   padding: clamp(4rem, 8vw, 7rem) 0;
-  /* background:
-    radial-gradient(circle at top right, rgba(200, 167, 106, 0.14), transparent 34%),
-    linear-gradient(180deg, #08111d 0%, #0b1625 100%); */
 }
 
 .membership-intro-card {
@@ -137,19 +141,23 @@
   margin-inline: auto;
   padding: clamp(2rem, 5vw, 4rem);
   text-align: center;
-  border: 0.0625rem solid rgba(200, 167, 106, 0.25);
+  border: 0.0625rem solid rgba(100, 181, 246, 0.24);
   border-radius: 2rem;
   background:
-    linear-gradient(135deg, rgba(200, 167, 106, 0.18), rgba(255, 255, 255, 0.04)),
-    rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(0.7rem);
-  box-shadow: 0 1.5rem 5rem rgba(0, 0, 0, 0.2);
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.94),
+      rgba(232, 246, 255, 0.78)
+    ),
+    radial-gradient(circle at top right, rgba(255, 219, 145, 0.22), transparent 38%);
+  backdrop-filter: blur(0.8rem);
+  box-shadow: 0 1.6rem 4rem rgba(46, 111, 160, 0.14);
 }
 
 .membership-intro-card p {
   max-width: 48rem;
   margin: 1.4rem auto 0;
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(16, 36, 63, 0.72);
   font-size: clamp(0.98rem, 1.25vw, 1.08rem);
   line-height: 1.8;
 }
@@ -170,23 +178,30 @@
 .membership-value-card {
   min-height: 24rem;
   padding: clamp(1.35rem, 2vw, 1.75rem);
-  border: 0.0625rem solid rgba(255, 255, 255, 0.09);
+  border: 0.0625rem solid rgba(100, 181, 246, 0.22);
   border-radius: 1.5rem;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.035));
-  box-shadow: 0 1.5rem 5rem rgba(0, 0, 0, 0.2);
+    radial-gradient(circle at top right, rgba(255, 219, 145, 0.18), transparent 38%),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.92),
+      rgba(239, 248, 255, 0.74)
+    );
+  box-shadow: 0 1.5rem 4rem rgba(46, 111, 160, 0.14);
+  backdrop-filter: blur(0.7rem);
 }
 
 .membership-card-number {
   display: block;
   margin-bottom: 2.5rem;
-  color: #c8a76a;
+  color: #d39b2f;
   font-size: 0.85rem;
   font-weight: 900;
 }
 
 .membership-value-card h3 {
   margin: 0 0 1rem;
+  color: #10243f;
   font-size: clamp(1.25rem, 1.8vw, 1.55rem);
   line-height: 1.1;
   font-weight: 800;
@@ -195,7 +210,7 @@
 
 .membership-value-card p {
   margin: 0;
-  color: rgba(255, 255, 255, 0.68);
+  color: rgba(16, 36, 63, 0.68);
   font-size: 0.96rem;
   line-height: 1.75;
 }
@@ -204,9 +219,6 @@
 
 .membership-tiers-section {
   padding: clamp(4rem, 7vw, 6.5rem) 0;
-  /* background:
-    radial-gradient(circle at top left, rgba(200, 167, 106, 0.11), transparent 34%),
-    linear-gradient(180deg, #08111d 0%, #0b1625 100%); */
 }
 
 .membership-tiers-grid {
@@ -220,15 +232,22 @@
   min-height: 25rem;
   flex-direction: column;
   padding: clamp(1.35rem, 2vw, 1.75rem);
-  border: 0.0625rem solid rgba(255, 255, 255, 0.09);
+  border: 0.0625rem solid rgba(100, 181, 246, 0.22);
   border-radius: 1.5rem;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.035));
-  box-shadow: 0 1.5rem 5rem rgba(0, 0, 0, 0.2);
+    radial-gradient(circle at top right, rgba(255, 219, 145, 0.2), transparent 40%),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.94),
+      rgba(238, 248, 255, 0.76)
+    );
+  box-shadow: 0 1.5rem 4rem rgba(46, 111, 160, 0.14);
+  backdrop-filter: blur(0.8rem);
 }
 
 .membership-tier-card h3 {
   margin: 0 0 1rem;
+  color: #10243f;
   font-size: clamp(1.2rem, 1.7vw, 1.45rem);
   line-height: 1.1;
   font-weight: 800;
@@ -237,7 +256,7 @@
 
 .membership-price {
   margin: 0;
-  color: #fff;
+  color: #10243f;
   font-size: clamp(2rem, 3vw, 2.8rem);
   line-height: 1;
   font-weight: 900;
@@ -246,7 +265,7 @@
 
 .membership-period {
   margin: 1rem 0 0;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(16, 36, 63, 0.42);
   font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.2em;
@@ -256,7 +275,7 @@
 .membership-description {
   flex: 1;
   margin: 1.6rem 0 0;
-  color: rgba(255, 255, 255, 0.68);
+  color: rgba(16, 36, 63, 0.68);
   font-size: 0.95rem;
   line-height: 1.75;
 }
@@ -264,9 +283,11 @@
 .membership-tier-btn {
   margin-top: 2rem;
   padding: 0.85rem 1.4rem;
-  color: #07111f;
-  background: #c8a76a;
-  border: 0.0625rem solid #c8a76a;
+  color: #10243f;
+  background:
+    linear-gradient(135deg, #ffd889 0%, #f5bf54 100%);
+  border: 0.0625rem solid rgba(245, 191, 84, 0.7);
+  box-shadow: 0 1rem 2.5rem rgba(245, 191, 84, 0.24);
 }
 
 /* RESPONSIVE */

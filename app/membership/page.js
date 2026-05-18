@@ -7,6 +7,15 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 
+import {
+  HeroReveal,
+  HeroItem,
+  HeroImageZoom,
+  Reveal,
+  Stagger,
+  StaggerItem,
+} from "@/components/MotionReveal";
+
 const membershipValues = [
   {
     title: "Stronger network, better opportunities",
@@ -39,61 +48,73 @@ export default async function MembershipPage() {
   return (
     <main className="membership-page">
       <section className="membership-hero">
-        <Image
-          src="/Membership.webp"
-          alt="ABGCC Membership"
-          fill
-          priority
-          className="membership-hero-img"
-        />
+      
+          <Image
+            src="/Membership.webp"
+            alt="ABGCC Membership"
+            fill
+            priority
+            className="membership-hero-img"
+          />
+        
 
         <div className="membership-hero-overlay" />
 
         <div className="page-hero-shell">
-  <div className="membership-hero-content page-hero-content">
-            <p className="membership-eyebrow">Membership</p>
+          <HeroReveal className="membership-hero-content page-hero-content">
+            <HeroItem as="p" className="membership-eyebrow">
+              Membership
+            </HeroItem>
 
-            <h1 className="membership-title">Choose your membership.</h1>
+            <HeroItem as="h1" className="membership-title">
+              Choose your membership.
+            </HeroItem>
 
-            <p className="membership-hero-text mx-auto">
+            <HeroItem as="p" className="membership-hero-text mx-auto">
               Join the American Balkan Global Chamber of Commerce and connect
               with a strategic network of business leaders, investors,
               institutions, and entrepreneurs.
-            </p>
+            </HeroItem>
 
-            <Link href="#membership-tiers" className="membership-hero-btn">
-              View Tiers <ArrowRight size={17} />
-            </Link>
-          </div>
+            <HeroItem>
+              <Link href="#membership-tiers" className="membership-hero-btn">
+                View Tiers <ArrowRight size={17} />
+              </Link>
+            </HeroItem>
+          </HeroReveal>
         </div>
       </section>
 
       <section className="membership-intro-section">
         <div className="membership-container">
-          <div className="membership-intro-card">
+          <Reveal className="membership-intro-card" amount={0.35}>
             <span className="section-label">Membership</span>
 
             <h2>A structured membership system built for serious growth.</h2>
 
             <p>
               We offer a structured membership system designed for individuals,
-              professionals, businesses, corporations, and executive partners who
-              want priority access to our network, programs, and support.
+              professionals, businesses, corporations, and executive partners
+              who want priority access to our network, programs, and support.
             </p>
-          </div>
+          </Reveal>
         </div>
       </section>
 
       <section className="membership-value-section">
         <div className="membership-container">
-          <div className="section-heading center">
+          <Reveal className="section-heading center" amount={0.35}>
             <span className="section-label">Membership Value</span>
             <h2>Why become a member?</h2>
-          </div>
+          </Reveal>
 
-          <div className="membership-value-grid">
+          <Stagger className="membership-value-grid">
             {membershipValues.map((item, index) => (
-              <article className="membership-value-card" key={item.title}>
+              <StaggerItem
+                as="article"
+                className="membership-value-card"
+                key={item.title}
+              >
                 <span className="membership-card-number">
                   0{index + 1}
                 </span>
@@ -101,22 +122,26 @@ export default async function MembershipPage() {
                 <h3>{item.title}</h3>
 
                 <p>{item.text}</p>
-              </article>
+              </StaggerItem>
             ))}
-          </div>
+          </Stagger>
         </div>
       </section>
 
       <section className="membership-tiers-section" id="membership-tiers">
         <div className="membership-container">
-          <div className="section-heading">
+          <Reveal className="section-heading" amount={0.35}>
             <span className="section-label">Membership Tiers</span>
             <h2>Select the level that fits your goals.</h2>
-          </div>
+          </Reveal>
 
-          <div className="membership-tiers-grid">
+          <Stagger className="membership-tiers-grid">
             {tiers.map((tier) => (
-              <article key={tier.id} className="membership-tier-card">
+              <StaggerItem
+                as="article"
+                key={tier.id}
+                className="membership-tier-card"
+              >
                 <div>
                   <h3>{tier.title}</h3>
 
@@ -127,14 +152,16 @@ export default async function MembershipPage() {
                   <p className="membership-period">{tier.period}</p>
                 </div>
 
-                <p className="membership-description">{tier.description}</p>
+                <p className="membership-description">
+                  {tier.description}
+                </p>
 
                 <Link href="/contact" className="membership-tier-btn">
                   Contact Us
                 </Link>
-              </article>
+              </StaggerItem>
             ))}
-          </div>
+          </Stagger>
         </div>
       </section>
     </main>

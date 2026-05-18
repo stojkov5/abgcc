@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { Upload } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function EditEventForm({ event }) {
   const [form, setForm] = useState({
@@ -32,7 +34,9 @@ export default function EditEventForm({ event }) {
     return JSON.parse(text);
   }
 
-  async function handleSaveChanges() {
+  async function handleSaveChanges(e) {
+    e.preventDefault();
+
     setSaving(true);
     setMessage("");
 
@@ -129,105 +133,103 @@ export default function EditEventForm({ event }) {
   }
 
   return (
-    <main className="min-h-screen bg-black px-6 pb-20 pt-32 text-white">
-      <section className="mx-auto max-w-5xl">
-        <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-white/50">
-              Admin
-            </p>
+    <>
+      <form onSubmit={handleSaveChanges} className="admin-form">
+        <motion.input
+          whileFocus={{ scale: 1.01 }}
+          value={form.title}
+          onChange={(e) => setForm({ ...form, title: e.target.value })}
+          className="admin-input"
+        />
 
-            <h1 className="text-4xl font-bold">Edit Event</h1>
-          </div>
+        <motion.textarea
+          whileFocus={{ scale: 1.01 }}
+          value={form.description}
+          onChange={(e) =>
+            setForm({ ...form, description: e.target.value })
+          }
+          rows={6}
+          className="admin-input admin-textarea"
+        />
 
-          <button
-            type="button"
-            onClick={handleSaveChanges}
-            disabled={saving || uploadingHero || uploadingGallery}
-            className="rounded-full bg-white px-6 py-3 text-sm font-bold uppercase tracking-[0.15em] text-black transition hover:bg-white/90 disabled:opacity-60"
-          >
-            {saving ? "Saving..." : "Save Changes"}
-          </button>
+        <motion.input
+          whileFocus={{ scale: 1.01 }}
+          value={form.location}
+          onChange={(e) => setForm({ ...form, location: e.target.value })}
+          className="admin-input"
+        />
+
+        <div className="admin-upload-box">
+          <label className="admin-upload-label">
+            <Upload size={16} />
+            Hero Image
+          </label>
+
+          <input
+            type="file"
+            accept="image/*"
+            onChange={uploadHeroImage}
+            className="admin-input"
+          />
+
+          {uploadingHero && (
+            <p className="admin-upload-note">Uploading hero image...</p>
+          )}
+
+          {form.image && (
+            <motion.div
+              className="admin-image-preview"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35 }}
+            >
+              <div className="admin-image-preview-inner">
+                <Image
+                  src={form.image}
+                  alt="Hero image"
+                  fill
+                  className="admin-preview-img"
+                />
+              </div>
+            </motion.div>
+          )}
         </div>
 
-        <div className="space-y-6 rounded-3xl border border-white/10 bg-white/5 p-6">
-          <input
-            value={form.title}
-            onChange={(e) => setForm({ ...form, title: e.target.value })}
-            className="w-full rounded-xl border border-white/10 bg-black px-4 py-3 text-white outline-none"
-          />
+        <motion.input
+          whileFocus={{ scale: 1.01 }}
+          type="number"
+          value={form.price}
+          onChange={(e) => setForm({ ...form, price: e.target.value })}
+          className="admin-input"
+        />
 
-          <textarea
-            value={form.description}
-            onChange={(e) =>
-              setForm({ ...form, description: e.target.value })
-            }
-            rows={6}
-            className="w-full rounded-xl border border-white/10 bg-black px-4 py-3 text-white outline-none"
-          />
+        <motion.input
+          whileFocus={{ scale: 1.01 }}
+          type="number"
+          value={form.capacity}
+          onChange={(e) => setForm({ ...form, capacity: e.target.value })}
+          className="admin-input"
+        />
 
-          <input
-            value={form.location}
-            onChange={(e) => setForm({ ...form, location: e.target.value })}
-            className="w-full rounded-xl border border-white/10 bg-black px-4 py-3 text-white outline-none"
-          />
+        <motion.input
+          whileFocus={{ scale: 1.01 }}
+          type="datetime-local"
+          value={form.startDate}
+          onChange={(e) => setForm({ ...form, startDate: e.target.value })}
+          className="admin-input"
+        />
 
-          <div className="rounded-2xl border border-white/10 bg-black p-4">
-            <p className="mb-3 text-sm font-semibold text-white/70">
-              Hero Image
-            </p>
-
-            <input type="file" accept="image/*" onChange={uploadHeroImage} />
-
-            {uploadingHero && (
-              <p className="mt-3 text-sm text-white/60">Uploading...</p>
-            )}
-
-            {form.image && (
-              <div className="mt-5 overflow-hidden rounded-2xl border border-white/10">
-                <div className="relative aspect-video">
-                  <Image
-                    src={form.image}
-                    alt="Hero image"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              </div>
-            )}
-          </div>
-
-          <input
-            type="number"
-            value={form.price}
-            onChange={(e) => setForm({ ...form, price: e.target.value })}
-            className="w-full rounded-xl border border-white/10 bg-black px-4 py-3 text-white outline-none"
-          />
-
-          <input
-            type="number"
-            value={form.capacity}
-            onChange={(e) => setForm({ ...form, capacity: e.target.value })}
-            className="w-full rounded-xl border border-white/10 bg-black px-4 py-3 text-white outline-none"
-          />
-
-          <input
-            type="datetime-local"
-            value={form.startDate}
-            onChange={(e) => setForm({ ...form, startDate: e.target.value })}
-            className="w-full rounded-xl border border-white/10 bg-black px-4 py-3 text-white outline-none"
-          />
-
-          <label className="flex items-center gap-3 text-white/80">
+        <div className="admin-check-grid">
+          <label className="admin-check-row">
             <input
               type="checkbox"
               checked={form.active}
               onChange={(e) => setForm({ ...form, active: e.target.checked })}
             />
-            Active
+            <span>Active</span>
           </label>
 
-          <label className="flex items-center gap-3 text-white/80">
+          <label className="admin-check-row">
             <input
               type="checkbox"
               checked={form.featured}
@@ -235,48 +237,89 @@ export default function EditEventForm({ event }) {
                 setForm({ ...form, featured: e.target.checked })
               }
             />
-            Featured
+            <span>Featured</span>
+          </label>
+        </div>
+
+        <div className="admin-upload-box">
+          <label className="admin-upload-label">
+            <Upload size={16} />
+            Gallery Images
           </label>
 
-          <div className="rounded-2xl border border-white/10 bg-black p-4">
-            <p className="mb-3 text-sm font-semibold text-white/70">
-              Gallery Images
-            </p>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={uploadGalleryImage}
+            className="admin-input"
+          />
 
-            <input type="file" accept="image/*" onChange={uploadGalleryImage} />
+          {uploadingGallery && (
+            <p className="admin-upload-note">Uploading gallery image...</p>
+          )}
 
-            {uploadingGallery && (
-              <p className="mt-3 text-sm text-white/60">Uploading...</p>
-            )}
-
-            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {galleryImages.length > 0 && (
+            <div className="admin-gallery-grid">
               {galleryImages.map((img) => (
-                <div
+                <motion.div
                   key={img.id}
-                  className="relative aspect-square overflow-hidden rounded-2xl border border-white/10"
+                  className="admin-gallery-item"
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
                 >
                   <Image
                     src={img.url}
                     alt="Gallery image"
                     fill
-                    className="object-cover"
+                    className="admin-preview-img"
                   />
 
                   <button
                     type="button"
                     onClick={() => removeGalleryImage(img.id)}
-                    className="absolute right-3 top-3 rounded-full bg-black/80 px-3 py-1 text-xs font-bold text-white backdrop-blur transition hover:bg-red-600"
+                    className="admin-remove-image"
                   >
                     Remove
                   </button>
-                </div>
+                </motion.div>
               ))}
             </div>
-          </div>
-
-          {message && <p className="text-sm text-white/70">{message}</p>}
+          )}
         </div>
-      </section>
-    </main>
+
+        <motion.button
+          type="submit"
+          disabled={saving || uploadingHero || uploadingGallery}
+          className="admin-submit-btn"
+          whileHover={
+            !saving && !uploadingHero && !uploadingGallery
+              ? { y: -2 }
+              : undefined
+          }
+          whileTap={
+            !saving && !uploadingHero && !uploadingGallery
+              ? { scale: 0.98 }
+              : undefined
+          }
+        >
+          {saving ? "Saving..." : "Save Changes"}
+        </motion.button>
+      </form>
+
+      <AnimatePresence>
+        {message && (
+          <motion.p
+            className="admin-form-message"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.25 }}
+          >
+            {message}
+          </motion.p>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

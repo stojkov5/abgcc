@@ -1,0 +1,214 @@
+.portal-page {
+  min-height: 100vh;
+  padding: 11rem 1.5rem 5rem;
+  overflow: hidden;
+  color: #10243f;
+}
+
+.portal-container {
+  width: min(100%, 80rem);
+  margin: 0 auto;
+}
+
+.portal-eyebrow {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: #d39b2f;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.portal-title {
+  margin: 0;
+  color: #10243f;
+  font-size: clamp(2.6rem, 6vw, 5rem);
+  line-height: 0.95;
+  font-weight: 900;
+  letter-spacing: -0.06em;
+  text-wrap: balance;
+}
+
+.portal-text {
+  max-width: 44rem;
+  margin-top: 1.3rem;
+  color: rgba(16, 36, 63, 0.72);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.portal-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 1.25rem;
+  margin-top: 3rem;
+}
+
+.portal-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(100, 181, 246, 0.22);
+  border-radius: 1.75rem;
+  padding: clamp(1.5rem, 3vw, 2rem);
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(255, 219, 145, 0.18),
+      transparent 38%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.94),
+      rgba(232, 246, 255, 0.78)
+    );
+  backdrop-filter: blur(0.8rem);
+  box-shadow: 0 1.5rem 4rem rgba(46, 111, 160, 0.14);
+}
+
+.portal-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.12),
+      transparent 60%
+    );
+  pointer-events: none;
+}
+
+.portal-card-label {
+  display: inline-block;
+  margin-bottom: 1.2rem;
+  color: rgba(16, 36, 63, 0.42);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.portal-member-name {
+  margin: 0;
+  color: #10243f;
+  font-size: clamp(1.7rem, 3vw, 2.6rem);
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+}
+
+.portal-info {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.portal-info-item {
+  padding: 1rem 1.1rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.58);
+  border: 1px solid rgba(100, 181, 246, 0.16);
+}
+
+.portal-info-title {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: rgba(16, 36, 63, 0.42);
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.portal-info-value {
+  color: #10243f;
+  font-size: 1rem;
+  font-weight: 700;
+  word-break: break-word;
+}
+
+.portal-side-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100%;
+}
+
+.portal-badge {
+  width: fit-content;
+  padding: 0.7rem 1rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ffd889 0%, #f5bf54 100%);
+  color: #10243f;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 1rem 2.5rem rgba(245, 191, 84, 0.24);
+}
+
+.portal-side-card h2 {
+  margin: 2rem 0 1rem;
+  color: #10243f;
+  font-size: clamp(1.5rem, 2vw, 2rem);
+  line-height: 1.05;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+}
+
+.portal-side-card p {
+  margin: 0;
+  color: rgba(16, 36, 63, 0.68);
+  line-height: 1.8;
+}
+
+.portal-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  margin-top: 2rem;
+  padding: 0.85rem 1.4rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #10243f 0%, #1f5f93 100%);
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+  box-shadow: 0 1rem 2.5rem rgba(31, 95, 147, 0.24);
+}
+
+.portal-action:hover {
+  transform: translateY(-0.15rem);
+  box-shadow: 0 1.4rem 3rem rgba(31, 95, 147, 0.3);
+}
+
+@media (max-width: 64em) {
+  .portal-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 43.75em) {
+  .portal-page {
+    padding-inline: 1rem;
+  }
+
+  .portal-title {
+    font-size: clamp(2.2rem, 11vw, 3.4rem);
+  }
+
+  .portal-card {
+    border-radius: 1.35rem;
+  }
+
+  .portal-action {
+    width: 100%;
+  }
+}

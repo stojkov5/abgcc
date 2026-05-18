@@ -1,6 +1,6 @@
 .events-page {
   min-height: 100vh;
-  color: #fff;
+  color: #10243f;
   overflow: hidden;
   padding-top: 0;
 }
@@ -14,7 +14,7 @@
 .section-label {
   display: inline-block;
   margin-bottom: 1rem;
-  color: #c8a76a;
+  color: #10243f;
   font-size: clamp(0.64rem, 0.9vw, 0.78rem);
   font-weight: 800;
   letter-spacing: 0.24em;
@@ -28,6 +28,7 @@
 
 .section-heading h2 {
   margin: 0;
+  color: #10243f;
   font-size: clamp(2.1rem, 4.7vw, 4.7rem);
   line-height: 1;
   letter-spacing: -0.055em;
@@ -57,11 +58,12 @@
   background:
     linear-gradient(
       180deg,
-      rgba(7, 17, 31, 0.18) 0%,
-      rgba(7, 17, 31, 0.5) 45%,
-      rgba(7, 17, 31, 0.92) 100%
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(230, 245, 255, 0.42) 85%,
+      rgba(247, 251, 255, 0.96) 100%
     ),
-    radial-gradient(circle at center, rgba(200, 167, 106, 0.12), transparent 48%);
+    radial-gradient(circle at 15% 15%, rgba(255, 214, 133, 0.26), transparent 34%),
+    radial-gradient(circle at 85% 20%, rgba(115, 196, 255, 0.22), transparent 38%);
 }
 
 .events-hero-content {
@@ -70,6 +72,7 @@
 
 .events-title {
   margin: 0;
+  color: #10243f;
   font-size: clamp(2.6rem, 6vw, 4.5rem);
   line-height: 0.95;
   font-weight: 800;
@@ -80,7 +83,7 @@
 .events-hero-text {
   max-width: 43rem;
   margin-top: 1.5rem;
-  color: rgba(255, 255, 255, 0.78);
+  color: rgba(16, 36, 63, 0.76);
   font-size: clamp(0.98rem, 1.35vw, 1.15rem);
   line-height: 1.75;
 }
@@ -99,21 +102,26 @@
   transition:
     transform 0.25s ease,
     background 0.25s ease,
-    border-color 0.25s ease;
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .events-hero-btn {
   margin-top: 2rem;
   padding: 0.85rem 1.55rem;
-  color: #07111f;
-  background: #c8a76a;
-  border: 0.0625rem solid #c8a76a;
+  color: #10243f;
+  background:
+    linear-gradient(135deg, #ffd889 0%, #f5bf54 100%);
+  border: 0.0625rem solid rgba(245, 191, 84, 0.7);
+  box-shadow: 0 1rem 2.5rem rgba(245, 191, 84, 0.28);
 }
 
 .events-hero-btn:hover,
 .event-btn:hover {
   transform: translateY(-0.15rem);
-  background: #e0bf80;
+  background:
+    linear-gradient(135deg, #ffe1a5 0%, #f8c867 100%);
+  box-shadow: 0 1.4rem 3rem rgba(245, 191, 84, 0.34);
 }
 
 /* EVENTS LIST */
@@ -131,22 +139,23 @@
 
 .event-card {
   overflow: hidden;
-  border: 0.0625rem solid rgba(255, 255, 255, 0.09);
+  border: 0.0625rem solid rgba(100, 181, 246, 0.22);
   border-radius: 1.5rem;
   background:
     linear-gradient(
       180deg,
-      rgba(255, 255, 255, 0.07),
-      rgba(255, 255, 255, 0.035)
+      rgba(255, 255, 255, 0.92),
+      rgba(239, 248, 255, 0.74)
     );
-  box-shadow: 0 1.5rem 5rem rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1.5rem 4rem rgba(46, 111, 160, 0.14);
+  backdrop-filter: blur(0.7rem);
 }
 
 .event-image-wrap {
   position: relative;
   aspect-ratio: 16 / 10;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(223, 242, 255, 0.45);
 }
 
 .event-img {
@@ -160,11 +169,11 @@
   background:
     linear-gradient(
       180deg,
-      rgba(7, 17, 31, 0.08) 0%,
-      rgba(7, 17, 31, 0.35) 55%,
-      rgba(7, 17, 31, 0.88) 100%
+      rgba(255, 255, 255, 0.02) 0%,
+      rgba(16, 36, 63, 0.12) 55%,
+      rgba(16, 36, 63, 0.55) 100%
     ),
-    radial-gradient(circle at center, rgba(200, 167, 106, 0.1), transparent 52%);
+    radial-gradient(circle at top, rgba(255, 224, 160, 0.22), transparent 46%);
 }
 
 .event-card:hover .event-img {
@@ -186,7 +195,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  color: rgba(255, 255, 255, 0.58);
+  color: rgba(16, 36, 63, 0.56);
   font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -194,12 +203,13 @@
 }
 
 .event-meta svg {
-  color: #c8a76a;
+  color: #d39b2f;
   flex-shrink: 0;
 }
 
 .event-content h3 {
   margin: 0;
+  color: #10243f;
   font-size: clamp(1.55rem, 2.8vw, 2.35rem);
   line-height: 1.05;
   font-weight: 800;
@@ -211,7 +221,7 @@
   display: -webkit-box;
   margin: 1.2rem 0 0;
   overflow: hidden;
-  color: rgba(255, 255, 255, 0.68);
+  color: rgba(16, 36, 63, 0.7);
   font-size: 0.98rem;
   line-height: 1.75;
   -webkit-box-orient: vertical;
@@ -221,9 +231,11 @@
 .event-btn {
   margin-top: 2rem;
   padding: 0.85rem 1.4rem;
-  color: #07111f;
-  background: #c8a76a;
-  border: 0.0625rem solid #c8a76a;
+  color: #10243f;
+  background:
+    linear-gradient(135deg, #ffd889 0%, #f5bf54 100%);
+  border: 0.0625rem solid rgba(245, 191, 84, 0.7);
+  box-shadow: 0 1rem 2.5rem rgba(245, 191, 84, 0.24);
 }
 
 /* EMPTY */
@@ -231,21 +243,22 @@
 .events-empty-card {
   max-width: 58rem;
   padding: clamp(2rem, 5vw, 4rem);
-  border: 0.0625rem solid rgba(200, 167, 106, 0.25);
+  border: 0.0625rem solid rgba(100, 181, 246, 0.24);
   border-radius: 2rem;
   background:
     linear-gradient(
       135deg,
-      rgba(200, 167, 106, 0.18),
-      rgba(255, 255, 255, 0.04)
+      rgba(255, 255, 255, 0.95),
+      rgba(233, 246, 255, 0.8)
     ),
-    rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(0.7rem);
-  box-shadow: 0 1.5rem 5rem rgba(0, 0, 0, 0.2);
+    radial-gradient(circle at top right, rgba(255, 219, 145, 0.22), transparent 38%);
+  backdrop-filter: blur(0.8rem);
+  box-shadow: 0 1.6rem 4rem rgba(46, 111, 160, 0.14);
 }
 
 .events-empty-card h2 {
   margin: 0;
+  color: #10243f;
   font-size: clamp(2.1rem, 4.7vw, 4.7rem);
   line-height: 1;
   letter-spacing: -0.055em;
@@ -254,7 +267,7 @@
 .events-empty-card p {
   max-width: 42rem;
   margin: 1.4rem 0 0;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(16, 36, 63, 0.72);
   font-size: clamp(0.98rem, 1.25vw, 1.08rem);
   line-height: 1.8;
 }

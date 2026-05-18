@@ -1,7 +1,38 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { authOptions } from "@/lib/auth";
-import { a } from "framer-motion/client";
+
+import {
+  HeroReveal,
+  HeroItem,
+  Stagger,
+  StaggerItem,
+} from "@/components/MotionReveal";
+
+import "../../styles/admin.css";
+
+const adminCards = [
+  {
+    number: "01",
+    title: "Memberships",
+    text: "Manage membership tiers, pricing, descriptions, and active status.",
+    href: "/admin/memberships",
+  },
+  {
+    number: "02",
+    title: "Events",
+    text: "Create, edit, publish, and manage ABGCC business events.",
+    href: "/admin/events",
+  },
+  {
+    number: "03",
+    title: "Users",
+    text: "View members, permissions, and account access. Coming soon.",
+    href: null,
+  },
+];
 
 export default async function AdminPage() {
   const session = await getServerSession(authOptions);
@@ -15,46 +46,62 @@ export default async function AdminPage() {
   }
 
   return (
-    <main className="min-h-screen px-6 pb-20 pt-32">
-      <section className="mx-auto max-w-7xl">
-        <p className="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-white/50">
-          Admin Dashboard
-        </p>
+    <main className="admin-page">
+      <section className="admin-container">
+        <HeroReveal>
+          <HeroItem as="p" className="admin-eyebrow">
+            Admin Dashboard
+          </HeroItem>
 
-        <h1 className="mb-10 text-4xl font-bold md:text-6xl">
-          Welcome Admin
-        </h1>
+          <HeroItem as="h1" className="admin-title">
+            Welcome Admin
+          </HeroItem>
 
-        <div className="grid gap-6 md:grid-cols-3">
-          
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
-         <a href="/admin/memberships">
-              <h2 className="mb-2 text-xl font-semibold">Memberships</h2>
-           
-            <p className="text-white/70">
-              Manage membership tiers and pricing.
-            </p>
-            </a>
-          </div>
+          <HeroItem as="p" className="admin-text">
+            Manage ABGCC membership tiers, events, users, and operational
+            content from one clear dashboard.
+          </HeroItem>
+        </HeroReveal>
 
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
-           <a href="/admin/events">
-              <h2 className="mb-2 text-xl font-semibold">Events</h2>
-           
-            
-            <p className="text-white/70">
-              Create and manage business events.
-            </p>
-            </a>
-          </div>
+        <Stagger className="admin-grid">
+          {adminCards.map((card) =>
+            card.href ? (
+              <StaggerItem
+                as="article"
+                key={card.title}
+                className="admin-card"
+              >
+                <Link href={card.href} className="admin-card-link">
+                  <span className="admin-card-number">{card.number}</span>
 
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
-            <h2 className="mb-2 text-xl font-semibold">Users</h2>
-            <p className="text-white/70">
-              View members and permissions.
-            </p>
-          </div>
-        </div>
+                  <div>
+                    <h2>{card.title}</h2>
+                    <p>{card.text}</p>
+                  </div>
+
+                  <span className="admin-card-action">
+                    Open <ArrowRight size={15} />
+                  </span>
+                </Link>
+              </StaggerItem>
+            ) : (
+              <StaggerItem
+                as="article"
+                key={card.title}
+                className="admin-card disabled"
+              >
+                <span className="admin-card-number">{card.number}</span>
+
+                <div>
+                  <h2>{card.title}</h2>
+                  <p>{card.text}</p>
+                </div>
+
+                <span className="admin-card-action">Coming Soon</span>
+              </StaggerItem>
+            )
+          )}
+        </Stagger>
       </section>
     </main>
   );

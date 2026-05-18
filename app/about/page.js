@@ -1,5 +1,36 @@
+"use client";
+
 import "../../styles/aboutus.css";
 import Image from "next/image";
+import { motion } from "framer-motion";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 28 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const staggerContainer = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.12,
+    },
+  },
+};
+
+const softReveal = {
+  hidden: { opacity: 0, scale: 0.96, y: 24 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+  },
+};
 
 const team = [
   {
@@ -56,45 +87,60 @@ export default function AboutPage() {
   return (
     <main className="about-page">
       <section className="about-hero">
-        <Image
-          src="/About.webp"
-          alt="About American Balkan Global Chamber of Commerce"
-          fill
-          priority
-          className="about-hero-img"
-        />
+        
+          <Image
+            src="/About.webp"
+            alt="About American Balkan Global Chamber of Commerce"
+            fill
+            priority
+            className="about-hero-img"
+          />
+        
 
         <div className="about-hero-overlay" />
 
         <div className="page-hero-shell">
-  <div className="about-hero-content page-hero-content">
-            <p className="about-eyebrow">About ABGCC</p>
+          <motion.div
+            className="about-hero-content page-hero-content"
+            variants={staggerContainer}
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.p variants={fadeUp} className="about-eyebrow">
+              About ABGCC
+            </motion.p>
 
-            <h1 className="about-title">
+            <motion.h1 variants={fadeUp} className="about-title">
               A strategic bridge between the Balkans and the United States.
-            </h1>
+            </motion.h1>
 
-            <p className="about-hero-text mx-auto">
+            <motion.p variants={fadeUp} className="about-hero-text mx-auto">
               The American Balkan Global Chamber of Commerce is a premier
               platform dedicated to fostering commercial relationships,
               strategic partnerships, and economic collaboration between the
               United States, the Balkans, and global markets.
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
         </div>
       </section>
 
       <section className="about-intro">
-        <div className="about-container about-grid">
-          <div>
+        <motion.div
+          className="about-container about-grid"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.35 }}
+        >
+          <motion.div variants={fadeUp}>
             <span className="section-label">Who we are</span>
             <h2>
               Connecting business through investment, innovation, and
               opportunity.
             </h2>
-          </div>
+          </motion.div>
 
-          <div className="intro-content">
+          <motion.div variants={fadeUp} className="intro-content">
             <p>
               ABGCC serves American companies seeking opportunities in Balkan
               markets, Balkan-based businesses expanding into North America, and
@@ -106,20 +152,38 @@ export default function AboutPage() {
               conferences, and one-on-one support, ABGCC creates high-value
               connections for companies, founders, investors, and institutions.
             </p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
       <section className="industries-section">
         <div className="about-container">
-          <div className="section-heading">
+          <motion.div
+            className="section-heading"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}
+          >
             <span className="section-label">Industries</span>
             <h2>Serving a wide range of sectors.</h2>
-          </div>
+          </motion.div>
 
-          <div className="industries-card-grid">
+          <motion.div
+            className="industries-card-grid"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
             {industries.map((industry) => (
-              <article className="industry-card" key={industry.title}>
+              <motion.article
+                className="industry-card"
+                key={industry.title}
+                variants={softReveal}
+                whileHover={{ y: -6 }}
+                transition={{ duration: 0.25 }}
+              >
                 <div className="industry-image">
                   <Image
                     src={industry.image}
@@ -132,22 +196,40 @@ export default function AboutPage() {
                 <div className="industry-content">
                   <h3>{industry.title}</h3>
                 </div>
-              </article>
+              </motion.article>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       <section className="team-section">
         <div className="about-container">
-          <div className="section-heading">
+          <motion.div
+            className="section-heading"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}
+          >
             <span className="section-label">Meet the Team</span>
             <h2>Leadership with global experience.</h2>
-          </div>
+          </motion.div>
 
-          <div className="team-grid">
+          <motion.div
+            className="team-grid"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.25 }}
+          >
             {team.map((person) => (
-              <article className="team-card" key={person.name}>
+              <motion.article
+                className="team-card"
+                key={person.name}
+                variants={softReveal}
+                whileHover={{ y: -6 }}
+                transition={{ duration: 0.25 }}
+              >
                 <div className="team-image-wrap">
                   <Image
                     src={person.image}
@@ -162,36 +244,60 @@ export default function AboutPage() {
                   <span>{person.role}</span>
                   <p>{person.bio}</p>
                 </div>
-              </article>
+              </motion.article>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       <section className="pillars-section">
         <div className="about-container">
-          <div className="section-heading">
+          <motion.div
+            className="section-heading"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}
+          >
             <span className="section-label">Our Core Pillars</span>
             <h2>
               Built around growth, access, and serious commercial relationships.
             </h2>
-          </div>
+          </motion.div>
 
-          <div className="pillars-grid">
+          <motion.div
+            className="pillars-grid"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.25 }}
+          >
             {pillars.map((pillar, index) => (
-              <article className="pillar-card" key={pillar.title}>
+              <motion.article
+                className="pillar-card"
+                key={pillar.title}
+                variants={softReveal}
+                whileHover={{ y: -6 }}
+                transition={{ duration: 0.25 }}
+              >
                 <span>0{index + 1}</span>
                 <h3>{pillar.title}</h3>
                 <p>{pillar.text}</p>
-              </article>
+              </motion.article>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       <section className="vision-section">
         <div className="about-container">
-          <div className="vision-card">
+          <motion.div
+            className="vision-card"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.35 }}
+          >
             <span className="section-label">Our Vision</span>
 
             <h2>
@@ -204,7 +310,7 @@ export default function AboutPage() {
               together to strengthen regional cooperation and create sustainable
               prosperity.
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
     </main>

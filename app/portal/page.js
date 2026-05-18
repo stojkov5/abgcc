@@ -1,6 +1,16 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/lib/auth";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+
+import {
+  HeroReveal,
+  HeroItem,
+  Reveal,
+} from "@/components/MotionReveal";
+
+import "../../styles/portal.css";
 
 export default async function PortalPage() {
   const session = await getServerSession(authOptions);
@@ -10,21 +20,75 @@ export default async function PortalPage() {
   }
 
   return (
-    <main className="min-h-screen px-6 pb-20 pt-32">
-      <section className="mx-auto max-w-5xl">
-        <p className="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-white/50">
-          Member Portal
-        </p>
+    <main className="portal-page">
+      <div className="portal-container">
+        <HeroReveal>
+          <HeroItem as="p" className="portal-eyebrow">
+            Member Portal
+          </HeroItem>
 
-        <h1 className="mb-6 text-4xl font-bold md:text-6xl">
-          Welcome, {session.user?.name || "Member"}
-        </h1>
+          <HeroItem as="h1" className="portal-title">
+            Welcome, {session.user?.name || "Member"}
+          </HeroItem>
 
-        <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
-          <p className="text-white/70">Email: {session.user?.email}</p>
-          <p className="text-white/70">Role: {session.user?.role}</p>
+          <HeroItem as="p" className="portal-text">
+            Access your membership information, ABGCC opportunities,
+            international networking events, and strategic business resources.
+          </HeroItem>
+        </HeroReveal>
+
+        <div className="portal-grid">
+          <Reveal className="portal-card" amount={0.25}>
+            <span className="portal-card-label">
+              Member Information
+            </span>
+
+            <h2 className="portal-member-name">
+              {session.user?.name || "ABGCC Member"}
+            </h2>
+
+            <div className="portal-info">
+              <div className="portal-info-item">
+                <span className="portal-info-title">Email</span>
+
+                <span className="portal-info-value">
+                  {session.user?.email}
+                </span>
+              </div>
+
+              <div className="portal-info-item">
+                <span className="portal-info-title">Role</span>
+
+                <span className="portal-info-value">
+                  {session.user?.role}
+                </span>
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal className="portal-card portal-side-card" amount={0.35}>
+            <div>
+              <div className="portal-badge">
+                Active Member
+              </div>
+
+              <h2>
+                Global opportunities through strategic connections.
+              </h2>
+
+              <p>
+                Your ABGCC membership provides access to international
+                networking opportunities, business initiatives, investment
+                discussions, and exclusive chamber events.
+              </p>
+            </div>
+
+            <Link href="/events" className="portal-action">
+              Explore Events <ArrowRight size={16} />
+            </Link>
+          </Reveal>
         </div>
-      </section>
+      </div>
     </main>
   );
 }

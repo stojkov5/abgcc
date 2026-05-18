@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { Reveal } from "@/components/MotionReveal";
 
 export default function EventsPreview() {
   return (
     <section className="landing-section events-preview">
       <div className="landing-container">
-        <div className="section-heading center compact">
+        <Reveal className="section-heading center compact" amount={0.4}>
           <span className="section-label">Events</span>
 
           <h2>Empowering Connections</h2>
@@ -23,7 +24,7 @@ export default function EventsPreview() {
           <Link href="/events" className="landing-outline-btn">
             View All Events <ArrowRight size={17} />
           </Link>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

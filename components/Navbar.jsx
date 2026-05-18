@@ -97,17 +97,11 @@ export default function Navbar() {
               Logout
             </motion.button>
           ) : (
-            <>
-              <Link href="/login" className="navbar-login">
-                Login
-              </Link>
-
-              <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
-                <Link href="/register" className="navbar-primary-btn">
-                  Register
-                </Link>
-              </motion.div>
-            </>
+            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
+  <Link href="/login" className="navbar-primary-btn">
+    Login
+  </Link>
+</motion.div>
           )}
 
           
@@ -159,23 +153,11 @@ export default function Navbar() {
                   Logout
                 </button>
               ) : (
-                <>
-                  <Link
-                    href="/login"
-                    onClick={() => setMobileMenu(false)}
-                    className="navbar-mobile-secondary"
-                  >
-                    Login
-                  </Link>
-
-                  <Link
-                    href="/register"
-                    onClick={() => setMobileMenu(false)}
-                    className="navbar-mobile-primary"
-                  >
-                    Register
-                  </Link>
-                </>
+                <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
+  <Link href="/login" className="navbar-mobile-primary">
+   Login
+  </Link>
+</motion.div>
               )}
 
               

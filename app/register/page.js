@@ -1,6 +1,32 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import "../../styles/auth.css";
+
+const cardReveal = {
+  hidden: { opacity: 0, y: 28, scale: 0.97 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.7,
+      ease: [0.22, 1, 0.36, 1],
+      staggerChildren: 0.09,
+    },
+  },
+};
+
+const itemReveal = {
+  hidden: { opacity: 0, y: 16 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+  },
+};
 
 export default function RegisterPage() {
   const [form, setForm] = useState({
@@ -39,50 +65,87 @@ export default function RegisterPage() {
   }
 
   return (
-    <main className="min-h-screen px-6 pb-20 pt-32 ">
-      <section className="mx-auto max-w-md rounded-3xl border border-white/10 bg-white/5 p-6">
-        <h1 className="mb-6 text-3xl font-bold">Create account</h1>
+    <main className="auth-page">
+      <motion.section
+        className="auth-card"
+        variants={cardReveal}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.p variants={itemReveal} className="auth-eyebrow">
+          Join ABGCC
+        </motion.p>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
+        <motion.h1 variants={itemReveal} className="auth-title">
+          Create account
+        </motion.h1>
+
+        <motion.p variants={itemReveal} className="auth-text">
+          Create your account to access membership features, events, and the
+          ABGCC network.
+        </motion.p>
+
+        <motion.form
+          variants={itemReveal}
+          onSubmit={handleSubmit}
+          className="auth-form"
+        >
+          <motion.input
+            whileFocus={{ scale: 1.01 }}
             type="text"
             placeholder="Full name"
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
-            className="w-full rounded-xl border border-white/10 bg-black px-4 py-3 text-white outline-none"
+            className="auth-input"
           />
 
-          <input
+          <motion.input
+            whileFocus={{ scale: 1.01 }}
             type="email"
             placeholder="Email"
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
-            className="w-full rounded-xl border border-white/10 bg-black px-4 py-3 text-white outline-none"
+            className="auth-input"
           />
 
-          <input
+          <motion.input
+            whileFocus={{ scale: 1.01 }}
             type="password"
             placeholder="Password"
             value={form.password}
             onChange={(e) => setForm({ ...form, password: e.target.value })}
-            className="w-full rounded-xl border border-white/10 bg-black px-4 py-3 text-white outline-none"
+            className="auth-input"
           />
 
-          <button
+          <motion.button
             type="submit"
             disabled={loading}
-            className="w-full rounded-xl bg-white px-4 py-3 font-semibold text-black transition hover:bg-white/90 disabled:opacity-60"
+            className="auth-submit"
+            whileHover={!loading ? { y: -2 } : undefined}
+            whileTap={!loading ? { scale: 0.98 } : undefined}
           >
-            {loading ? "Creating..." : "Register"}
-          </button>
-        </form>
+            {loading ? "Creating..." : "Create account"}
+          </motion.button>
+        </motion.form>
 
-        {message && (
-          <p className="mt-4 text-sm text-white/70">
-            {message}
-          </p>
-        )}
-      </section>
+        <AnimatePresence>
+          {message && (
+            <motion.p
+              className="auth-message"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.25 }}
+            >
+              {message}
+            </motion.p>
+          )}
+        </AnimatePresence>
+
+        <motion.p variants={itemReveal} className="auth-switch">
+          Already have an account? <Link href="/login">Login</Link>
+        </motion.p>
+      </motion.section>
     </main>
   );
 }
