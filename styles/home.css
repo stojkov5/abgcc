@@ -1,0 +1,374 @@
+.home-page {
+  min-height: 100vh;
+  background: transparent;
+  color: #fff;
+  overflow: hidden;
+  padding-top: 0;
+}
+
+.home-hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow: hidden;
+  padding-top: 0;
+}
+
+.home-hero-img {
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+}
+
+.home-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(7, 17, 31, 0.18) 0%,
+      rgba(7, 17, 31, 0.5) 45%,
+      rgba(7, 17, 31, 0.92) 100%
+    ),
+    radial-gradient(circle at center, rgba(200, 167, 106, 0.12), transparent 48%);
+}
+
+.home-content {
+  width: min(100%, 56rem);
+}
+
+.home-eyebrow,
+.section-label {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: #c8a76a;
+  font-size: clamp(0.64rem, 0.9vw, 0.78rem);
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.home-title {
+  margin: 0;
+  font-size: clamp(2.6rem, 6vw, 4.5rem);
+  line-height: 0.95;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  text-wrap: balance;
+}
+
+.home-text {
+  max-width: 43rem;
+  margin-top: 1.5rem;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: clamp(0.98rem, 1.35vw, 1.15rem);
+  line-height: 1.75;
+}
+
+.landing-container {
+  width: min(100% - 2rem, 80rem);
+  margin: 0 auto;
+}
+
+.landing-section {
+  padding: clamp(4rem, 7vw, 6.5rem) 0;
+}
+
+.section-heading {
+  max-width: 58rem;
+}
+
+.section-heading.center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.section-heading.compact {
+  max-width: 44rem;
+}
+
+.section-heading h2,
+.mission-main-card h2,
+.membership-card h2 {
+  margin: 0;
+  font-size: clamp(2.1rem, 4.7vw, 4.7rem);
+  line-height: 1;
+  letter-spacing: -0.055em;
+}
+
+.section-heading h2 span {
+  color: #c8a76a;
+}
+
+.section-heading h3 {
+  margin: 1.3rem 0 0;
+  color: #fff;
+  font-size: clamp(1.1rem, 1.7vw, 1.35rem);
+  line-height: 1.4;
+}
+
+.section-heading p {
+  max-width: 48rem;
+  margin: 1.4rem auto 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: clamp(0.98rem, 1.25vw, 1.08rem);
+  line-height: 1.8;
+}
+
+.partner-section {
+  /* background:
+    radial-gradient(circle at top right, rgba(200, 167, 106, 0.14), transparent 34%),
+    linear-gradient(180deg, #08111d 0%, #0b1625 100%); */
+}
+
+.partner-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.15rem;
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+.partner-card {
+  min-height: 22rem;
+  padding: clamp(1.35rem, 2vw, 1.75rem);
+  border: 0.0625rem solid rgba(255, 255, 255, 0.09);
+  border-radius: 1.5rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.035));
+  box-shadow: 0 1.5rem 5rem rgba(0, 0, 0, 0.2);
+}
+
+.card-number {
+  display: block;
+  margin-bottom: 2.5rem;
+  color: #c8a76a;
+  font-size: 0.85rem;
+  font-weight: 900;
+}
+
+.partner-card h3,
+.mission-card h3 {
+  margin: 0 0 1rem;
+  font-size: clamp(1.25rem, 1.8vw, 1.55rem);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+}
+
+.partner-card p,
+.mission-card p,
+.mission-main-card p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.96rem;
+  line-height: 1.75;
+}
+
+.mission-section {
+  position: relative;
+  padding: clamp(4rem, 8vw, 7rem) 0;
+  background-image: url("/mission-bg.webp");
+  background-size: cover;
+  background-position: center;
+}
+
+.mission-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(7, 17, 31, 0.92), rgba(7, 17, 31, 0.52)),
+    radial-gradient(circle at center, rgba(200, 167, 106, 0.12), transparent 45%);
+}
+
+.mission-layout {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+
+.mission-main-card {
+  padding: clamp(2rem, 4vw, 3.5rem);
+  border: 0.0625rem solid rgba(200, 167, 106, 0.25);
+  border-radius: 1.75rem;
+  background:
+    linear-gradient(135deg, rgba(200, 167, 106, 0.18), rgba(255, 255, 255, 0.04)),
+    rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(0.7rem);
+}
+
+.mission-main-card p {
+  margin-top: 1.5rem;
+  font-weight: 600;
+}
+
+.mission-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.mission-card {
+  min-height: 15.5rem;
+  padding: clamp(1.35rem, 2vw, 1.8rem);
+  border: 0.0625rem solid rgba(255, 255, 255, 0.12);
+  border-radius: 1.35rem;
+  background: rgba(255, 255, 255, 0.82);
+  color: #07111f;
+  backdrop-filter: blur(0.6rem);
+}
+
+.mission-card h3 {
+  color: #07111f;
+}
+
+.mission-card p {
+  color: rgba(7, 17, 31, 0.78);
+}
+
+.events-preview {
+  background: transparent;
+}
+
+.landing-outline-btn,
+.membership-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 3.15rem;
+  margin-top: 2.5rem;
+  padding: 0.85rem 1.55rem;
+  border-radius: 999rem;
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.landing-outline-btn {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.065);
+  border: 0.0625rem solid rgba(255, 255, 255, 0.16);
+}
+
+.landing-outline-btn:hover {
+  transform: translateY(-0.15rem);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.membership-cta {
+  position: relative;
+  padding: clamp(4rem, 8vw, 7rem) 0;
+  background-image: url("/membership-bg.webp");
+  background-size: cover;
+  background-position: center;
+}
+
+.membership-bg {
+  position: absolute;
+  inset: 0;
+  /* background:
+    linear-gradient(90deg, rgba(7, 17, 31, 0.92), rgba(7, 17, 31, 0.5)),
+    radial-gradient(circle at top right, rgba(200, 167, 106, 0.18), transparent 40%); */
+}
+
+.membership-card {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: center;
+  padding: clamp(2rem, 5vw, 4rem);
+  border: 0.0625rem solid rgba(200, 167, 106, 0.25);
+  border-radius: 2rem;
+  background:
+    linear-gradient(135deg, rgba(200, 167, 106, 0.18), rgba(255, 255, 255, 0.04)),
+    rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(0.7rem);
+}
+
+.membership-card h2 {
+  max-width: 50rem;
+}
+
+.membership-btn {
+  margin-top: 0;
+  color: #07111f;
+  background: #c8a76a;
+  border: 0.0625rem solid #c8a76a;
+  white-space: nowrap;
+}
+
+.membership-btn:hover {
+  transform: translateY(-0.15rem);
+  background: #e0bf80;
+}
+
+@media (max-width: 75em) {
+  .partner-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .partner-card {
+    min-height: 18rem;
+  }
+}
+
+@media (max-width: 64em) {
+  .home-title {
+    font-size: clamp(1.2rem, 8vw, 4.0rem);
+  }
+
+  .mission-layout,
+  .membership-card {
+    grid-template-columns: 1fr;
+  }
+
+  .membership-btn {
+    width: fit-content;
+  }
+}
+
+@media (max-width: 43.75em) {
+  .landing-container {
+    width: min(100% - 1.5rem, 80rem);
+  }
+
+  .home-title {
+    font-size: clamp(1.25rem, 12vw, 2.5rem);
+    line-height: 0.98;
+  }
+
+  .home-eyebrow,
+  .section-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+  }
+
+  .partner-grid,
+  .mission-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .partner-card,
+  .mission-card {
+    min-height: auto;
+  }
+
+  .mission-main-card,
+  .membership-card {
+    border-radius: 1.35rem;
+  }
+
+  .membership-btn,
+  .landing-outline-btn {
+    width: 100%;
+  }
+}

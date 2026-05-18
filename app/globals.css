@@ -12,3 +12,102 @@ body {
 main{
   padding-top: 7em;
 }
+body {
+  position: relative;
+  min-height: 100vh;
+  
+  color: #fff;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle at 12% 18%,
+      rgba(200, 167, 106, 0.2),
+      transparent 22%
+    ),
+
+    radial-gradient(
+      circle at 85% 14%,
+      rgba(215, 184, 120, 0.14),
+      transparent 24%
+    ),
+
+    radial-gradient(
+      circle at 72% 78%,
+      rgba(200, 167, 106, 0.1),
+      transparent 28%
+    ),
+
+    radial-gradient(
+      circle at 28% 85%,
+      rgba(180, 145, 82, 0.08),
+      transparent 24%
+    ),
+
+    linear-gradient(
+      180deg,
+      #07111f 0%,
+      #091321 25%,
+      #0b1625 60%,
+      #1d1708 100%
+    );
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.015),
+      rgba(255,255,255,0)
+    );
+}
+
+.page-hero-shell {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 80rem;
+  min-height: 100vh;
+  min-height: 100svh;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+
+  padding-top: clamp(12rem, 24vh, 15.5rem);
+}
+
+.page-hero-content {
+  width: min(100%, 58rem);
+  margin-inline: auto;
+  text-align: center;
+}
+
+@media (max-width: 64em) {
+  .page-hero-shell {
+    padding-top: clamp(10rem, 22vh, 13rem);
+  }
+}
+
+@media (max-width: 43.75em) {
+  .page-hero-shell {
+    padding-inline: 1.5rem;
+    padding-top: clamp(8.5rem, 20vh, 10.5rem);
+  }
+}

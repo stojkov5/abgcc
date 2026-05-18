@@ -56,19 +56,31 @@ export default function AboutPage() {
   return (
     <main className="about-page">
       <section className="about-hero">
-        <div className="about-container">
-          <span className="about-eyebrow">About ABGCC</span>
+        <Image
+          src="/About.webp"
+          alt="About American Balkan Global Chamber of Commerce"
+          fill
+          priority
+          className="about-hero-img"
+        />
 
-          <h1>
-            A strategic bridge between the Balkans and the United States.
-          </h1>
+        <div className="about-hero-overlay" />
 
-          <p>
-            The American Balkan Global Chamber of Commerce is a premier platform
-            dedicated to fostering commercial relationships, strategic
-            partnerships, and economic collaboration between the United States,
-            the Balkans, and global markets.
-          </p>
+        <div className="page-hero-shell">
+  <div className="about-hero-content page-hero-content">
+            <p className="about-eyebrow">About ABGCC</p>
+
+            <h1 className="about-title">
+              A strategic bridge between the Balkans and the United States.
+            </h1>
+
+            <p className="about-hero-text mx-auto">
+              The American Balkan Global Chamber of Commerce is a premier
+              platform dedicated to fostering commercial relationships,
+              strategic partnerships, and economic collaboration between the
+              United States, the Balkans, and global markets.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -76,7 +88,6 @@ export default function AboutPage() {
         <div className="about-container about-grid">
           <div>
             <span className="section-label">Who we are</span>
-
             <h2>
               Connecting business through investment, innovation, and
               opportunity.
@@ -161,7 +172,6 @@ export default function AboutPage() {
         <div className="about-container">
           <div className="section-heading">
             <span className="section-label">Our Core Pillars</span>
-
             <h2>
               Built around growth, access, and serious commercial relationships.
             </h2>
