@@ -38,10 +38,7 @@ export async function POST(request) {
 
     if (!title || !description || !location || !image || !startDate) {
       return Response.json(
-        {
-          message:
-            "Missing required fields. Title, description, location, image, and date are required.",
-        },
+        { message: "Missing required fields." },
         { status: 400 }
       );
     }
@@ -49,10 +46,14 @@ export async function POST(request) {
     const baseSlug = createSlug(title);
 
     const existingEvent = await prisma.event.findUnique({
-      where: { slug: baseSlug },
+      where: {
+        slug: baseSlug,
+      },
     });
 
-    const slug = existingEvent ? `${baseSlug}-${Date.now()}` : baseSlug;
+    const slug = existingEvent
+      ? `${baseSlug}-${Date.now()}`
+      : baseSlug;
 
     const event = await prisma.event.create({
       data: {
@@ -70,21 +71,20 @@ export async function POST(request) {
     });
 
     revalidatePath("/events");
+    revalidatePath("/admin/events");
     revalidatePath(`/events/${event.slug}`);
 
-    return Response.json(
-      {
-        message: "Event created successfully.",
-        event,
-      },
-      { status: 201 }
-    );
+    return Response.json({
+      message: "Event created successfully.",
+      event,
+    });
   } catch (error) {
     console.error("CREATE_EVENT_ERROR:", error);
 
     return Response.json(
       {
-        message: error?.message || "Something went wrong while creating event.",
+        message:
+          error?.message || "Something went wrong while creating event.",
       },
       { status: 500 }
     );
