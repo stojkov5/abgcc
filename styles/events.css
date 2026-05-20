@@ -12,6 +12,7 @@
 
 .events-eyebrow,
 .section-label {
+   background-color: #c8a76a;
   display: inline-block;
   margin-bottom: 1rem;
   color: #10243f;
@@ -73,7 +74,8 @@
 .events-title {
   margin: 0;
   color: #10243f;
-  font-size: clamp(2.6rem, 6vw, 4.5rem);
+  font-size: 1.9rem;
+  font-size: clamp(1.9rem, 1.5rem + 2vw, 3.9rem);
   line-height: 0.95;
   font-weight: 800;
   letter-spacing: -0.06em;
@@ -81,11 +83,26 @@
 }
 
 .events-hero-text {
-  max-width: 43rem;
-  margin-top: 1.5rem;
-  color: rgba(16, 36, 63, 0.76);
-  font-size: clamp(0.98rem, 1.35vw, 1.15rem);
-  line-height: 1.75;
+  display: none;
+}
+.events-hero-bottom-text {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(1.2rem, 6vh, 2.5rem);
+  z-index: 5;
+  width: min(100% - 2rem, 80rem);
+  transform: translateX(-50%);
+  padding: 0.9rem 0.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.60);
+  backdrop-filter: blur(14px);
+  color: #10243f;
+  font-size: clamp(0.78rem, 1.1vw, 1rem);
+  font-weight: 800;
+  line-height: 1.5;
+  text-align: center;
+  box-shadow: 0 1rem 3rem rgba(16, 36, 63, 0.12);
 }
 
 .events-hero-btn,
@@ -275,9 +292,7 @@
 /* RESPONSIVE */
 
 @media (max-width: 64em) {
-  .events-title {
-    font-size: clamp(1.2rem, 8vw, 4rem);
-  }
+  
 
   .events-grid {
     grid-template-columns: 1fr;
@@ -296,7 +311,7 @@
   }
 
   .events-title {
-    font-size: clamp(1.25rem, 12vw, 2.5rem);
+    
     line-height: 0.98;
   }
 
@@ -313,5 +328,11 @@
   .events-hero-btn,
   .event-btn {
     width: 100%;
+  }
+  .membership-hero-bottom-text {
+    bottom: 1rem;
+    border-radius: 1.2rem;
+    font-size: 0.82rem;
+    line-height: 1.45;
   }
 }

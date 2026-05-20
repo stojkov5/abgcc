@@ -62,7 +62,7 @@ export default async function MembershipPage() {
 
         <div className="page-hero-shell">
           <HeroReveal className="membership-hero-content page-hero-content">
-            <HeroItem as="p" className="membership-eyebrow">
+            <HeroItem as="p" className="membership-eyebrow  bg-white/15 backdrop-blur-md  px-4  rounded-full">
               Membership
             </HeroItem>
 
@@ -70,11 +70,7 @@ export default async function MembershipPage() {
               Choose your membership.
             </HeroItem>
 
-            <HeroItem as="p" className="membership-hero-text mx-auto">
-              Join the American Balkan Global Chamber of Commerce and connect
-              with a strategic network of business leaders, investors,
-              institutions, and entrepreneurs.
-            </HeroItem>
+            
 
             <HeroItem>
               <Link href="#membership-tiers" className="membership-hero-btn">
@@ -83,6 +79,11 @@ export default async function MembershipPage() {
             </HeroItem>
           </HeroReveal>
         </div>
+        <HeroItem as="p" className="membership-hero-bottom-text mx-auto">
+              Join the American Balkan Global Chamber of Commerce and connect
+              with a strategic network of business leaders, investors,
+              institutions, and entrepreneurs.
+            </HeroItem>
       </section>
 
       <section className="membership-intro-section">

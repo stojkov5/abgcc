@@ -43,7 +43,7 @@ export default async function EventsPage() {
 
         <div className="page-hero-shell">
           <HeroReveal className="events-hero-content page-hero-content">
-            <HeroItem as="p" className="events-eyebrow">
+            <HeroItem as="p" className="events-eyebrow   bg-white/15 backdrop-blur-md  px-4  rounded-full">
               ABGCC Events
             </HeroItem>
 
@@ -51,11 +51,7 @@ export default async function EventsPage() {
               Strategic global events and networking experiences.
             </HeroItem>
 
-            <HeroItem as="p" className="events-hero-text mx-auto">
-              Discover upcoming gatherings, forums, networking experiences,
-              business summits, and collaborative international initiatives
-              organized by the American Balkan Global Chamber of Commerce.
-            </HeroItem>
+            
 
             <HeroItem>
               <Link href="#events-list" className="events-hero-btn">
@@ -64,6 +60,11 @@ export default async function EventsPage() {
             </HeroItem>
           </HeroReveal>
         </div>
+        <HeroItem as="p" className="events-hero-bottom-text mx-auto  px-4  rounded-lg">
+              Discover upcoming gatherings, forums, networking experiences,
+              business summits, and collaborative international initiatives
+              organized by the American Balkan Global Chamber of Commerce.
+            </HeroItem>
       </section>
 
       <section className="events-list-section" id="events-list">

@@ -106,21 +106,25 @@ export default function AboutPage() {
             initial="hidden"
             animate="visible"
           >
-            <motion.p variants={fadeUp} className="about-eyebrow">
-              About ABGCC
-            </motion.p>
+          <motion.p
+  variants={fadeUp}
+  className="about-eyebrow bg-white/15 backdrop-blur-md  px-4  rounded-full"
+>
+  About ABGCC
+</motion.p>
 
             <motion.h1 variants={fadeUp} className="about-title">
               A strategic bridge between the Balkans and the United States.
             </motion.h1>
 
-            <motion.p variants={fadeUp} className="about-hero-text mx-auto">
+            
+          </motion.div>
+          <motion.p variants={fadeUp} className="about-hero-bottom-text mx-auto">
               The American Balkan Global Chamber of Commerce is a premier
               platform dedicated to fostering commercial relationships,
               strategic partnerships, and economic collaboration between the
               United States, the Balkans, and global markets.
             </motion.p>
-          </motion.div>
         </div>
       </section>
 

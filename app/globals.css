@@ -142,10 +142,11 @@ body::after {
   padding-inline: 1.5rem;
 
   display: flex;
+ 
   align-items: flex-start;
   justify-content: center;
 
-  padding-top: clamp(12rem, 24vh, 15.5rem);
+  padding-top: clamp(11rem, 23vh, 14.5rem);
 }
 
 .page-hero-content {

@@ -12,6 +12,7 @@
   min-height: 100svh;
   overflow: hidden;
   padding-top: 0;
+  
 }
 
 .home-hero-img {
@@ -27,8 +28,8 @@
   background:
     linear-gradient(
       180deg,
-      rgba(255, 255, 255, 0.14) 0%,
-      rgba(232, 246, 255, 0.42) 45%,
+      rgba(255, 255, 255, 0.14) 40%,
+      rgba(232, 246, 255, 0.42) 95%,
       rgba(247, 251, 255, 0.96) 100%
     ),
     radial-gradient(circle at 18% 14%, rgba(255, 219, 145, 0.28), transparent 34%),
@@ -44,6 +45,7 @@
   display: inline-block;
   margin-bottom: 1rem;
   color: #10243f;
+  background-color: #c8a76a;
   font-size: clamp(0.64rem, 0.9vw, 0.78rem);
   font-weight: 800;
   letter-spacing: 0.24em;
@@ -53,19 +55,37 @@
 .home-title {
   margin: 0;
   color: #10243f;
-  font-size: clamp(2.6rem, 6vw, 4.5rem);
+  font-size: 1.9rem;
+  font-size: clamp(1.9rem, 1.5rem + 2vw, 3.9rem);
   line-height: 0.95;
   font-weight: 800;
   letter-spacing: -0.06em;
   text-wrap: balance;
+ 
+}
+.home-hero-bottom-text {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(1.2rem, 6vh, 2.5rem);
+  z-index: 5;
+  width: min(100% - 2rem, 80rem);
+  transform: translateX(-50%);
+  padding: 0.9rem 0.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.60);
+  backdrop-filter: blur(14px);
+  color: #10243f;
+  font-size: clamp(0.78rem, 1.1vw, 1rem);
+  font-weight: 800;
+  line-height: 1.5;
+  text-align: center;
+  box-shadow: 0 1rem 3rem rgba(16, 36, 63, 0.12);
 }
 
 .home-text {
-  max-width: 43rem;
-  margin-top: 1.5rem;
-  color: rgba(16, 36, 63, 0.76);
-  font-size: clamp(0.98rem, 1.35vw, 1.15rem);
-  line-height: 1.75;
+ 
+display: none;
 }
 
 .landing-container {
@@ -369,10 +389,7 @@
 }
 
 @media (max-width: 64em) {
-  .home-title {
-    font-size: clamp(1.2rem, 8vw, 4rem);
-  }
-
+  
   .mission-layout,
   .membership-card {
     grid-template-columns: 1fr;
@@ -389,7 +406,7 @@
   }
 
   .home-title {
-    font-size: clamp(1.25rem, 12vw, 2.5rem);
+    
     line-height: 0.98;
   }
 
@@ -417,5 +434,11 @@
   .membership-btn,
   .landing-outline-btn {
     width: 100%;
+  }
+   .home-hero-bottom-text {
+    bottom: 1rem;
+    border-radius: 1.2rem;
+    font-size: 0.82rem;
+    line-height: 1.45;
   }
 }
