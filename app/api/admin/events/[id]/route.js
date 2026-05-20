@@ -29,7 +29,10 @@ export async function PUT(request, { params }) {
     });
 
     if (!oldEvent) {
-      return Response.json({ message: "Event not found." }, { status: 404 });
+      return Response.json(
+        { message: "Event not found." },
+        { status: 404 }
+      );
     }
 
     const body = await request.json();
@@ -41,17 +44,10 @@ export async function PUT(request, { params }) {
       image,
       price,
       capacity,
-      startDate,
+     startDate,
       active,
       featured,
     } = body;
-
-    if (!title || !description || !location || !image || !startDate) {
-      return Response.json(
-        { message: "All required fields must be filled." },
-        { status: 400 }
-      );
-    }
 
     const updatedEvent = await prisma.event.update({
       where: { id },
@@ -70,6 +66,7 @@ export async function PUT(request, { params }) {
     });
 
     revalidatePath("/events");
+    revalidatePath("/admin/events");
     revalidatePath(`/events/${oldEvent.slug}`);
     revalidatePath(`/events/${updatedEvent.slug}`);
 
@@ -81,7 +78,10 @@ export async function PUT(request, { params }) {
     console.error("UPDATE_EVENT_ERROR:", error);
 
     return Response.json(
-      { message: error?.message || "Something went wrong." },
+      {
+        message:
+          error?.message || "Something went wrong while updating event.",
+      },
       { status: 500 }
     );
   }

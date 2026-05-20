@@ -10,7 +10,7 @@ export async function POST(request) {
     if (!name || !email || !password) {
       return Response.json(
         { message: "All fields are required." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -21,7 +21,7 @@ export async function POST(request) {
     if (existingUser) {
       return Response.json(
         { message: "User already exists." },
-        { status: 409 }
+        { status: 409 },
       );
     }
 
@@ -46,14 +46,11 @@ export async function POST(request) {
           role: user.role,
         },
       },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (error) {
     console.error("REGISTER_ERROR", error);
 
-    return Response.json(
-      { message: "Something went wrong." },
-      { status: 500 }
-    );
+    return Response.json({ message: "Something went wrong." }, { status: 500 });
   }
 }
