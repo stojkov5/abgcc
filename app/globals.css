@@ -6,6 +6,7 @@
   --sky-blue: #64b5f6;
   --sky-blue-soft: #dff2ff;
   --sun-gold: #f6c76a;
+  --gold-main: #c8a76a;
   --cloud-white: #ffffff;
   --font-heading: "Outfit", sans-serif;
   --font-body: "Manrope", sans-serif;
@@ -13,102 +14,41 @@
 
 html,
 body {
-    font-family: var(--font-body);
   width: 100%;
   overflow-x: hidden;
-  
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.home-title,
-.about-title,
-.events-title,
-.membership-title {
-   font-family: var(--font-heading);
-}
-p,
-span,
-a,
-button,
-input,
-textarea {
   font-family: var(--font-body);
-}
-p {
-  line-height: 1.8;
-}
-
-
-
-main {
-  padding-top: 7em;
 }
 
 body {
   position: relative;
   min-height: 100vh;
   color: var(--sky-ink);
-  overflow-x: hidden;
   background: #f7fbff;
-   font-weight: 500;
- 
+  font-weight: 500;
 }
 
-/* Bright daylight / open-sky global background */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -2;
   pointer-events: none;
-
   background:
-    radial-gradient(
-      circle at 15% 12%,
-      rgba(255, 214, 133, 0.42),
-      transparent 24%
-    ),
-    radial-gradient(
-      circle at 85% 10%,
-      rgba(132, 203, 255, 0.45),
-      transparent 28%
-    ),
-    radial-gradient(
-      circle at 50% 40%,
-      rgba(255, 255, 255, 0.8),
-      transparent 38%
-    ),
-    radial-gradient(
-      circle at 20% 85%,
-      rgba(188, 226, 255, 0.55),
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 82% 78%,
-      rgba(255, 235, 185, 0.34),
-      transparent 32%
-    ),
-    linear-gradient(
-      180deg,
-      #ffffff 0%,
-      #eef8ff 28%,
-      #dff2ff 58%,
-      #f8fbff 100%
-    );
+    radial-gradient(circle at 15% 12%, rgba(255, 214, 133, 0.42), transparent 24%),
+    radial-gradient(circle at 85% 10%, rgba(132, 203, 255, 0.45), transparent 28%),
+    radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.8), transparent 38%),
+    radial-gradient(circle at 20% 85%, rgba(188, 226, 255, 0.55), transparent 30%),
+    radial-gradient(circle at 82% 78%, rgba(255, 235, 185, 0.34), transparent 32%),
+    linear-gradient(180deg, #ffffff 0%, #eef8ff 28%, #dff2ff 58%, #f8fbff 100%);
 }
 
-/* Soft cloud / atmospheric layer */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-
+  opacity: 0.95;
   background:
     linear-gradient(
       115deg,
@@ -117,18 +57,94 @@ body::after {
       rgba(140, 205, 255, 0.16) 68%,
       rgba(255, 230, 174, 0.18) 100%
     ),
-    radial-gradient(
-      ellipse at 35% 22%,
-      rgba(255, 255, 255, 0.72),
-      transparent 32%
-    ),
-    radial-gradient(
-      ellipse at 65% 55%,
-      rgba(255, 255, 255, 0.45),
-      transparent 36%
-    );
+    radial-gradient(ellipse at 35% 22%, rgba(255, 255, 255, 0.72), transparent 32%),
+    radial-gradient(ellipse at 65% 55%, rgba(255, 255, 255, 0.45), transparent 36%);
+}
 
-  opacity: 0.95;
+main {
+  padding-top: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.page-hero-title {
+  font-family: var(--font-heading);
+}
+
+p,
+span,
+a,
+button,
+input,
+textarea {
+  font-family: var(--font-body);
+}
+
+p {
+  line-height: 1.8;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+}
+
+::selection {
+  background: rgba(100, 181, 246, 0.35);
+  color: var(--sky-ink);
+}
+
+/* =========================
+   REUSABLE PAGE LAYOUT
+========================= */
+
+.page-container {
+  width: min(100% - 2rem, 80rem);
+  margin-inline: auto;
+}
+
+.page-section {
+  padding: clamp(4rem, 7vw, 6.5rem) 0;
+}
+
+/* =========================
+   REUSABLE HERO SYSTEM
+========================= */
+
+.page-hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow: hidden;
+  padding-top: 0;
+}
+
+.page-hero-img {
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+}
+
+.page-hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.16) 0%,
+      rgba(231, 246, 255, 0.42) 85%,
+      rgba(247, 251, 255, 0.96) 100%
+    ),
+    radial-gradient(circle at 18% 16%, rgba(255, 219, 145, 0.28), transparent 34%),
+    radial-gradient(circle at 82% 20%, rgba(116, 195, 255, 0.22), transparent 38%);
 }
 
 .page-hero-shell {
@@ -140,13 +156,11 @@ body::after {
   min-height: 100svh;
   margin-inline: auto;
   padding-inline: 1.5rem;
+  padding-top: clamp(11rem, 23vh, 14.5rem);
 
   display: flex;
- 
   align-items: flex-start;
   justify-content: center;
-
-  padding-top: clamp(11rem, 23vh, 14.5rem);
 }
 
 .page-hero-content {
@@ -155,19 +169,168 @@ body::after {
   text-align: center;
 }
 
-/* Useful defaults for the lighter redesign */
-::selection {
-  background: rgba(100, 181, 246, 0.35);
-  color: #10243f;
+.page-hero-eyebrow,
+.section-label {
+  display: inline-block;
+  margin-bottom: 1rem;
+  padding: 0.35rem 1rem;
+  border-radius: 999rem;
+  background-color: var(--gold-main);
+  color: var(--sky-ink);
+  font-size: clamp(0.64rem, 0.9vw, 0.78rem);
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  line-height: 1.4;
+  text-transform: uppercase;
 }
 
-a {
-  color: inherit;
+.page-hero-title {
+  margin: 0;
+  color: var(--sky-ink);
+  font-size: clamp(1.9rem, 1.5rem + 2vw, 3.9rem);
+  line-height: 0.95;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  text-wrap: balance;
 }
 
-img {
+.page-hero-bottom-text {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(1.2rem, 6vh, 2.5rem);
+  z-index: 5;
+
+  width: min(100% - 2rem, 80rem);
+
+  transform: translateX(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0.9rem 1.4rem;
+
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999rem;
+
+  background: rgba(255, 255, 255, 0.6);
+
+  backdrop-filter: blur(14px);
+
+  color: var(--sky-ink);
+
+  font-size: clamp(0.78rem, 1.1vw, 1rem);
+  font-weight: 800;
+  line-height: 1.5;
+  text-align: center;
+
+  box-shadow: 0 1rem 3rem rgba(16, 36, 63, 0.12);
+}
+.page-hero-bottom-text span {
+  display: block;
   max-width: 100%;
 }
+
+/* =========================
+   REUSABLE BUTTONS
+========================= */
+
+.primary-hero-btn,
+.secondary-hero-btn,
+.primary-page-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 3.15rem;
+  padding: 0.85rem 1.55rem;
+  border-radius: 999rem;
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.primary-hero-btn,
+.primary-page-btn {
+  color: var(--sky-ink);
+  background: linear-gradient(135deg, #ffd889 0%, #f5bf54 100%);
+  border: 0.0625rem solid rgba(245, 191, 84, 0.7);
+  box-shadow: 0 1rem 2.5rem rgba(245, 191, 84, 0.26);
+}
+
+.secondary-hero-btn {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  border: 0.0625rem solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(14px);
+}
+
+.primary-hero-btn:hover,
+.primary-page-btn:hover {
+  transform: translateY(-0.15rem);
+  background: linear-gradient(135deg, #ffe3a8 0%, #f7c96a 100%);
+  box-shadow: 0 1.3rem 3rem rgba(245, 191, 84, 0.32);
+}
+
+.secondary-hero-btn:hover {
+  transform: translateY(-0.15rem);
+  background: rgba(255, 255, 255, 0.16);
+}
+
+/* =========================
+   SHARED SECTION HEADINGS
+========================= */
+
+.section-heading {
+  max-width: 58rem;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.section-heading.center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.section-heading.compact {
+  max-width: 44rem;
+}
+
+.section-heading h2 {
+  margin: 0;
+  color: var(--sky-ink);
+  font-size: clamp(2.1rem, 4.7vw, 4.7rem);
+  line-height: 1;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+}
+
+.section-heading h2 span {
+  color: #d39b2f;
+}
+
+.section-heading h3 {
+  margin: 1.3rem 0 0;
+  color: #1f3a5a;
+  font-size: clamp(1.1rem, 1.7vw, 1.35rem);
+  line-height: 1.4;
+}
+
+.section-heading p {
+  max-width: 48rem;
+  margin: 1.4rem auto 0;
+  color: rgba(16, 36, 63, 0.7);
+  font-size: clamp(0.98rem, 1.25vw, 1.08rem);
+  line-height: 1.8;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media (max-width: 64em) {
   .page-hero-shell {
@@ -176,8 +339,35 @@ img {
 }
 
 @media (max-width: 43.75em) {
+  .page-container {
+    width: min(100% - 1.5rem, 80rem);
+  }
+
   .page-hero-shell {
     padding-inline: 1.25rem;
     padding-top: clamp(8.5rem, 20vh, 10.5rem);
+  }
+
+  .page-hero-title {
+    line-height: 0.98;
+  }
+
+  .page-hero-eyebrow,
+  .section-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+  }
+
+  .page-hero-bottom-text {
+    bottom: 1rem;
+    border-radius: 1.2rem;
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+
+  .primary-hero-btn,
+  .secondary-hero-btn,
+  .primary-page-btn {
+    width: 100%;
   }
 }

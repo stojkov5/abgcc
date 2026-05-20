@@ -1,113 +1,13 @@
 .about-page {
-  padding-top: 0;
   min-height: 100vh;
-  color: #10243f;
-  overflow: hidden;
-}
-
-.about-container {
-  width: min(100% - 2rem, 80rem);
-  margin: 0 auto;
-}
-
-.about-eyebrow,
-.section-label {
-  background-color: #c8a76a;
-  display: inline-block;
-  margin-bottom: 1rem;
-  color: #10243f;
-  font-size: clamp(0.64rem, 0.9vw, 0.78rem);
-  font-weight: 800;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-}
-
-.section-heading {
-  max-width: 58rem;
-  margin-bottom: clamp(2.5rem, 5vw, 4rem);
-}
-
-.section-heading h2,
-.about-grid h2,
-.vision-card h2 {
-  margin: 0;
-  color: #10243f;
-  font-size: clamp(2.1rem, 4.7vw, 4.7rem);
-  line-height: 1;
-  letter-spacing: -0.055em;
-  text-wrap: balance;
-}
-
-/* HERO */
-
-.about-hero {
-  position: relative;
-  min-height: 100vh;
-  min-height: 100svh;
+  color: var(--sky-ink);
   overflow: hidden;
   padding-top: 0;
 }
 
-.about-hero-img {
-  object-fit: cover;
-  object-position: center;
-  z-index: 0;
-}
-
-.about-hero-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.18) 0%,
-      rgba(230, 246, 255, 0.46) 85%,
-      rgba(247, 251, 255, 0.96) 100%
-    ),
-    radial-gradient(circle at 20% 16%, rgba(255, 219, 145, 0.32), transparent 32%),
-    radial-gradient(circle at 82% 20%, rgba(112, 190, 255, 0.24), transparent 38%);
-}
-
-.about-hero-content {
-  width: min(100%, 58rem);
-}
-
-.about-title {
-  margin: 0;
-  color: #10243f;
-  font-size: 1.9rem;
-  font-size: clamp(1.9rem, 1.5rem + 2vw, 3.9rem);
-  line-height: 0.95;
-  font-weight: 800;
-  letter-spacing: -0.06em;
-  text-wrap: balance;
-}
-
-.about-hero-text {
-  display: none;
-}
-.about-hero-bottom-text {
-  position: absolute;
-  left: 50%;
-  bottom: clamp(1.2rem, 6vh, 2.5rem);
-  z-index: 5;
-  width: min(100% - 2rem, 80rem);
-  transform: translateX(-50%);
-  padding: 0.9rem 0.4rem;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.60);
-  backdrop-filter: blur(14px);
-  color: #10243f;
-  font-size: clamp(0.78rem, 1.1vw, 1rem);
-  font-weight: 800;
-  line-height: 1.5;
-  text-align: center;
-  box-shadow: 0 1rem 3rem rgba(16, 36, 63, 0.12);
-}
-
-/* INTRO */
+/* =========================
+   INTRO SECTION
+========================= */
 
 .about-intro {
   padding: clamp(4rem, 7vw, 6.5rem) 0;
@@ -119,6 +19,16 @@
   grid-template-columns: 0.9fr 1.1fr;
   gap: clamp(2rem, 5vw, 4rem);
   align-items: start;
+}
+
+.about-grid h2,
+.vision-card h2 {
+  margin: 0;
+  color: var(--sky-ink);
+  font-size: clamp(2.1rem, 4.7vw, 4.7rem);
+  line-height: 1;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
 }
 
 .intro-content p,
@@ -133,7 +43,9 @@
   margin-top: 1.4rem;
 }
 
-/* INDUSTRIES */
+/* =========================
+   INDUSTRIES
+========================= */
 
 .industries-section {
   padding: clamp(4rem, 7vw, 6.5rem) 0;
@@ -202,7 +114,9 @@
   transform: scale(1.08);
 }
 
-/* TEAM */
+/* =========================
+   TEAM SECTION
+========================= */
 
 .team-section {
   padding: clamp(4rem, 7vw, 6.5rem) 0;
@@ -220,7 +134,11 @@
   border: 0.0625rem solid rgba(100, 181, 246, 0.22);
   border-radius: 1.5rem;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(239, 248, 255, 0.72));
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.9),
+      rgba(239, 248, 255, 0.72)
+    );
   box-shadow: 0 1.4rem 4rem rgba(46, 111, 160, 0.14);
   backdrop-filter: blur(0.7rem);
 }
@@ -242,7 +160,7 @@
 
 .team-info h3 {
   margin: 0 0 0.55rem;
-  color: #10243f;
+  color: var(--sky-ink);
   font-size: clamp(1.25rem, 1.8vw, 1.55rem);
   line-height: 1.1;
   font-weight: 800;
@@ -265,7 +183,9 @@
   line-height: 1.75;
 }
 
-/* PILLARS */
+/* =========================
+   PILLARS
+========================= */
 
 .pillars-section {
   padding: clamp(4rem, 7vw, 6.5rem) 0;
@@ -284,7 +204,11 @@
   border-radius: 1.5rem;
   background:
     radial-gradient(circle at top right, rgba(255, 219, 145, 0.22), transparent 38%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(239, 248, 255, 0.72));
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.92),
+      rgba(239, 248, 255, 0.72)
+    );
   box-shadow: 0 1.4rem 4rem rgba(46, 111, 160, 0.13);
 }
 
@@ -298,7 +222,7 @@
 
 .pillar-card h3 {
   margin: 0 0 1rem;
-  color: #10243f;
+  color: var(--sky-ink);
   font-size: clamp(1.25rem, 1.8vw, 1.55rem);
   line-height: 1.1;
   font-weight: 800;
@@ -312,7 +236,9 @@
   line-height: 1.75;
 }
 
-/* VISION */
+/* =========================
+   VISION
+========================= */
 
 .vision-section {
   position: relative;
@@ -335,7 +261,11 @@
   border: 0.0625rem solid rgba(100, 181, 246, 0.26);
   border-radius: 2rem;
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(232, 246, 255, 0.78)),
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.94),
+      rgba(232, 246, 255, 0.78)
+    ),
     radial-gradient(circle at top right, rgba(255, 219, 145, 0.22), transparent 42%);
   box-shadow: 0 1.8rem 5rem rgba(46, 111, 160, 0.16);
   backdrop-filter: blur(0.8rem);
@@ -346,7 +276,9 @@
   margin-top: 1.4rem;
 }
 
-/* RESPONSIVE */
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media (max-width: 75em) {
   .industries-card-grid,
@@ -364,26 +296,9 @@
   .team-grid {
     grid-template-columns: 1fr;
   }
-
-  
 }
 
 @media (max-width: 43.75em) {
-  .about-container {
-    width: min(100% - 1.5rem, 80rem);
-  }
-
-  .about-eyebrow,
-  .section-label {
-    font-size: 0.62rem;
-    letter-spacing: 0.18em;
-  }
-
-  .about-title {
-    
-    line-height: 0.98;
-  }
-
   .industries-card-grid,
   .pillars-grid {
     grid-template-columns: 1fr;
@@ -406,11 +321,5 @@
 
   .pillar-card {
     min-height: auto;
-  }
-  .about-hero-bottom-text {
-    bottom: 1rem;
-    border-radius: 1.2rem;
-    font-size: 0.82rem;
-    line-height: 1.45;
   }
 }

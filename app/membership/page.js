@@ -10,7 +10,6 @@ import { prisma } from "@/lib/prisma";
 import {
   HeroReveal,
   HeroItem,
-  HeroImageZoom,
   Reveal,
   Stagger,
   StaggerItem,
@@ -47,47 +46,46 @@ export default async function MembershipPage() {
 
   return (
     <main className="membership-page">
-      <section className="membership-hero">
-      
-          <Image
-            src="/Membership.webp"
-            alt="ABGCC Membership"
-            fill
-            priority
-            className="membership-hero-img"
-          />
-        
+      <section className="page-hero">
+        <Image
+          src="/Membership.webp"
+          alt="ABGCC Membership"
+          fill
+          priority
+          className="page-hero-img"
+        />
 
-        <div className="membership-hero-overlay" />
+        <div className="page-hero-overlay" />
 
         <div className="page-hero-shell">
-          <HeroReveal className="membership-hero-content page-hero-content">
-            <HeroItem as="p" className="membership-eyebrow  bg-white/15 backdrop-blur-md  px-4  rounded-full">
+          <HeroReveal className="page-hero-content">
+            <HeroItem as="p" className="page-hero-eyebrow">
               Membership
             </HeroItem>
 
-            <HeroItem as="h1" className="membership-title">
+            <HeroItem as="h1" className="page-hero-title">
               Choose your membership.
             </HeroItem>
 
-            
-
             <HeroItem>
-              <Link href="#membership-tiers" className="membership-hero-btn">
-                View Tiers <ArrowRight size={17} />
-              </Link>
+              <div className="mt-8 flex justify-center">
+                <Link href="#membership-tiers" className="primary-hero-btn">
+                  View Tiers <ArrowRight size={17} />
+                </Link>
+              </div>
             </HeroItem>
           </HeroReveal>
         </div>
-        <HeroItem as="p" className="membership-hero-bottom-text mx-auto">
-              Join the American Balkan Global Chamber of Commerce and connect
-              with a strategic network of business leaders, investors,
-              institutions, and entrepreneurs.
-            </HeroItem>
+
+        <div className="page-hero-bottom-text">
+          Join the American Balkan Global Chamber of Commerce and connect with a
+          strategic network of business leaders, investors, institutions, and
+          entrepreneurs.
+        </div>
       </section>
 
       <section className="membership-intro-section">
-        <div className="membership-container">
+        <div className="page-container">
           <Reveal className="membership-intro-card" amount={0.35}>
             <span className="section-label">Membership</span>
 
@@ -103,7 +101,7 @@ export default async function MembershipPage() {
       </section>
 
       <section className="membership-value-section">
-        <div className="membership-container">
+        <div className="page-container">
           <Reveal className="section-heading center" amount={0.35}>
             <span className="section-label">Membership Value</span>
             <h2>Why become a member?</h2>
@@ -116,9 +114,7 @@ export default async function MembershipPage() {
                 className="membership-value-card"
                 key={item.title}
               >
-                <span className="membership-card-number">
-                  0{index + 1}
-                </span>
+                <span className="membership-card-number">0{index + 1}</span>
 
                 <h3>{item.title}</h3>
 
@@ -130,7 +126,7 @@ export default async function MembershipPage() {
       </section>
 
       <section className="membership-tiers-section" id="membership-tiers">
-        <div className="membership-container">
+        <div className="page-container">
           <Reveal className="section-heading" amount={0.35}>
             <span className="section-label">Membership Tiers</span>
             <h2>Select the level that fits your goals.</h2>
@@ -153,9 +149,7 @@ export default async function MembershipPage() {
                   <p className="membership-period">{tier.period}</p>
                 </div>
 
-                <p className="membership-description">
-                  {tier.description}
-                </p>
+                <p className="membership-description">{tier.description}</p>
 
                 <Link href="/contact" className="membership-tier-btn">
                   Contact Us

@@ -1,92 +1,14 @@
 .home-page {
   min-height: 100vh;
   background: transparent;
-  color: #10243f;
+  color: var(--sky-ink);
   overflow: hidden;
   padding-top: 0;
 }
 
-.home-hero {
-  position: relative;
-  min-height: 100vh;
-  min-height: 100svh;
-  overflow: hidden;
-  padding-top: 0;
-  
-}
-
-.home-hero-img {
-  object-fit: cover;
-  object-position: center;
-  z-index: 0;
-}
-
-.home-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.14) 40%,
-      rgba(232, 246, 255, 0.42) 95%,
-      rgba(247, 251, 255, 0.96) 100%
-    ),
-    radial-gradient(circle at 18% 14%, rgba(255, 219, 145, 0.28), transparent 34%),
-    radial-gradient(circle at 84% 18%, rgba(115, 195, 255, 0.22), transparent 38%);
-}
-
-.home-content {
-  width: min(100%, 56rem);
-}
-
-.home-eyebrow,
-.section-label {
-  display: inline-block;
-  margin-bottom: 1rem;
-  color: #10243f;
-  background-color: #c8a76a;
-  font-size: clamp(0.64rem, 0.9vw, 0.78rem);
-  font-weight: 800;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-}
-
-.home-title {
-  margin: 0;
-  color: #10243f;
-  font-size: 1.9rem;
-  font-size: clamp(1.9rem, 1.5rem + 2vw, 3.9rem);
-  line-height: 0.95;
-  font-weight: 800;
-  letter-spacing: -0.06em;
-  text-wrap: balance;
- 
-}
-.home-hero-bottom-text {
-  position: absolute;
-  left: 50%;
-  bottom: clamp(1.2rem, 6vh, 2.5rem);
-  z-index: 5;
-  width: min(100% - 2rem, 80rem);
-  transform: translateX(-50%);
-  padding: 0.9rem 0.4rem;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.60);
-  backdrop-filter: blur(14px);
-  color: #10243f;
-  font-size: clamp(0.78rem, 1.1vw, 1rem);
-  font-weight: 800;
-  line-height: 1.5;
-  text-align: center;
-  box-shadow: 0 1rem 3rem rgba(16, 36, 63, 0.12);
-}
-
-.home-text {
- 
-display: none;
-}
+/* =========================
+   HOME LANDING SECTIONS
+========================= */
 
 .landing-container {
   width: min(100% - 2rem, 80rem);
@@ -95,48 +17,6 @@ display: none;
 
 .landing-section {
   padding: clamp(4rem, 7vw, 6.5rem) 0;
-}
-
-.section-heading {
-  max-width: 58rem;
-}
-
-.section-heading.center {
-  margin-inline: auto;
-  text-align: center;
-}
-
-.section-heading.compact {
-  max-width: 44rem;
-}
-
-.section-heading h2,
-.mission-main-card h2,
-.membership-card h2 {
-  margin: 0;
-  color: #10243f;
-  font-size: clamp(2.1rem, 4.7vw, 4.7rem);
-  line-height: 1;
-  letter-spacing: -0.055em;
-}
-
-.section-heading h2 span {
-  color: #d39b2f;
-}
-
-.section-heading h3 {
-  margin: 1.3rem 0 0;
-  color: #1f3a5a;
-  font-size: clamp(1.1rem, 1.7vw, 1.35rem);
-  line-height: 1.4;
-}
-
-.section-heading p {
-  max-width: 48rem;
-  margin: 1.4rem auto 0;
-  color: rgba(16, 36, 63, 0.7);
-  font-size: clamp(0.98rem, 1.25vw, 1.08rem);
-  line-height: 1.8;
 }
 
 .partner-section {
@@ -177,7 +57,7 @@ display: none;
 .partner-card h3,
 .mission-card h3 {
   margin: 0 0 1rem;
-  color: #10243f;
+  color: var(--sky-ink);
   font-size: clamp(1.25rem, 1.8vw, 1.55rem);
   line-height: 1.1;
   letter-spacing: -0.035em;
@@ -191,6 +71,10 @@ display: none;
   font-size: 0.96rem;
   line-height: 1.75;
 }
+
+/* =========================
+   MISSION SECTION
+========================= */
 
 .mission-section {
   position: relative;
@@ -236,6 +120,15 @@ display: none;
   box-shadow: 0 1.5rem 4rem rgba(46, 111, 160, 0.14);
 }
 
+.mission-main-card h2,
+.membership-card h2 {
+  margin: 0;
+  color: var(--sky-ink);
+  font-size: clamp(2.1rem, 4.7vw, 4.7rem);
+  line-height: 1;
+  letter-spacing: -0.055em;
+}
+
 .mission-main-card p {
   margin-top: 1.5rem;
   font-weight: 600;
@@ -258,25 +151,28 @@ display: none;
       rgba(255, 255, 255, 0.95),
       rgba(240, 248, 255, 0.78)
     );
-  color: #10243f;
+  color: var(--sky-ink);
   backdrop-filter: blur(0.6rem);
   box-shadow: 0 1.2rem 3rem rgba(46, 111, 160, 0.12);
 }
 
 .mission-card h3 {
-  color: #10243f;
+  color: var(--sky-ink);
 }
 
 .mission-card p {
   color: rgba(16, 36, 63, 0.76);
 }
 
+/* =========================
+   EVENTS PREVIEW
+========================= */
+
 .events-preview {
   background: transparent;
 }
 
-.landing-outline-btn,
-.membership-btn {
+.landing-outline-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -284,7 +180,16 @@ display: none;
   min-height: 3.15rem;
   margin-top: 2.5rem;
   padding: 0.85rem 1.55rem;
+  border: 0.0625rem solid rgba(100, 181, 246, 0.24);
   border-radius: 999rem;
+  color: var(--sky-ink);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.92),
+      rgba(232, 246, 255, 0.78)
+    );
+  box-shadow: 0 1rem 2.5rem rgba(46, 111, 160, 0.12);
   font-size: 0.9rem;
   font-weight: 800;
   text-decoration: none;
@@ -293,18 +198,6 @@ display: none;
     background 0.25s ease,
     border-color 0.25s ease,
     box-shadow 0.25s ease;
-}
-
-.landing-outline-btn {
-  color: #10243f;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.92),
-      rgba(232, 246, 255, 0.78)
-    );
-  border: 0.0625rem solid rgba(100, 181, 246, 0.24);
-  box-shadow: 0 1rem 2.5rem rgba(46, 111, 160, 0.12);
 }
 
 .landing-outline-btn:hover {
@@ -316,6 +209,10 @@ display: none;
       rgba(220, 241, 255, 0.95)
     );
 }
+
+/* =========================
+   MEMBERSHIP CTA
+========================= */
 
 .membership-cta {
   position: relative;
@@ -363,13 +260,27 @@ display: none;
 }
 
 .membership-btn {
-  margin-top: 0;
-  color: #10243f;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 3.15rem;
+  padding: 0.85rem 1.55rem;
+  border: 0.0625rem solid rgba(245, 191, 84, 0.7);
+  border-radius: 999rem;
+  color: var(--sky-ink);
   background:
     linear-gradient(135deg, #ffd889 0%, #f5bf54 100%);
-  border: 0.0625rem solid rgba(245, 191, 84, 0.7);
-  white-space: nowrap;
   box-shadow: 0 1rem 2.5rem rgba(245, 191, 84, 0.24);
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .membership-btn:hover {
@@ -377,6 +288,10 @@ display: none;
   background:
     linear-gradient(135deg, #ffe3a8 0%, #f7c96a 100%);
 }
+
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media (max-width: 75em) {
   .partner-grid {
@@ -389,7 +304,6 @@ display: none;
 }
 
 @media (max-width: 64em) {
-  
   .mission-layout,
   .membership-card {
     grid-template-columns: 1fr;
@@ -403,17 +317,6 @@ display: none;
 @media (max-width: 43.75em) {
   .landing-container {
     width: min(100% - 1.5rem, 80rem);
-  }
-
-  .home-title {
-    
-    line-height: 0.98;
-  }
-
-  .home-eyebrow,
-  .section-label {
-    font-size: 0.62rem;
-    letter-spacing: 0.18em;
   }
 
   .partner-grid,
@@ -434,11 +337,5 @@ display: none;
   .membership-btn,
   .landing-outline-btn {
     width: 100%;
-  }
-   .home-hero-bottom-text {
-    bottom: 1rem;
-    border-radius: 1.2rem;
-    font-size: 0.82rem;
-    line-height: 1.45;
   }
 }

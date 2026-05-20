@@ -86,51 +86,51 @@ const pillars = [
 export default function AboutPage() {
   return (
     <main className="about-page">
-      <section className="about-hero">
-        
-          <Image
-            src="/About.webp"
-            alt="About American Balkan Global Chamber of Commerce"
-            fill
-            priority
-            className="about-hero-img"
-          />
-        
+      <section className="page-hero">
+        <Image
+          src="/About.webp"
+          alt="About American Balkan Global Chamber of Commerce"
+          fill
+          priority
+          className="page-hero-img"
+        />
 
-        <div className="about-hero-overlay" />
+        <div className="page-hero-overlay" />
 
         <div className="page-hero-shell">
           <motion.div
-            className="about-hero-content page-hero-content"
+            className="page-hero-content"
             variants={staggerContainer}
             initial="hidden"
             animate="visible"
           >
-          <motion.p
-  variants={fadeUp}
-  className="about-eyebrow bg-white/15 backdrop-blur-md  px-4  rounded-full"
->
-  About ABGCC
-</motion.p>
+            <motion.p variants={fadeUp} className="page-hero-eyebrow">
+              About ABGCC
+            </motion.p>
 
-            <motion.h1 variants={fadeUp} className="about-title">
+            <motion.h1 variants={fadeUp} className="page-hero-title">
               A strategic bridge between the Balkans and the United States.
             </motion.h1>
-
-            
           </motion.div>
-          <motion.p variants={fadeUp} className="about-hero-bottom-text mx-auto">
-              The American Balkan Global Chamber of Commerce is a premier
-              platform dedicated to fostering commercial relationships,
-              strategic partnerships, and economic collaboration between the
-              United States, the Balkans, and global markets.
-            </motion.p>
         </div>
+
+        <div className="page-hero-bottom-text">
+  <motion.span
+    variants={fadeUp}
+    initial="hidden"
+    animate="visible"
+  >
+    The American Balkan Global Chamber of Commerce is a premier platform
+    dedicated to fostering commercial relationships, strategic partnerships,
+    and economic collaboration between the United States, the Balkans, and
+    global markets.
+  </motion.span>
+</div>
       </section>
 
       <section className="about-intro">
         <motion.div
-          className="about-container about-grid"
+          className="page-container about-grid"
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -161,7 +161,7 @@ export default function AboutPage() {
       </section>
 
       <section className="industries-section">
-        <div className="about-container">
+        <div className="page-container">
           <motion.div
             className="section-heading"
             variants={fadeUp}
@@ -207,7 +207,7 @@ export default function AboutPage() {
       </section>
 
       <section className="team-section">
-        <div className="about-container">
+        <div className="page-container">
           <motion.div
             className="section-heading"
             variants={fadeUp}
@@ -255,7 +255,7 @@ export default function AboutPage() {
       </section>
 
       <section className="pillars-section">
-        <div className="about-container">
+        <div className="page-container">
           <motion.div
             className="section-heading"
             variants={fadeUp}
@@ -294,7 +294,7 @@ export default function AboutPage() {
       </section>
 
       <section className="vision-section">
-        <div className="about-container">
+        <div className="page-container">
           <motion.div
             className="vision-card"
             variants={fadeUp}
