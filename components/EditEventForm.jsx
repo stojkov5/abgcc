@@ -16,6 +16,7 @@ export default function EditEventForm({ event }) {
     startDate: new Date(event.startDate).toISOString().slice(0, 16),
     active: event.active,
     featured: event.featured,
+    archived: event.archived || false,
   });
 
   const [galleryImages, setGalleryImages] = useState(event.images || []);
@@ -26,30 +27,22 @@ export default function EditEventForm({ event }) {
 
   async function safeJson(res) {
     const text = await res.text();
-
-    if (!text) {
-      return { message: "No response from server." };
-    }
-
+    if (!text) return { message: "No response from server." };
     return JSON.parse(text);
   }
 
   async function handleSaveChanges(e) {
     e.preventDefault();
-
     setSaving(true);
     setMessage("");
 
     const res = await fetch(`/api/admin/events/${event.id}`, {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
     });
 
     const data = await safeJson(res);
-
     setSaving(false);
     setMessage(data.message);
 
@@ -74,7 +67,6 @@ export default function EditEventForm({ event }) {
     });
 
     const data = await safeJson(res);
-
     setUploadingHero(false);
 
     if (!res.ok) {
@@ -102,7 +94,6 @@ export default function EditEventForm({ event }) {
     });
 
     const data = await safeJson(res);
-
     setUploadingGallery(false);
 
     if (!res.ok) {
@@ -145,9 +136,7 @@ export default function EditEventForm({ event }) {
         <motion.textarea
           whileFocus={{ scale: 1.01 }}
           value={form.description}
-          onChange={(e) =>
-            setForm({ ...form, description: e.target.value })
-          }
+          onChange={(e) => setForm({ ...form, description: e.target.value })}
           rows={6}
           className="admin-input admin-textarea"
         />
@@ -239,7 +228,25 @@ export default function EditEventForm({ event }) {
             />
             <span>Featured</span>
           </label>
+
+          <label className="admin-check-row">
+            <input
+              type="checkbox"
+              checked={form.archived}
+              onChange={(e) =>
+                setForm({ ...form, archived: e.target.checked })
+              }
+            />
+            <span>Archived</span>
+          </label>
         </div>
+
+        {form.archived && (
+          <p className="admin-upload-note">
+            This event is archived. It will stay in the admin panel but will be
+            hidden from the public events page.
+          </p>
+        )}
 
         <div className="admin-upload-box">
           <label className="admin-upload-label">

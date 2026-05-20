@@ -19,6 +19,7 @@ export default async function EventsPage() {
   const events = await prisma.event.findMany({
     where: {
       active: true,
+       archived: false,
     },
     orderBy: {
       startDate: "asc",

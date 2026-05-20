@@ -56,6 +56,7 @@ model Event {
   capacity    Int?
   active      Boolean        @default(true)
   featured    Boolean        @default(false)
+  archived Boolean @default(false)
 
   startDate   DateTime
 
@@ -87,12 +88,13 @@ model EventBooking {
 }
 
 model ContactMessage {
-  id          String      @id @default(cuid())
-  name        String
-  email       String
-  subject     String
-  message     String
-  createdAt   DateTime    @default(now())
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
 }
 
 enum Role {

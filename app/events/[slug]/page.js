@@ -17,17 +17,19 @@ import "../../../styles/event-details.css";
 export default async function EventDetailsPage({ params }) {
   const { slug } = await params;
 
-  const event = await prisma.event.findUnique({
-    where: { slug },
-    include: {
-      images: {
-        orderBy: {
-          createdAt: "desc",
-        },
+ const event = await prisma.event.findFirst({
+  where: {
+    slug,
+    archived: false,
+  },
+  include: {
+    images: {
+      orderBy: {
+        createdAt: "desc",
       },
     },
-  });
-
+  },
+});
   if (!event || !event.active) {
     notFound();
   }

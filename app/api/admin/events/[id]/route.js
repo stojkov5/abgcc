@@ -62,6 +62,7 @@ export async function PUT(request, { params }) {
         startDate: new Date(startDate),
         active: Boolean(active),
         featured: Boolean(featured),
+        archived: Boolean(body.archived),
       },
     });
 
