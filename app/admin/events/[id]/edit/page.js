@@ -17,15 +17,20 @@ export default async function EditEventPage({ params }) {
   const { id } = await params;
 
   const event = await prisma.event.findUnique({
-    where: { id },
-    include: {
-      images: {
-        orderBy: {
-          createdAt: "desc",
-        },
+  where: { id },
+  include: {
+    images: {
+      orderBy: {
+        createdAt: "desc",
       },
     },
-  });
+    bookings: {
+      orderBy: {
+        createdAt: "desc",
+      },
+    },
+  },
+});
 
   if (!event) {
     return (

@@ -13,23 +13,25 @@ import {
   StaggerItem,
 } from "@/components/MotionReveal";
 import "../../../styles/event-details.css";
+import EventRSVPForm from "../../../components/EventRSVPForm";
 
 export default async function EventDetailsPage({ params }) {
   const { slug } = await params;
 
- const event = await prisma.event.findFirst({
-  where: {
-    slug,
-    archived: false,
-  },
-  include: {
-    images: {
-      orderBy: {
-        createdAt: "desc",
+  const event = await prisma.event.findFirst({
+    where: {
+      slug,
+      archived: false,
+    },
+    include: {
+      images: {
+        orderBy: {
+          createdAt: "desc",
+        },
       },
     },
-  },
-});
+  });
+
   if (!event || !event.active) {
     notFound();
   }
@@ -65,16 +67,14 @@ export default async function EventDetailsPage({ params }) {
             </HeroItem>
 
             <HeroItem
-  as="div"
-  className="event-detail-text"
-  dangerouslySetInnerHTML={{ __html: event.description }}
-/>
+              as="div"
+              className="event-detail-text event-rich-content"
+              dangerouslySetInnerHTML={{ __html: event.description }}
+            />
 
             <HeroItem>
               <div className="event-detail-actions">
-                <button className="event-detail-primary">
-                  RSVP Now
-                </button>
+                <button className="event-detail-primary">RSVP Now</button>
 
                 <Link href="/events" className="event-detail-secondary">
                   All Events
@@ -87,11 +87,11 @@ export default async function EventDetailsPage({ params }) {
 
       <section className="event-detail-section">
         <div className="event-detail-container event-detail-grid">
-          
           <Reveal className="event-detail-copy" amount={0.35}>
-            <div dangerouslySetInnerHTML={{ __html: event.description }} />
-
-           
+            <div
+              className="event-rich-content"
+              dangerouslySetInnerHTML={{ __html: event.description }}
+            />
           </Reveal>
         </div>
       </section>
@@ -102,9 +102,7 @@ export default async function EventDetailsPage({ params }) {
             <Reveal amount={0.35}>
               <span className="event-detail-label">Event Gallery</span>
 
-              <h2 className="event-detail-heading">
-                Moments from the event.
-              </h2>
+              <h2 className="event-detail-heading">Moments from the event.</h2>
             </Reveal>
 
             <Stagger className="event-gallery-grid">
@@ -134,9 +132,7 @@ export default async function EventDetailsPage({ params }) {
           <Reveal className="event-rsvp-card" amount={0.35}>
             <span className="event-detail-label">Join The Experience</span>
 
-            <h2 className="event-detail-heading">
-              Reserve your place.
-            </h2>
+            <h2 className="event-detail-heading">Reserve your place.</h2>
 
             <p className="event-detail-text">
               Connect with business leaders, investors, innovators,
@@ -145,9 +141,7 @@ export default async function EventDetailsPage({ params }) {
             </p>
 
             <div className="event-detail-actions">
-              <button className="event-detail-primary">
-                RSVP Registration
-              </button>
+              <EventRSVPForm eventId={event.id} />
             </div>
           </Reveal>
         </div>

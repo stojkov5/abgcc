@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { Upload } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import RichTextEditor from "../components/ReactTextEdtior";
 
 export default function EditEventForm({ event }) {
   const [form, setForm] = useState({
@@ -133,13 +134,21 @@ export default function EditEventForm({ event }) {
           className="admin-input"
         />
 
-        <motion.textarea
-          whileFocus={{ scale: 1.01 }}
-          value={form.description}
-          onChange={(e) => setForm({ ...form, description: e.target.value })}
-          rows={6}
-          className="admin-input admin-textarea"
-        />
+        <div className="space-y-3">
+          <p className="text-sm font-semibold uppercase tracking-[0.15em] text-white/50">
+            Event Description
+          </p>
+
+          <RichTextEditor
+            value={form.description}
+            onChange={(value) =>
+              setForm({
+                ...form,
+                description: value,
+              })
+            }
+          />
+        </div>
 
         <motion.input
           whileFocus={{ scale: 1.01 }}
@@ -292,6 +301,52 @@ export default function EditEventForm({ event }) {
                 </motion.div>
               ))}
             </div>
+          )}
+        </div>
+
+        <div className="admin-bookings-section">
+          <div className="admin-bookings-header">
+            <h2>Event Registrations</h2>
+
+            <span>
+              {event.bookings?.length || 0}
+              {event.capacity
+                ? ` / ${event.capacity} Registered`
+                : " Registered"}
+            </span>
+          </div>
+
+          {event.bookings?.length > 0 ? (
+            <div className="admin-bookings-grid">
+              {event.bookings.map((booking) => (
+                <div key={booking.id} className="admin-booking-card">
+                  <div className="admin-booking-top">
+                    <h3>{booking.name}</h3>
+                    <span>{booking.status}</span>
+                  </div>
+
+                  <p>{booking.email}</p>
+
+                  {booking.company && (
+                    <p className="admin-booking-company">{booking.company}</p>
+                  )}
+
+                  {booking.message && (
+                    <div className="admin-booking-message">
+                      {booking.message}
+                    </div>
+                  )}
+
+                  <div className="admin-booking-date">
+                    {new Date(booking.createdAt).toLocaleString()}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="admin-upload-note">
+              No registrations for this event yet.
+            </p>
           )}
         </div>
 

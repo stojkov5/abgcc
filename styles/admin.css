@@ -629,3 +629,89 @@
   }
 }
 
+.admin-bookings-section {
+  margin-top: 40px;
+  border-top: 1px solid rgba(15, 35, 60, 0.1);
+  padding-top: 40px;
+}
+
+.admin-bookings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.admin-bookings-header h2 {
+  font-size: 28px;
+  font-weight: 900;
+  color: #0f2340;
+}
+
+.admin-bookings-header span {
+  font-size: 14px;
+  font-weight: 800;
+  color: rgba(15, 35, 60, 0.65);
+}
+
+.admin-bookings-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.admin-booking-card {
+  border: 1px solid rgba(15, 35, 60, 0.12);
+  background: rgba(255, 255, 255, 0.78);
+  border-radius: 22px;
+  padding: 22px;
+}
+
+.admin-booking-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.admin-booking-top h3 {
+  font-size: 22px;
+  font-weight: 900;
+  color: #0f2340;
+}
+
+.admin-booking-top span {
+  border-radius: 999px;
+  background: rgba(15, 35, 60, 0.08);
+  padding: 8px 14px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0f2340;
+}
+
+.admin-booking-card p {
+  color: rgba(15, 35, 60, 0.78);
+  margin-bottom: 8px;
+}
+
+.admin-booking-company {
+  font-weight: 700;
+}
+
+.admin-booking-message {
+  margin-top: 14px;
+  border-left: 3px solid #0f2340;
+  padding-left: 14px;
+  font-style: italic;
+  color: rgba(15, 35, 60, 0.7);
+}
+
+.admin-booking-date {
+  margin-top: 18px;
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(15, 35, 60, 0.5);
+}

@@ -77,14 +77,22 @@ model EventImage {
 }
 
 model EventBooking {
-  id          String      @id @default(cuid())
-  createdAt   DateTime    @default(now())
+  id          String   @id @default(cuid())
 
-  userId      String
+  name        String
+  email       String
+  company     String?
+  message     String?
+
+  status      String   @default("CONFIRMED")
+
+  createdAt   DateTime @default(now())
+
   eventId     String
+  event       Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
 
-  user        User        @relation(fields: [userId], references: [id])
-  event       Event       @relation(fields: [eventId], references: [id])
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id])
 }
 
 model ContactMessage {
