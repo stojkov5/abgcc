@@ -6,6 +6,7 @@ import { useState } from "react";
 import { ArrowLeft, Upload } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import "../../../../styles/admin.css";
+import RichTextEditor from "../../../../components/ReactTextEdtior";
 
 const cardReveal = {
   hidden: { opacity: 0, y: 28, scale: 0.97 },
@@ -147,16 +148,21 @@ export default function NewEventPage() {
               className="admin-input"
             />
 
-            <motion.textarea
-              whileFocus={{ scale: 1.01 }}
-              placeholder="Description"
-              value={form.description}
-              onChange={(e) =>
-                setForm({ ...form, description: e.target.value })
-              }
-              rows={6}
-              className="admin-input admin-textarea"
-            />
+            <div className="space-y-3">
+  <p className="text-sm font-semibold uppercase tracking-[0.15em] text-white/50">
+    Event Description
+  </p>
+
+  <RichTextEditor
+    value={form.description}
+    onChange={(value) =>
+      setForm({
+        ...form,
+        description: value,
+      })
+    }
+  />
+</div>
 
             <motion.input
               whileFocus={{ scale: 1.01 }}

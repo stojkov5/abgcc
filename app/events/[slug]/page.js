@@ -64,9 +64,11 @@ export default async function EventDetailsPage({ params }) {
               {event.title}
             </HeroItem>
 
-            <HeroItem as="p" className="event-detail-text">
-              {event.description}
-            </HeroItem>
+            <HeroItem
+  as="div"
+  className="event-detail-text"
+  dangerouslySetInnerHTML={{ __html: event.description }}
+/>
 
             <HeroItem>
               <div className="event-detail-actions">
@@ -85,27 +87,11 @@ export default async function EventDetailsPage({ params }) {
 
       <section className="event-detail-section">
         <div className="event-detail-container event-detail-grid">
-          <Reveal amount={0.35}>
-            <span className="event-detail-label">About The Event</span>
-
-            <h2 className="event-detail-heading">
-              Strategic global dialogue and business networking.
-            </h2>
-          </Reveal>
-
+          
           <Reveal className="event-detail-copy" amount={0.35}>
-            <p>{event.description}</p>
+            <div dangerouslySetInnerHTML={{ __html: event.description }} />
 
-            <p>
-              This event reflects ABGCC’s mission to strengthen economic ties,
-              commercial relationships, and strategic partnerships between the
-              Balkans, the United States, and global stakeholders.
-            </p>
-
-            <p>
-              Participants will have opportunities for networking, dialogue,
-              collaboration, and cross-border business development.
-            </p>
+           
           </Reveal>
         </div>
       </section>

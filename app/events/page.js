@@ -15,6 +15,10 @@ import {
   StaggerItem,
 } from "@/components/MotionReveal";
 
+function stripHtml(html) {
+  return html?.replace(/<[^>]*>/g, "").slice(0, 160) || "";
+}
+
 export default async function EventsPage() {
   const events = await prisma.event.findMany({
     where: {
@@ -118,7 +122,7 @@ export default async function EventsPage() {
 
                     <h3>{event.title}</h3>
 
-                    <p>{event.description}</p>
+                    <p>{stripHtml(event.description)}</p>
 
                     <Link href={`/events/${event.slug}`} className="event-btn">
                       View Event <ArrowRight size={16} />
