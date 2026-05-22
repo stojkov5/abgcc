@@ -59,7 +59,7 @@ export default function ContactMessagesAdmin({ messages }) {
   }
 
   return (
-    <main className="min-h-screen bg-[#f7fbff] px-4 py-28 text-[#10243f]">
+    <main className="admin-page min-h-screen bg-[#f7fbff] px-4 py-28 text-[#10243f]">
       <section className="mx-auto w-full max-w-7xl">
         <div className="mb-10">
           <p className="mb-4 inline-flex rounded-full bg-[#c8a76a] px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-[#10243f]">
