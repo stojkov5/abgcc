@@ -36,7 +36,7 @@ const adminCards = [
     number: "04",
     title: "Users",
     text: "View members, permissions, and account access. Coming soon.",
-    href: null,
+    href: "/admin/users",
   },
 ];
 

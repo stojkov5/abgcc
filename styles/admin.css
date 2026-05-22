@@ -260,8 +260,8 @@
 }
 
 .admin-status.active {
-  background: rgba(52, 199, 89, 0.14);
-  color: #138a36;
+  background: rgba(255, 255, 255, 0.14);
+  color: rgba(16, 36, 63, 0.68);;
 }
 
 .admin-status.inactive {
@@ -794,4 +794,265 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
+}
+.admin-users-grid {
+  display: grid;
+  gap: 18px;
+  margin-top: 34px;
+}
+
+.admin-user-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 20px;
+  align-items: center;
+  padding: 22px;
+  border: 1px solid rgba(15, 35, 60, 0.12);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.78);
+  color: #0f2340;
+  text-decoration: none;
+  transition: 0.25s ease;
+}
+
+.admin-user-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 45px rgba(46, 111, 160, 0.14);
+}
+
+.admin-user-avatar {
+  position: relative;
+  width: 84px;
+  height: 84px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #0f2340, #1f5f93);
+  display: grid;
+  place-items: center;
+  color: white;
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.admin-user-avatar-img {
+  object-fit: cover;
+}
+
+.admin-user-main h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.admin-user-main p {
+  margin: 6px 0 12px;
+  color: rgba(15, 35, 60, 0.68);
+  font-weight: 700;
+}
+
+.admin-user-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: rgba(15, 35, 60, 0.58);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.admin-user-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+@media (max-width: 640px) {
+  .admin-user-card {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-user-bottom {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+.admin-user-profile-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 24px;
+  align-items: center;
+  margin-top: 28px;
+  padding: 28px;
+  border: 1px solid rgba(15, 35, 60, 0.12);
+  border-radius: 32px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 18px 45px rgba(46, 111, 160, 0.14);
+}
+
+.admin-user-profile-avatar {
+  position: relative;
+  width: 118px;
+  height: 118px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #0f2340, #1f5f93);
+  display: grid;
+  place-items: center;
+  color: white;
+  font-size: 42px;
+  font-weight: 900;
+}
+
+.admin-user-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 22px;
+}
+
+.admin-user-detail-card {
+  padding: 24px;
+  border: 1px solid rgba(15, 35, 60, 0.12);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.admin-user-detail-card h2 {
+  margin: 0 0 18px;
+  color: #0f2340;
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.admin-user-detail-list {
+  display: grid;
+  gap: 12px;
+}
+
+.admin-user-detail-list p,
+.admin-user-bio-card p {
+  margin: 0;
+  color: rgba(15, 35, 60, 0.72);
+  line-height: 1.7;
+}
+
+.admin-user-detail-list strong {
+  color: #0f2340;
+}
+
+.admin-user-bio-card {
+  grid-column: 1 / -1;
+}
+
+.admin-user-events-card {
+  margin-top: 18px;
+}
+
+.admin-user-events-list {
+  display: grid;
+  gap: 14px;
+}
+
+.admin-user-event-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  padding: 18px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(15, 35, 60, 0.08);
+}
+
+.admin-user-event-item h3 {
+  margin: 0 0 6px;
+  color: #0f2340;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.admin-user-event-item p {
+  margin: 0;
+  color: rgba(15, 35, 60, 0.62);
+  font-weight: 700;
+}
+
+@media (max-width: 720px) {
+  .admin-user-profile-card,
+  .admin-user-detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-user-event-item {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+.admin-membership-assign-card {
+  margin-top: 18px;
+}
+
+.admin-membership-form {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.admin-membership-form select,
+.admin-membership-form input {
+  width: 100%;
+  min-height: 54px;
+  padding: 0 18px;
+  border: 1px solid rgba(15, 35, 60, 0.12);
+  border-radius: 18px;
+  background: white;
+  color: #0f2340;
+  font-weight: 700;
+  outline: none;
+}
+.admin-user-membership-controls {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.admin-user-membership-controls select,
+.admin-user-membership-controls input {
+  width: 100%;
+  min-height: 46px;
+  padding: 0 14px;
+  border: 1px solid rgba(15, 35, 60, 0.12);
+  border-radius: 14px;
+  background: white;
+  color: #0f2340;
+  font-weight: 700;
+  outline: none;
+}
+
+.admin-user-membership-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.admin-user-membership-actions button {
+  border: none;
+  border-radius: 999px;
+  padding: 10px 15px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.admin-user-membership-actions button:first-child {
+  background: #0f2340;
+  color: white;
+}
+
+.admin-user-membership-actions button:last-child {
+  background: rgba(220, 38, 38, 0.12);
+  color: #dc2626;
 }
