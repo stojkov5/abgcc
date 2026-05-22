@@ -47,9 +47,24 @@
   max-width: 40rem;
   margin-top: 1.5rem;
   color: rgba(16, 36, 63, 0.78);
-  font-size: clamp(1rem, 1.3vw, 1.12rem);
-  font-weight: 750;
-  line-height: 1.75;
+  
+  padding: 0.9rem 1.4rem;
+
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 1.5rem;
+
+  background: rgba(255, 255, 255, 0.6);
+
+  backdrop-filter: blur(14px);
+
+  color: var(--sky-ink);
+
+  font-size: clamp(0.78rem, 1.1vw, 1rem);
+  font-weight: 800;
+  line-height: 1.5;
+  text-align: left;
+
+  box-shadow: 0 1rem 3rem rgba(16, 36, 63, 0.12);
 }
 
 .contact-form-card {
