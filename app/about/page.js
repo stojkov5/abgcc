@@ -92,6 +92,8 @@ export default function AboutPage() {
           alt="About American Balkan Global Chamber of Commerce"
           fill
           priority
+          quality={100}
+          sizes="100vw"
           className="page-hero-img"
         />
 
@@ -109,7 +111,7 @@ export default function AboutPage() {
             </motion.p>
 
             <motion.h1 variants={fadeUp} className="page-hero-title">
-              A strategic bridge between the Balkans and the United States.
+              A strategic bridge between the Balkans and the United States
             </motion.h1>
           </motion.div>
         </div>

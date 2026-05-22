@@ -52,6 +52,8 @@ export default async function MembershipPage() {
           alt="ABGCC Membership"
           fill
           priority
+          quality={100}
+          sizes="100vw"
           className="page-hero-img"
         />
 
@@ -129,7 +131,7 @@ export default async function MembershipPage() {
         <div className="page-container">
           <Reveal className="section-heading" amount={0.35}>
             <span className="section-label">Membership Tiers</span>
-            <h2>Select the level that fits your goals.</h2>
+            <h2>Select the level that fits your goals</h2>
           </Reveal>
 
           <Stagger className="membership-tiers-grid">

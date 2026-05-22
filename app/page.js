@@ -18,6 +18,8 @@ export default function Home() {
           alt="American Balkan Global Chamber of Commerce"
           fill
           priority
+          quality={100}
+          sizes="100vw"
           className="page-hero-img"
         />
 
@@ -32,7 +34,7 @@ export default function Home() {
             <HeroItem as="h1" className="page-hero-title">
               Connecting Balkan and
               <br />
-              American business.
+              American business
             </HeroItem>
 
             <HeroItem>

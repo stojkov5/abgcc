@@ -79,6 +79,8 @@ export default function ContactPage() {
           alt="Contact American Balkan Global Chamber of Commerce"
           fill
           priority
+          quality={100}
+          sizes="100vw"
           className="page-hero-img"
         />
 
@@ -95,7 +97,7 @@ export default function ContactPage() {
               <p className="page-hero-eyebrow">Contact ABGCC</p>
 
               <h1 className="page-hero-title">
-                Let’s start a serious business conversation.
+                Let’s start a serious business conversation
               </h1>
 
               <p className="contact-text">

@@ -38,6 +38,8 @@ export default async function EventsPage() {
           alt="ABGCC Events"
           fill
           priority
+          quality={100}
+          sizes="100vw"
           className="page-hero-img"
         />
 
@@ -50,7 +52,7 @@ export default async function EventsPage() {
             </HeroItem>
 
             <HeroItem as="h1" className="page-hero-title">
-              Strategic global events and networking experiences.
+              Strategic global events and networking experiences
             </HeroItem>
 
             <HeroItem>
