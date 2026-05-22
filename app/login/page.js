@@ -49,10 +49,33 @@ export default function LoginPage() {
       redirect: false,
     });
 
+    if (res?.error) {
+      setLoading(false);
+      setMessage("Invalid email or password.");
+      return;
+    }
+
+    const profileRes = await fetch("/api/portal/me", {
+      method: "GET",
+      cache: "no-store",
+    });
+
+    const profileData = await profileRes.json();
+
     setLoading(false);
 
-    if (res?.error) {
-      setMessage("Invalid email or password.");
+    if (!profileRes.ok) {
+      window.location.href = "/portal";
+      return;
+    }
+
+    if (profileData.user?.role === "SUPER_ADMIN") {
+      window.location.href = "/admin";
+      return;
+    }
+
+    if (!profileData.user?.profileCompleted) {
+      window.location.href = "/portal/profile";
       return;
     }
 

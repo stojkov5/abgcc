@@ -14,9 +14,15 @@ model User {
   password      String?
   role          Role         @default(MEMBER)
   createdAt     DateTime     @default(now())
-
+ organization  String?
+  position      String?
+  phone         String?
+  bio           String?
+  photo         String?
+profileCompleted Boolean @default(false)
   memberships   Membership[]
   eventBookings EventBooking[]
+
 }
 
 model MembershipTier {
