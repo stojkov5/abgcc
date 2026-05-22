@@ -85,7 +85,7 @@ model EventBooking {
   message     String?
 
   status      String   @default("CONFIRMED")
-
+attended Boolean @default(false)
   createdAt   DateTime @default(now())
 
   eventId     String

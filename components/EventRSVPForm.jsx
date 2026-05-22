@@ -2,7 +2,10 @@
 
 import { useState } from "react";
 
-export default function EventRSVPForm({ eventId }) {
+export default function EventRSVPForm({
+  eventId,
+  onSuccess,
+}) {
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -32,14 +35,18 @@ export default function EventRSVPForm({ eventId }) {
     setLoading(false);
     setStatusMessage(data.message);
 
-    if (res.ok) {
-      setForm({
-        name: "",
-        email: "",
-        company: "",
-        message: "",
-      });
-    }
+   if (res.ok) {
+  setForm({
+    name: "",
+    email: "",
+    company: "",
+    message: "",
+  });
+
+  if (onSuccess) {
+    onSuccess();
+  }
+}
   }
 
   return (

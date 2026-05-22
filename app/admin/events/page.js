@@ -15,6 +15,9 @@ import "../../../styles/admin.css";
 
 export default async function AdminEventsPage() {
   const events = await prisma.event.findMany({
+    include: {
+      bookings: true,
+    },
     orderBy: {
       startDate: "desc",
     },
@@ -51,6 +54,7 @@ export default async function AdminEventsPage() {
               <thead>
                 <tr>
                   <th>Title</th>
+                  <th>Registrations</th>
                   <th>Location</th>
                   <th>Date</th>
                   <th>Status</th>
@@ -65,6 +69,13 @@ export default async function AdminEventsPage() {
                       <span className="admin-table-title">
                         {event.title}
                       </span>
+                    </td>
+
+                    <td>
+                      {event.bookings.length}
+                      {event.capacity
+                        ? ` / ${event.capacity}`
+                        : ""}
                     </td>
 
                     <td>{event.location}</td>

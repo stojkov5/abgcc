@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import EventRSVPSection from "@/components/EventRSVPSection";
 import {
   HeroReveal,
   HeroItem,
@@ -13,7 +14,6 @@ import {
   StaggerItem,
 } from "@/components/MotionReveal";
 import "../../../styles/event-details.css";
-import EventRSVPForm from "../../../components/EventRSVPForm";
 
 export default async function EventDetailsPage({ params }) {
   const { slug } = await params;
@@ -29,12 +29,15 @@ export default async function EventDetailsPage({ params }) {
           createdAt: "desc",
         },
       },
+      bookings: true,
     },
   });
 
   if (!event || !event.active) {
     notFound();
   }
+
+  const registeredCount = event.bookings.length;
 
   return (
     <main className="event-detail-page">
@@ -74,7 +77,9 @@ export default async function EventDetailsPage({ params }) {
 
             <HeroItem>
               <div className="event-detail-actions">
-                <button className="event-detail-primary">RSVP Now</button>
+                <Link href="#rsvp" className="event-detail-primary">
+                  RSVP Now
+                </Link>
 
                 <Link href="/events" className="event-detail-secondary">
                   All Events
@@ -127,7 +132,7 @@ export default async function EventDetailsPage({ params }) {
         </section>
       )}
 
-      <section className="event-detail-section">
+      <section className="event-detail-section" id="rsvp">
         <div className="event-detail-container">
           <Reveal className="event-rsvp-card" amount={0.35}>
             <span className="event-detail-label">Join The Experience</span>
@@ -140,9 +145,11 @@ export default async function EventDetailsPage({ params }) {
               opportunity.
             </p>
 
-            <div className="event-detail-actions">
-              <EventRSVPForm eventId={event.id} />
-            </div>
+            <EventRSVPSection
+              eventId={event.id}
+              initialRegisteredCount={registeredCount}
+              capacity={event.capacity}
+            />
           </Reveal>
         </div>
       </section>

@@ -21,10 +21,17 @@ export default function EditEventForm({ event }) {
   });
 
   const [galleryImages, setGalleryImages] = useState(event.images || []);
+  const [manualBooking, setManualBooking] = useState({
+    name: "",
+    email: "",
+    company: "",
+  });
+
   const [message, setMessage] = useState("");
   const [saving, setSaving] = useState(false);
   const [uploadingHero, setUploadingHero] = useState(false);
   const [uploadingGallery, setUploadingGallery] = useState(false);
+  const [downloadingCsv, setDownloadingCsv] = useState(false);
 
   async function safeJson(res) {
     const text = await res.text();
@@ -122,6 +129,69 @@ export default function EditEventForm({ event }) {
     } else {
       setMessage(data.message || "Could not remove gallery image.");
     }
+  }
+
+  async function addManualBooking() {
+    const res = await fetch(`/api/admin/events/${event.id}/bookings`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(manualBooking),
+    });
+
+    const data = await safeJson(res);
+    setMessage(data.message);
+
+    if (res.ok) {
+      window.location.reload();
+    }
+  }
+
+  function downloadCsv() {
+    setDownloadingCsv(true);
+
+    const headers = [
+      "Name",
+      "Email",
+      "Company",
+      "Status",
+      "Attended",
+      "Registered At",
+    ];
+
+    const rows = event.bookings.map((booking) => [
+      booking.name,
+      booking.email,
+      booking.company || "",
+      booking.status,
+      booking.attended ? "Yes" : "No",
+      new Date(booking.createdAt).toLocaleString(),
+    ]);
+
+    const csvContent = [
+      headers.join(","),
+      ...rows.map((row) => row.map((item) => `"${item}"`).join(",")),
+    ].join("\n");
+
+    const blob = new Blob([csvContent], {
+      type: "text/csv;charset=utf-8;",
+    });
+
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.setAttribute(
+      "download",
+      `${event.title.replace(/\s+/g, "-")}-attendees.csv`
+    );
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    setDownloadingCsv(false);
   }
 
   return (
@@ -316,13 +386,74 @@ export default function EditEventForm({ event }) {
             </span>
           </div>
 
+          <div className="admin-manual-booking-box">
+            <h3>Add Attendee Manually</h3>
+
+            <div className="admin-manual-booking-form">
+              <input
+                type="text"
+                placeholder="Full Name"
+                value={manualBooking.name}
+                onChange={(e) =>
+                  setManualBooking({
+                    ...manualBooking,
+                    name: e.target.value,
+                  })
+                }
+              />
+
+              <input
+                type="email"
+                placeholder="Email Address"
+                value={manualBooking.email}
+                onChange={(e) =>
+                  setManualBooking({
+                    ...manualBooking,
+                    email: e.target.value,
+                  })
+                }
+              />
+
+              <input
+                type="text"
+                placeholder="Company"
+                value={manualBooking.company}
+                onChange={(e) =>
+                  setManualBooking({
+                    ...manualBooking,
+                    company: e.target.value,
+                  })
+                }
+              />
+
+              <div className="admin-manual-booking-actions">
+                <button type="button" onClick={addManualBooking}>
+                  Add Attendee
+                </button>
+
+                <button type="button" onClick={downloadCsv}>
+                  {downloadingCsv ? "Preparing..." : "Download CSV"}
+                </button>
+              </div>
+            </div>
+          </div>
+
           {event.bookings?.length > 0 ? (
             <div className="admin-bookings-grid">
               {event.bookings.map((booking) => (
                 <div key={booking.id} className="admin-booking-card">
                   <div className="admin-booking-top">
                     <h3>{booking.name}</h3>
-                    <span>{booking.status}</span>
+
+                    <span
+                      className={
+                        booking.attended
+                          ? "admin-booking-status attended"
+                          : "admin-booking-status"
+                      }
+                    >
+                      {booking.attended ? "Attended" : booking.status}
+                    </span>
                   </div>
 
                   <p>{booking.email}</p>
@@ -339,6 +470,60 @@ export default function EditEventForm({ event }) {
 
                   <div className="admin-booking-date">
                     {new Date(booking.createdAt).toLocaleString()}
+                  </div>
+
+                  <div className="admin-booking-actions">
+                    <button
+                      type="button"
+                      className="admin-booking-attend-btn"
+                      onClick={async () => {
+                        const res = await fetch(
+                          `/api/admin/event-bookings/${booking.id}`,
+                          {
+                            method: "PATCH",
+                            headers: {
+                              "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                              attended: !booking.attended,
+                            }),
+                          }
+                        );
+
+                        if (res.ok) {
+                          window.location.reload();
+                        }
+                      }}
+                    >
+                      {booking.attended
+                        ? "Mark Not Attended"
+                        : "Mark Attended"}
+                    </button>
+
+                    <button
+                      type="button"
+                      className="admin-booking-delete-btn"
+                      onClick={async () => {
+                        const confirmed = window.confirm(
+                          "Delete this registration?"
+                        );
+
+                        if (!confirmed) return;
+
+                        const res = await fetch(
+                          `/api/admin/event-bookings/${booking.id}`,
+                          {
+                            method: "DELETE",
+                          }
+                        );
+
+                        if (res.ok) {
+                          window.location.reload();
+                        }
+                      }}
+                    >
+                      Delete
+                    </button>
                   </div>
                 </div>
               ))}
