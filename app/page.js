@@ -15,21 +15,21 @@ export default function Home() {
   return (
     <main className="home-page">
       <section className="page-hero">
-        <HeroVideo video="/Landing.mp4" poster="/Landing.webp" />
+        <HeroVideo video="/Landing.mp4" poster="/LandingPoster.webp" />
 
         <div className="page-hero-shell">
           <div className="page-hero-content">
             <Reveal delay={0.05}>
               <p className="page-hero-eyebrow">
-                American Balkan Global Chamber of Commerce
+                ABGCC
               </p>
             </Reveal>
 
             <Reveal delay={0.12}>
               <h1 className="page-hero-title">
-                Connecting Balkan and
+                American Balkan
                 <br />
-                American business
+                Global Chamber of Commerce
               </h1>
             </Reveal>
 

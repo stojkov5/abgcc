@@ -42,7 +42,7 @@ export default async function MembershipPage() {
   return (
     <main className="membership-page">
       <section className="page-hero">
-        <HeroVideo video="/Memberships.mp4" poster="/Membership.webp" />
+        <HeroVideo video="/Memberships.mp4" poster="/MembershipsPoster.webp" />
 
         <div className="page-hero-shell">
           <div className="page-hero-content">
@@ -117,7 +117,7 @@ export default async function MembershipPage() {
           <Reveal className="section-heading">
             <span className="section-label">Membership Tiers</span>
 
-            <h2>Select the level that fits your goals</h2>
+      
           </Reveal>
 
           <Stagger className="membership-tiers-grid">
@@ -140,7 +140,7 @@ export default async function MembershipPage() {
                 <p className="membership-description">{tier.description}</p>
 
                 <Link href="/contact" className="membership-tier-btn">
-                  Contact Us
+                  Apply
                 </Link>
               </StaggerItem>
             ))}

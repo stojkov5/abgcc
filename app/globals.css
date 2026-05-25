@@ -182,7 +182,7 @@ img {
   border-radius: 999rem;
   background-color: var(--sky-ink);
   color: var(--gold-main);
-  font-size: clamp(0.64rem, 0.9vw, 0.78rem);
+  font-size: clamp(0.78rem, 0.9vw, 0.98rem);
   font-weight: 800;
   letter-spacing: 0.24em;
   line-height: 1.4;

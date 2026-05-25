@@ -182,6 +182,28 @@
   font-size: 0.96rem;
   line-height: 1.75;
 }
+.team-linkedin {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 1rem;
+
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+
+  color: #f6c76a;
+
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.team-linkedin:hover {
+   color: #c8a76a;
+  transform: translateX(4px);
+}
 
 /* =========================
    PILLARS

@@ -65,7 +65,6 @@ export default function ContactPage() {
       }
     } catch (error) {
       console.error(error);
-
       setLoading(false);
       setResponseMessage("Something went wrong.");
     }
@@ -73,7 +72,7 @@ export default function ContactPage() {
 
   return (
     <main className="contact-page">
-      <section className="contact-hero">
+      <section className="page-hero contact-hero">
         <Image
           src="/Contact.webp"
           alt="Contact American Balkan Global Chamber of Commerce"
@@ -86,99 +85,103 @@ export default function ContactPage() {
 
         <div className="page-hero-overlay" />
 
-        <div className="contact-hero-shell">
+        <div className="page-hero-shell contact-hero-shell">
           <motion.div
-            className="contact-layout"
+            className="page-hero-content contact-hero-content"
             variants={staggerContainer}
             initial="hidden"
             animate="visible"
           >
-            <motion.div className="contact-copy" variants={fadeUp}>
+            <motion.div variants={fadeUp}>
               <p className="page-hero-eyebrow">Contact ABGCC</p>
 
               <h1 className="page-hero-title title-dark">
-                Let’s start a serious business conversation
+                Connect with us
               </h1>
 
-              <p className="contact-text">
-                Reach out to the American Balkan Global Chamber of Commerce for
-                membership, partnerships, events, investment opportunities, or
-                general inquiries.
+              <p className="contact-hero-text">
+                Reach out for membership, partnerships, events, investment
+                opportunities, or general inquiries.
               </p>
             </motion.div>
 
             <motion.div className="contact-form-card" variants={fadeUp}>
               <form className="contact-form" onSubmit={handleSubmit}>
-                <div className="contact-field">
-                  <label htmlFor="name">Name</label>
+                <div className="contact-form-columns">
+                  <div className="contact-form-column">
+                    <div className="contact-field">
+                      <label htmlFor="name">Name</label>
 
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    placeholder="Your name"
-                    value={form.name}
-                    onChange={(e) =>
-                      setForm({
-                        ...form,
-                        name: e.target.value,
-                      })
-                    }
-                  />
-                </div>
+                      <input
+                        id="name"
+                        name="name"
+                        type="text"
+                        placeholder="Your name"
+                        value={form.name}
+                        onChange={(e) =>
+                          setForm({
+                            ...form,
+                            name: e.target.value,
+                          })
+                        }
+                      />
+                    </div>
 
-                <div className="contact-field">
-                  <label htmlFor="email">Email</label>
+                    <div className="contact-field">
+                      <label htmlFor="subject">Title</label>
 
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="your@email.com"
-                    value={form.email}
-                    onChange={(e) =>
-                      setForm({
-                        ...form,
-                        email: e.target.value,
-                      })
-                    }
-                  />
-                </div>
+                      <input
+                        id="subject"
+                        name="subject"
+                        type="text"
+                        placeholder="Message title"
+                        value={form.subject}
+                        onChange={(e) =>
+                          setForm({
+                            ...form,
+                            subject: e.target.value,
+                          })
+                        }
+                      />
+                    </div>
+                  </div>
 
-                <div className="contact-field">
-                  <label htmlFor="subject">Title</label>
+                  <div className="contact-form-column">
+                    <div className="contact-field">
+                      <label htmlFor="email">Email</label>
 
-                  <input
-                    id="subject"
-                    name="subject"
-                    type="text"
-                    placeholder="Message title"
-                    value={form.subject}
-                    onChange={(e) =>
-                      setForm({
-                        ...form,
-                        subject: e.target.value,
-                      })
-                    }
-                  />
-                </div>
+                      <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        placeholder="your@email.com"
+                        value={form.email}
+                        onChange={(e) =>
+                          setForm({
+                            ...form,
+                            email: e.target.value,
+                          })
+                        }
+                      />
+                    </div>
 
-                <div className="contact-field">
-                  <label htmlFor="message">Message</label>
+                    <div className="contact-field contact-message-field">
+                      <label htmlFor="message">Message</label>
 
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={5}
-                    placeholder="Write your message..."
-                    value={form.message}
-                    onChange={(e) =>
-                      setForm({
-                        ...form,
-                        message: e.target.value,
-                      })
-                    }
-                  />
+                      <textarea
+                        id="message"
+                        name="message"
+                        placeholder="Write your message..."
+                        value={form.message}
+                        onChange={(e) =>
+                          setForm({
+                            ...form,
+                            message: e.target.value,
+                          })
+                        }
+                      />
+                    </div>
+                  </div>
                 </div>
 
                 <button
@@ -187,7 +190,6 @@ export default function ContactPage() {
                   disabled={loading}
                 >
                   {loading ? "Sending..." : "Send Message"}
-
                   <Send size={17} />
                 </button>
 

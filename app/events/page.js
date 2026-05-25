@@ -28,7 +28,7 @@ export default async function EventsPage() {
   return (
     <main className="events-page">
       <section className="page-hero">
-        <HeroVideo video="/Events.mp4" poster="/Events.webp" />
+        <HeroVideo video="/Events.mp4" poster="/EventsPoster.webp" />
 
         <div className="page-hero-shell">
           <div className="page-hero-content">

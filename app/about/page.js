@@ -10,18 +10,21 @@ const team = [
     role: "CEO & Co-Founder of Prend Capital",
     image: "/Eliza-Prendzov.webp",
     bio: "A leader in sustainable finance and infrastructure partnership building, with over 20 years of experience across consulting, asset management, finance, sustainability, government, and multilateral relations.",
+    linkedin:"https://www.linkedin.com/in/eliza-prendzov/"
   },
   {
     name: "Lenard Moxley",
     role: "Renewable Energy & Policy",
     image: "/Lenard Moxley.webp",
     bio: "Comes from a renewable energy development and policy background, with experience in wind, solar, and battery storage. He speaks Macedonian fluently and has strong international experience.",
+    linkedin:"https://www.linkedin.com/in/lenardcmoxley/"
   },
   {
     name: "Charles Moxley",
     role: "Finance & Capital Markets",
     image: "/Charles Moxley.webp",
     bio: "A finance professional with experience in asset management, financial analysis, capital markets, electricity, and energy markets.",
+    linkedin:"https://www.linkedin.com/in/charlesdmoxley/"
   },
 ];
 
@@ -59,7 +62,7 @@ export default function AboutPage() {
   return (
     <main className="about-page">
       <section className="page-hero">
-        <HeroVideo video="/About.mp4" poster="/About.webp" />
+        <HeroVideo video="/About.mp4" poster="/AboutPoster.webp" />
 
         <div className="page-hero-overlay" />
 
@@ -143,12 +146,31 @@ export default function AboutPage() {
           </Stagger>
         </div>
       </section>
+      
+       <section className="vision-section">
+        <div className="page-container">
+          <Reveal className="vision-card">
+            <span className="section-label">Our Vision</span>
+
+            <h2>
+              A globally connected network advancing economic development across
+              the Atlantic and beyond.
+            </h2>
+
+            <p>
+              We envision businesses, investors, and institutions working
+              together to strengthen regional cooperation and create sustainable
+              prosperity.
+            </p>
+          </Reveal>
+        </div>
+      </section>
 
       <section className="team-section">
         <div className="page-container">
           <Reveal className="section-heading">
             <span className="section-label">Meet the Team</span>
-            <h2>Leadership with global experience.</h2>
+            
           </Reveal>
 
           <Stagger className="team-grid">
@@ -166,7 +188,14 @@ export default function AboutPage() {
                 <div className="team-info">
                   <h3>{person.name}</h3>
                   <span>{person.role}</span>
-                  <p>{person.bio}</p>
+                  <a
+  href={person.linkedin}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="team-linkedin"
+>
+  LinkedIn Profile
+</a>
                 </div>
               </StaggerItem>
             ))}
@@ -196,24 +225,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="vision-section">
-        <div className="page-container">
-          <Reveal className="vision-card">
-            <span className="section-label">Our Vision</span>
-
-            <h2>
-              A globally connected network advancing economic development across
-              the Atlantic and beyond.
-            </h2>
-
-            <p>
-              We envision businesses, investors, and institutions working
-              together to strengthen regional cooperation and create sustainable
-              prosperity.
-            </p>
-          </Reveal>
-        </div>
-      </section>
+     
     </main>
   );
 }
