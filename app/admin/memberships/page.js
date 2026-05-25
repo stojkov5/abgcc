@@ -10,8 +10,7 @@ import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
 import {
-  HeroReveal,
-  HeroItem,
+  Reveal,
   Stagger,
   StaggerItem,
 } from "@/components/MotionReveal";
@@ -39,28 +38,34 @@ export default async function AdminMembershipsPage() {
     <main className="admin-page">
       <section className="admin-container">
         <div className="admin-topbar">
-          <HeroReveal>
-            <HeroItem as="p" className="admin-eyebrow">
-              Admin
-            </HeroItem>
+          <div>
+            <Reveal>
+              <p className="admin-eyebrow">Admin</p>
+            </Reveal>
 
-            <HeroItem as="h1" className="admin-title">
-              Membership Tiers
-            </HeroItem>
+            <Reveal delay={0.08}>
+              <h1 className="admin-title">
+                Membership Tiers
+              </h1>
+            </Reveal>
 
-            <HeroItem as="p" className="admin-text">
-              Manage membership pricing, visibility, descriptions, and tier
-              structure for the ABGCC platform.
-            </HeroItem>
-          </HeroReveal>
+            <Reveal delay={0.16}>
+              <p className="admin-text">
+                Manage membership pricing, visibility, descriptions, and tier
+                structure for the ABGCC platform.
+              </p>
+            </Reveal>
+          </div>
 
-          <Link
-            href="/admin/memberships/new"
-            className="admin-primary-btn"
-          >
-            <Plus size={17} />
-            Add New Tier
-          </Link>
+          <Reveal delay={0.22}>
+            <Link
+              href="/admin/memberships/new"
+              className="admin-primary-btn"
+            >
+              <Plus size={17} />
+              Add New Tier
+            </Link>
+          </Reveal>
         </div>
 
         <Stagger className="admin-membership-grid">

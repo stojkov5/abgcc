@@ -3,9 +3,12 @@ export const revalidate = 0;
 
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import EditProfileForm from "@/components/EditProfileForm";
+
+import { Reveal } from "@/components/MotionReveal";
 
 import "../../../styles/portal.css";
 
@@ -29,18 +32,26 @@ export default async function EditProfilePage() {
   return (
     <main className="portal-page">
       <div className="portal-container">
-        <p className="portal-eyebrow">Member Portal</p>
+        <Reveal>
+          <p className="portal-eyebrow">Member Portal</p>
+        </Reveal>
 
-        <h1 className="portal-title">
-          Complete your profile.
-        </h1>
+        <Reveal delay={0.08}>
+          <h1 className="portal-title">
+            Complete your profile.
+          </h1>
+        </Reveal>
 
-        <p className="portal-text">
-          Add your organization, professional role, contact details, biography,
-          and profile information.
-        </p>
+        <Reveal delay={0.16}>
+          <p className="portal-text">
+            Add your organization, professional role, contact details,
+            biography, and profile information.
+          </p>
+        </Reveal>
 
-        <EditProfileForm user={user} />
+        <Reveal delay={0.24}>
+          <EditProfileForm user={user} />
+        </Reveal>
       </div>
     </main>
   );

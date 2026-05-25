@@ -96,7 +96,7 @@ export default function ContactPage() {
             <motion.div className="contact-copy" variants={fadeUp}>
               <p className="page-hero-eyebrow">Contact ABGCC</p>
 
-              <h1 className="page-hero-title">
+              <h1 className="page-hero-title title-dark">
                 Let’s start a serious business conversation
               </h1>
 

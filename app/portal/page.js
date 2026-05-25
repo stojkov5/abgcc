@@ -3,13 +3,16 @@ export const revalidate = 0;
 
 import Image from "next/image";
 import Link from "next/link";
+
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+
 import { ArrowRight, Edit3 } from "lucide-react";
+
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
-import { HeroReveal, HeroItem, Reveal } from "@/components/MotionReveal";
+import { Reveal, Stagger, StaggerItem } from "@/components/MotionReveal";
 
 import "../../styles/portal.css";
 
@@ -45,56 +48,62 @@ export default async function PortalPage() {
   return (
     <main className="portal-page">
       <div className="portal-container">
-        <HeroReveal>
-          <HeroItem as="p" className="portal-eyebrow">
-            Member Portal
-          </HeroItem>
+        <Reveal>
+          <p className="portal-eyebrow">Member Portal</p>
+        </Reveal>
 
-          <HeroItem as="h1" className="portal-title">
+        <Reveal delay={0.08}>
+          <h1 className="portal-title">
             Welcome, {user.name || "Member"}
-          </HeroItem>
+          </h1>
+        </Reveal>
 
-          <HeroItem as="p" className="portal-text">
+        <Reveal delay={0.16}>
+          <p className="portal-text">
             Manage your ABGCC profile, membership status, opportunities, events,
             and future renewals from your private member portal.
-          </HeroItem>
-        </HeroReveal>
+          </p>
+        </Reveal>
 
-        <div className="portal-profile-hero">
-          <div className="portal-avatar">
-            {user.photo ? (
-              <Image
-                src={user.photo}
-                alt={user.name || "Member"}
-                fill
-                className="portal-avatar-img"
-              />
-            ) : (
-              <span>{user.name ? user.name.charAt(0).toUpperCase() : "M"}</span>
-            )}
+        <Reveal delay={0.22}>
+          <div className="portal-profile-hero">
+            <div className="portal-avatar">
+              {user.photo ? (
+                <Image
+                  src={user.photo}
+                  alt={user.name || "Member"}
+                  fill
+                  className="portal-avatar-img"
+                />
+              ) : (
+                <span>
+                  {user.name ? user.name.charAt(0).toUpperCase() : "M"}
+                </span>
+              )}
+            </div>
+
+            <div className="portal-profile-main">
+              <span className="portal-card-label">Member Profile</span>
+
+              <h2>{user.name || "ABGCC Member"}</h2>
+
+              <p>
+                {user.position || "Position not added"}
+                {user.organization ? ` · ${user.organization}` : ""}
+              </p>
+
+              {user.bio && <div className="portal-bio">{user.bio}</div>}
+            </div>
+
+            <Link href="/portal/profile" className="portal-edit-btn">
+              <Edit3 size={16} />
+              Edit Profile
+            </Link>
           </div>
+        </Reveal>
 
-          <div className="portal-profile-main">
-            <span className="portal-card-label">Member Profile</span>
-
-            <h2>{user.name || "ABGCC Member"}</h2>
-
-            <p>
-              {user.position || "Position not added"}
-              {user.organization ? ` · ${user.organization}` : ""}
-            </p>
-
-            {user.bio && <div className="portal-bio">{user.bio}</div>}
-          </div>
-
-          <Link href="/portal/profile" className="portal-edit-btn">
-            <Edit3 size={16} />
-            Edit Profile
-          </Link>
-        </div>
-
-        <div className="portal-grid">
-          <Reveal className="portal-card" amount={0.25}>
+        <Stagger className="portal-grid">
+          <StaggerItem className="portal-card">
             <span className="portal-card-label">Member Information</span>
 
             <div className="portal-info">
@@ -129,9 +138,9 @@ export default async function PortalPage() {
                 <span className="portal-info-value">{user.role}</span>
               </div>
             </div>
-          </Reveal>
+          </StaggerItem>
 
-          <Reveal className="portal-card portal-side-card" amount={0.35}>
+          <StaggerItem className="portal-card portal-side-card">
             <div>
               <div className="portal-badge">
                 {currentMembership?.status || "No Active Membership"}
@@ -146,7 +155,10 @@ export default async function PortalPage() {
               {currentMembership ? (
                 <div className="portal-info">
                   <div className="portal-info-item">
-                    <span className="portal-info-title">Membership Level</span>
+                    <span className="portal-info-title">
+                      Membership Level
+                    </span>
+
                     <span className="portal-info-value">
                       {currentMembership.tier.title}
                     </span>
@@ -154,6 +166,7 @@ export default async function PortalPage() {
 
                   <div className="portal-info-item">
                     <span className="portal-info-title">Status</span>
+
                     <span className="portal-info-value">
                       {currentMembership.status}
                     </span>
@@ -161,9 +174,12 @@ export default async function PortalPage() {
 
                   <div className="portal-info-item">
                     <span className="portal-info-title">Renewal Date</span>
+
                     <span className="portal-info-value">
                       {currentMembership.endDate
-                        ? new Date(currentMembership.endDate).toLocaleDateString()
+                        ? new Date(
+                            currentMembership.endDate
+                          ).toLocaleDateString()
                         : "Not set"}
                     </span>
                   </div>
@@ -171,8 +187,8 @@ export default async function PortalPage() {
               ) : (
                 <p>
                   Your ABGCC membership provides access to international
-                  networking opportunities, investment discussions, and exclusive
-                  chamber events.
+                  networking opportunities, investment discussions, and
+                  exclusive chamber events.
                 </p>
               )}
             </div>
@@ -184,9 +200,9 @@ export default async function PortalPage() {
               {currentMembership ? "Explore Events" : "View Memberships"}{" "}
               <ArrowRight size={16} />
             </Link>
-          </Reveal>
+          </StaggerItem>
 
-          <Reveal className="portal-card portal-payment-card" amount={0.35}>
+          <StaggerItem className="portal-card portal-payment-card">
             <span className="portal-card-label">Payment History</span>
 
             <h2>Membership payments</h2>
@@ -195,8 +211,8 @@ export default async function PortalPage() {
               Payment history will appear here after Stripe membership checkout
               is connected.
             </p>
-          </Reveal>
-        </div>
+          </StaggerItem>
+        </Stagger>
       </div>
     </main>
   );

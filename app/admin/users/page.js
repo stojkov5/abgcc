@@ -6,8 +6,15 @@ import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { ArrowRight } from "lucide-react";
+
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+
+import {
+  Reveal,
+  Stagger,
+  StaggerItem,
+} from "@/components/MotionReveal";
 
 import "../../../styles/admin.css";
 
@@ -38,66 +45,81 @@ export default async function AdminUsersPage() {
       <section className="admin-container">
         <div className="admin-topbar">
           <div>
-            <p className="admin-eyebrow">Admin Panel</p>
+            <Reveal>
+              <p className="admin-eyebrow">Admin Panel</p>
+            </Reveal>
 
-            <h1 className="admin-title">Users</h1>
+            <Reveal delay={0.08}>
+              <h1 className="admin-title">Users</h1>
+            </Reveal>
 
-            <p className="admin-text">
-              View registered members, profile information, membership status,
-              and account details.
-            </p>
+            <Reveal delay={0.16}>
+              <p className="admin-text">
+                View registered members, profile information, membership
+                status, and account details.
+              </p>
+            </Reveal>
           </div>
         </div>
 
-        <div className="admin-users-grid">
+        <Stagger className="admin-users-grid">
           {users.map((user) => {
             const currentMembership = user.memberships[0];
 
             return (
-              <Link
-                href={`/admin/users/${user.id}`}
+              <StaggerItem
                 key={user.id}
-                className="admin-user-card"
+                as="article"
               >
-                <div className="admin-user-avatar">
-                  {user.photo ? (
-                    <Image
-                      src={user.photo}
-                      alt={user.name || "User"}
-                      fill
-                      className="admin-user-avatar-img"
-                    />
-                  ) : (
-                    <span>
-                      {user.name ? user.name.charAt(0).toUpperCase() : "U"}
-                    </span>
-                  )}
-                </div>
-
-                <div className="admin-user-main">
-                  <h2>{user.name || "Unnamed User"}</h2>
-
-                  <p>{user.organization || "No organization added"}</p>
-
-                  <div className="admin-user-meta">
-                    <span>{user.email}</span>
-                    <span>{user.phone || "No phone"}</span>
+                <Link
+                  href={`/admin/users/${user.id}`}
+                  className="admin-user-card"
+                >
+                  <div className="admin-user-avatar">
+                    {user.photo ? (
+                      <Image
+                        src={user.photo}
+                        alt={user.name || "User"}
+                        fill
+                        className="admin-user-avatar-img"
+                      />
+                    ) : (
+                      <span>
+                        {user.name
+                          ? user.name.charAt(0).toUpperCase()
+                          : "U"}
+                      </span>
+                    )}
                   </div>
 
-                  <div className="admin-user-bottom">
-                    <span className="admin-status active">
-                      {currentMembership?.status || "No Membership"}
-                    </span>
+                  <div className="admin-user-main">
+                    <h2>{user.name || "Unnamed User"}</h2>
 
-                    <span className="admin-table-link">
-                      View Profile <ArrowRight size={14} />
-                    </span>
+                    <p>
+                      {user.organization || "No organization added"}
+                    </p>
+
+                    <div className="admin-user-meta">
+                      <span>{user.email}</span>
+
+                      <span>{user.phone || "No phone"}</span>
+                    </div>
+
+                    <div className="admin-user-bottom">
+                      <span className="admin-status active">
+                        {currentMembership?.status || "No Membership"}
+                      </span>
+
+                      <span className="admin-table-link">
+                        View Profile <ArrowRight size={14} />
+                      </span>
+                    </div>
                   </div>
-                </div>
-              </Link>
+                </Link>
+              </StaggerItem>
             );
           })}
-        </div>
+        </Stagger>
       </section>
     </main>
   );

@@ -5,14 +5,15 @@ import { prisma } from "@/lib/prisma";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+
 import EventRSVPSection from "@/components/EventRSVPSection";
+
 import {
-  HeroReveal,
-  HeroItem,
   Reveal,
   Stagger,
   StaggerItem,
 } from "@/components/MotionReveal";
+
 import "../../../styles/event-details.css";
 
 export default async function EventDetailsPage({ params }) {
@@ -55,44 +56,45 @@ export default async function EventDetailsPage({ params }) {
         <div className="event-detail-overlay" />
 
         <div className="event-detail-hero-content">
-          <HeroReveal>
-            <HeroItem as="p" className="event-detail-eyebrow">
+          <Reveal delay={0.05}>
+            <p className="event-detail-eyebrow">
               {new Date(event.startDate).toLocaleDateString("en-US", {
                 month: "long",
                 day: "numeric",
                 year: "numeric",
               })}{" "}
               · {event.location}
-            </HeroItem>
+            </p>
+          </Reveal>
 
-            <HeroItem as="h1" className="event-detail-title">
-              {event.title}
-            </HeroItem>
+          <Reveal delay={0.12}>
+            <h1 className="event-detail-title">{event.title}</h1>
+          </Reveal>
 
-            <HeroItem
-              as="div"
+          <Reveal delay={0.18}>
+            <div
               className="event-detail-text event-rich-content"
               dangerouslySetInnerHTML={{ __html: event.description }}
             />
+          </Reveal>
 
-            <HeroItem>
-              <div className="event-detail-actions">
-                <Link href="#rsvp" className="event-detail-primary">
-                  RSVP Now
-                </Link>
+          <Reveal delay={0.24}>
+            <div className="event-detail-actions">
+              <Link href="#rsvp" className="event-detail-primary">
+                RSVP Now
+              </Link>
 
-                <Link href="/events" className="event-detail-secondary">
-                  All Events
-                </Link>
-              </div>
-            </HeroItem>
-          </HeroReveal>
+              <Link href="/events" className="event-detail-secondary">
+                All Events
+              </Link>
+            </div>
+          </Reveal>
         </div>
       </section>
 
       <section className="event-detail-section">
         <div className="event-detail-container event-detail-grid">
-          <Reveal className="event-detail-copy" amount={0.35}>
+          <Reveal className="event-detail-copy">
             <div
               className="event-rich-content"
               dangerouslySetInnerHTML={{ __html: event.description }}
@@ -104,10 +106,12 @@ export default async function EventDetailsPage({ params }) {
       {event.images.length > 0 && (
         <section className="event-detail-section">
           <div className="event-detail-container">
-            <Reveal amount={0.35}>
+            <Reveal>
               <span className="event-detail-label">Event Gallery</span>
 
-              <h2 className="event-detail-heading">Moments from the event.</h2>
+              <h2 className="event-detail-heading">
+                Moments from the event.
+              </h2>
             </Reveal>
 
             <Stagger className="event-gallery-grid">
@@ -134,10 +138,14 @@ export default async function EventDetailsPage({ params }) {
 
       <section className="event-detail-section" id="rsvp">
         <div className="event-detail-container">
-          <Reveal className="event-rsvp-card" amount={0.35}>
-            <span className="event-detail-label">Join The Experience</span>
+          <Reveal className="event-rsvp-card">
+            <span className="event-detail-label">
+              Join The Experience
+            </span>
 
-            <h2 className="event-detail-heading">Reserve your place.</h2>
+            <h2 className="event-detail-heading">
+              Reserve your place.
+            </h2>
 
             <p className="event-detail-text">
               Connect with business leaders, investors, innovators,

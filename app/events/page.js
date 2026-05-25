@@ -6,14 +6,9 @@ import { prisma } from "@/lib/prisma";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, CalendarDays, MapPin } from "lucide-react";
+import HeroVideo from "@/components/HeroVideo";
 
-import {
-  HeroReveal,
-  HeroItem,
-  Reveal,
-  Stagger,
-  StaggerItem,
-} from "@/components/MotionReveal";
+import { Reveal, Stagger, StaggerItem } from "@/components/MotionReveal";
 
 function stripHtml(html) {
   return html?.replace(/<[^>]*>/g, "").slice(0, 160) || "";
@@ -23,7 +18,7 @@ export default async function EventsPage() {
   const events = await prisma.event.findMany({
     where: {
       active: true,
-       archived: false,
+      archived: false,
     },
     orderBy: {
       startDate: "asc",
@@ -33,36 +28,28 @@ export default async function EventsPage() {
   return (
     <main className="events-page">
       <section className="page-hero">
-        <Image
-          src="/Events.webp"
-          alt="ABGCC Events"
-          fill
-          priority
-          quality={100}
-          sizes="100vw"
-          className="page-hero-img"
-        />
-
-        <div className="page-hero-overlay" />
+        <HeroVideo video="/Events.mp4" poster="/Events.webp" />
 
         <div className="page-hero-shell">
-          <HeroReveal className="page-hero-content">
-            <HeroItem as="p" className="page-hero-eyebrow">
-              ABGCC Events
-            </HeroItem>
+          <div className="page-hero-content">
+            <Reveal delay={0.05}>
+              <p className="page-hero-eyebrow">ABGCC Events</p>
+            </Reveal>
 
-            <HeroItem as="h1" className="page-hero-title">
-              Strategic global events and networking experiences
-            </HeroItem>
+            <Reveal delay={0.12}>
+              <h1 className="page-hero-title title-dark">
+                Strategic global events and networking experiences
+              </h1>
+            </Reveal>
 
-            <HeroItem>
+            <Reveal delay={0.2}>
               <div className="mt-8 flex justify-center">
                 <Link href="#events-list" className="primary-hero-btn">
                   View Events <ArrowRight size={17} />
                 </Link>
               </div>
-            </HeroItem>
-          </HeroReveal>
+            </Reveal>
+          </div>
         </div>
 
         <div className="page-hero-bottom-text">
@@ -74,7 +61,7 @@ export default async function EventsPage() {
 
       <section className="events-list-section" id="events-list">
         <div className="page-container">
-          <Reveal className="section-heading" amount={0.35}>
+          <Reveal className="section-heading">
             <span className="section-label">Upcoming Events</span>
 
             <h2>Connect with leaders, investors, and global partners.</h2>
@@ -134,7 +121,7 @@ export default async function EventsPage() {
               ))}
             </Stagger>
           ) : (
-            <Reveal className="events-empty-card" amount={0.35}>
+            <Reveal className="events-empty-card">
               <span className="section-label">No Events</span>
 
               <h2>No upcoming events right now.</h2>

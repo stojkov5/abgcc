@@ -5,11 +5,7 @@ import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { ArrowRight, Plus } from "lucide-react";
 
-import {
-  HeroReveal,
-  HeroItem,
-  Reveal,
-} from "@/components/MotionReveal";
+import { Reveal } from "@/components/MotionReveal";
 
 import "../../../styles/admin.css";
 
@@ -27,28 +23,32 @@ export default async function AdminEventsPage() {
     <main className="admin-page">
       <section className="admin-container">
         <div className="admin-topbar">
-          <HeroReveal>
-            <HeroItem as="p" className="admin-eyebrow">
-              Admin Panel
-            </HeroItem>
+          <div>
+            <Reveal>
+              <p className="admin-eyebrow">Admin Panel</p>
+            </Reveal>
 
-            <HeroItem as="h1" className="admin-title">
-              Events
-            </HeroItem>
+            <Reveal delay={0.08}>
+              <h1 className="admin-title">Events</h1>
+            </Reveal>
 
-            <HeroItem as="p" className="admin-text">
-              Create, edit, publish, and manage ABGCC events from one clear
-              dashboard.
-            </HeroItem>
-          </HeroReveal>
+            <Reveal delay={0.16}>
+              <p className="admin-text">
+                Create, edit, publish, and manage ABGCC events from one clear
+                dashboard.
+              </p>
+            </Reveal>
+          </div>
 
-          <Link href="/admin/events/new" className="admin-primary-btn">
-            <Plus size={17} />
-            Create Event
-          </Link>
+          <Reveal delay={0.2}>
+            <Link href="/admin/events/new" className="admin-primary-btn">
+              <Plus size={17} />
+              Create Event
+            </Link>
+          </Reveal>
         </div>
 
-        <Reveal className="admin-table-card" amount={0.25}>
+        <Reveal className="admin-table-card" delay={0.24}>
           <div className="admin-table-wrap">
             <table className="admin-table">
               <thead>
@@ -73,9 +73,7 @@ export default async function AdminEventsPage() {
 
                     <td>
                       {event.bookings.length}
-                      {event.capacity
-                        ? ` / ${event.capacity}`
-                        : ""}
+                      {event.capacity ? ` / ${event.capacity}` : ""}
                     </td>
 
                     <td>{event.location}</td>

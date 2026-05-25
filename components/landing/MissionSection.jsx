@@ -42,12 +42,12 @@ export default function MissionSection() {
           </p>
         </Reveal>
 
-        <Stagger className="mission-grid">
+        <Stagger className="mission-grid h-full">
           {missionCards.map((card) => (
             <StaggerItem
               as="article"
               key={card.title}
-              className="mission-card"
+              className="mission-card "
             >
               <h3>{card.title}</h3>
               <p>{card.text}</p>

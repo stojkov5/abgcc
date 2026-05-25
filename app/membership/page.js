@@ -2,19 +2,14 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 import "../../styles/membership.css";
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
+import HeroVideo from "@/components/HeroVideo";
 
-import {
-  HeroReveal,
-  HeroItem,
-  Reveal,
-  Stagger,
-  StaggerItem,
-} from "@/components/MotionReveal";
+import { Reveal, Stagger, StaggerItem } from "@/components/MotionReveal";
 
+import AnimatedPrice from "../../components/AnimatedPrice";
 const membershipValues = [
   {
     title: "Stronger network, better opportunities",
@@ -47,36 +42,26 @@ export default async function MembershipPage() {
   return (
     <main className="membership-page">
       <section className="page-hero">
-        <Image
-          src="/Membership.webp"
-          alt="ABGCC Membership"
-          fill
-          priority
-          quality={100}
-          sizes="100vw"
-          className="page-hero-img"
-        />
-
-        <div className="page-hero-overlay" />
+        <HeroVideo video="/Memberships.mp4" poster="/Membership.webp" />
 
         <div className="page-hero-shell">
-          <HeroReveal className="page-hero-content">
-            <HeroItem as="p" className="page-hero-eyebrow">
-              Membership
-            </HeroItem>
+          <div className="page-hero-content">
+            <Reveal delay={0.05}>
+              <p className="page-hero-eyebrow">Membership</p>
+            </Reveal>
 
-            <HeroItem as="h1" className="page-hero-title">
-              Choose your membership.
-            </HeroItem>
+            <Reveal delay={0.12}>
+              <h1 className="page-hero-title">Choose your membership.</h1>
+            </Reveal>
 
-            <HeroItem>
+            <Reveal delay={0.2}>
               <div className="mt-8 flex justify-center">
                 <Link href="#membership-tiers" className="primary-hero-btn">
                   View Tiers <ArrowRight size={17} />
                 </Link>
               </div>
-            </HeroItem>
-          </HeroReveal>
+            </Reveal>
+          </div>
         </div>
 
         <div className="page-hero-bottom-text">
@@ -88,7 +73,7 @@ export default async function MembershipPage() {
 
       <section className="membership-intro-section">
         <div className="page-container">
-          <Reveal className="membership-intro-card" amount={0.35}>
+          <Reveal className="membership-intro-card">
             <span className="section-label">Membership</span>
 
             <h2>A structured membership system built for serious growth.</h2>
@@ -104,7 +89,7 @@ export default async function MembershipPage() {
 
       <section className="membership-value-section">
         <div className="page-container">
-          <Reveal className="section-heading center" amount={0.35}>
+          <Reveal className="section-heading center">
             <span className="section-label">Membership Value</span>
             <h2>Why become a member?</h2>
           </Reveal>
@@ -129,8 +114,9 @@ export default async function MembershipPage() {
 
       <section className="membership-tiers-section" id="membership-tiers">
         <div className="page-container">
-          <Reveal className="section-heading" amount={0.35}>
+          <Reveal className="section-heading">
             <span className="section-label">Membership Tiers</span>
+
             <h2>Select the level that fits your goals</h2>
           </Reveal>
 
@@ -145,7 +131,7 @@ export default async function MembershipPage() {
                   <h3>{tier.title}</h3>
 
                   <p className="membership-price">
-                    ${tier.price.toLocaleString()}
+                  <AnimatedPrice value={tier.price} />
                   </p>
 
                   <p className="membership-period">{tier.period}</p>

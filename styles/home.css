@@ -164,13 +164,7 @@
   color: rgba(16, 36, 63, 0.76);
 }
 
-/* =========================
-   EVENTS PREVIEW
-========================= */
 
-.events-preview {
-  background: transparent;
-}
 
 .landing-outline-btn {
   display: inline-flex;

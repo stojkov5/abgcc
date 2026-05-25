@@ -4,12 +4,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { authOptions } from "@/lib/auth";
 
-import {
-  HeroReveal,
-  HeroItem,
-  Stagger,
-  StaggerItem,
-} from "@/components/MotionReveal";
+import { Reveal, Stagger, StaggerItem } from "@/components/MotionReveal";
 
 import "../../styles/admin.css";
 
@@ -54,20 +49,20 @@ export default async function AdminPage() {
   return (
     <main className="admin-page">
       <section className="admin-container">
-        <HeroReveal>
-          <HeroItem as="p" className="admin-eyebrow">
-            Admin Dashboard
-          </HeroItem>
+        <Reveal>
+          <p className="admin-eyebrow">Admin Dashboard</p>
+        </Reveal>
 
-          <HeroItem as="h1" className="admin-title">
-            Welcome Admin
-          </HeroItem>
+        <Reveal delay={0.08}>
+          <h1 className="admin-title">Welcome Admin</h1>
+        </Reveal>
 
-          <HeroItem as="p" className="admin-text">
+        <Reveal delay={0.16}>
+          <p className="admin-text">
             Manage ABGCC membership tiers, events, users, and operational
             content from one clear dashboard.
-          </HeroItem>
-        </HeroReveal>
+          </p>
+        </Reveal>
 
         <Stagger className="admin-grid">
           {adminCards.map((card) =>

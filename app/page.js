@@ -1,43 +1,39 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+
 import PartnerSection from "../components/landing/PartnerSection";
 import MissionSection from "../components/landing/MissionSection";
 import EventsPreview from "../components/landing/EventsPreview";
 import MembershipCTA from "../components/landing/MembershipCTA";
+import HeroVideo from "../components/HeroVideo";
+
 import "../styles/home.css";
 
-import { HeroReveal, HeroItem } from "@/components/MotionReveal";
+import { Reveal } from "../components/MotionReveal";
 
 export default function Home() {
   return (
     <main className="home-page">
       <section className="page-hero">
-        <Image
-          src="/Landing.webp"
-          alt="American Balkan Global Chamber of Commerce"
-          fill
-          priority
-          quality={100}
-          sizes="100vw"
-          className="page-hero-img"
-        />
-
-        <div className="page-hero-overlay" />
+        <HeroVideo video="/Landing.mp4" poster="/Landing.webp" />
 
         <div className="page-hero-shell">
-          <HeroReveal className="page-hero-content">
-            <HeroItem as="p" className="page-hero-eyebrow">
-              American Balkan Global Chamber of Commerce
-            </HeroItem>
+          <div className="page-hero-content">
+            <Reveal delay={0.05}>
+              <p className="page-hero-eyebrow">
+                American Balkan Global Chamber of Commerce
+              </p>
+            </Reveal>
 
-            <HeroItem as="h1" className="page-hero-title">
-              Connecting Balkan and
-              <br />
-              American business
-            </HeroItem>
+            <Reveal delay={0.12}>
+              <h1 className="page-hero-title">
+                Connecting Balkan and
+                <br />
+                American business
+              </h1>
+            </Reveal>
 
-            <HeroItem>
+            <Reveal delay={0.2}>
               <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <Link href="/membership" className="primary-hero-btn">
                   Become a Member <ArrowRight size={17} />
@@ -47,8 +43,8 @@ export default function Home() {
                   Learn More
                 </Link>
               </div>
-            </HeroItem>
-          </HeroReveal>
+            </Reveal>
+          </div>
         </div>
 
         <div className="page-hero-bottom-text">
@@ -60,8 +56,9 @@ export default function Home() {
 
       <PartnerSection />
       <MissionSection />
-      <EventsPreview />
       <MembershipCTA />
+      <EventsPreview />
+      
     </main>
   );
 }
