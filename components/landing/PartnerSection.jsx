@@ -31,8 +31,8 @@ export default function PartnerSection() {
           <span className="section-label">What We Do</span>
 
           <h2>
-            Your partner in enhancing{" "}
-            <span>American-Balkan</span> global relations.
+            Your partner in growing{" "}
+            <span>US-Balkan</span> global relations.
           </h2>
 
           <p>

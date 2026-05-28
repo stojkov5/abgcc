@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import { prisma } from "@/lib/prisma";
-
+import { sendEmail } from "@/lib/email/sendEmail";
+import { welcomeEmail } from "@/lib/email/templates/welcomeEmail";
 export async function POST(request) {
   try {
     const body = await request.json();
@@ -35,6 +36,16 @@ export async function POST(request) {
         role: "MEMBER",
       },
     });
+
+    sendEmail({
+  to: user.email,
+  subject: "Welcome to ABGCC",
+  html: welcomeEmail({
+    name: user.name,
+  }),
+}).catch((error) => {
+  console.error("WELCOME_EMAIL_ERROR", error);
+});
 
     return Response.json(
       {

@@ -12,16 +12,17 @@ import { ArrowLeft } from "lucide-react";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
+import AdminShell from "@/components/AdminShell";
 import AdminAssignMembershipForm from "@/components/AdminAssignMembershipForm";
 import AdminUserMembershipControls from "@/components/AdminUserMembershipControls";
 
 import {
-  Reveal,
-  Stagger,
-  StaggerItem,
-} from "@/components/MotionReveal";
+  AdminEmptyState,
+  AdminPanel,
+  AdminStatus,
+} from "@/components/admin/AdminUI";
 
-import "../../../../styles/admin.css";
+import "@/styles/admin-users.css";
 
 export default async function AdminUserDetailsPage({ params }) {
   const session = await getServerSession(authOptions);
@@ -35,6 +36,14 @@ export default async function AdminUserDetailsPage({ params }) {
     where: { id },
     include: {
       memberships: {
+        include: {
+          tier: true,
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      },
+      payments: {
         include: {
           tier: true,
         },
@@ -67,66 +76,49 @@ export default async function AdminUserDetailsPage({ params }) {
   const currentMembership = user.memberships[0];
 
   return (
-    <main className="admin-page">
-      <section className="admin-container">
-        <Reveal>
-          <Link href="/admin/users" className="admin-back-link">
-            <ArrowLeft size={16} />
-            Back to Users
-          </Link>
-        </Reveal>
+    <AdminShell>
+      <div className="admin-user-detail-page">
+        <Link href="/admin/users" className="admin-user-back-link">
+          <ArrowLeft size={16} />
+          Back to Users
+        </Link>
 
-        <Reveal delay={0.06}>
-          <div className="admin-user-profile-card">
-            <div className="admin-user-profile-avatar">
-              {user.photo ? (
-                <Image
-                  src={user.photo}
-                  alt={user.name || "User"}
-                  fill
-                  className="admin-user-avatar-img"
-                />
-              ) : (
-                <span>
-                  {user.name
-                    ? user.name.charAt(0).toUpperCase()
-                    : "U"}
-                </span>
-              )}
-            </div>
-
-            <div>
-              <p className="admin-eyebrow">User Profile</p>
-
-              <h1 className="admin-title">
-                {user.name || "Unnamed User"}
-              </h1>
-
-              <p className="admin-text">
-                {user.position || "No position added"}
-                {user.organization
-                  ? ` · ${user.organization}`
-                  : ""}
-              </p>
-            </div>
+        <section className="admin-user-profile-card">
+          <div className="admin-user-profile-avatar">
+            {user.photo ? (
+              <Image
+                src={user.photo}
+                alt={user.name || "User"}
+                fill
+                sizes="118px"
+                className="admin-user-avatar-img"
+              />
+            ) : (
+              <span>{user.name ? user.name.charAt(0).toUpperCase() : "U"}</span>
+            )}
           </div>
-        </Reveal>
 
-        <Stagger className="admin-user-detail-grid">
-          <StaggerItem
-            as="article"
-            className="admin-user-detail-card"
-          >
-            <h2>Profile Information</h2>
+          <div>
+            <p className="admin-user-detail-eyebrow">User Profile</p>
 
+            <h1>{user.name || "Unnamed User"}</h1>
+
+            <p>
+              {user.position || "No position added"}
+              {user.organization ? ` · ${user.organization}` : ""}
+            </p>
+          </div>
+        </section>
+
+        <div className="admin-user-detail-grid">
+          <AdminPanel title="Profile Information">
             <div className="admin-user-detail-list">
               <p>
                 <strong>Email:</strong> {user.email}
               </p>
 
               <p>
-                <strong>Phone:</strong>{" "}
-                {user.phone || "Not added"}
+                <strong>Phone:</strong> {user.phone || "Not added"}
               </p>
 
               <p>
@@ -135,8 +127,7 @@ export default async function AdminUserDetailsPage({ params }) {
               </p>
 
               <p>
-                <strong>Position:</strong>{" "}
-                {user.position || "Not added"}
+                <strong>Position:</strong> {user.position || "Not added"}
               </p>
 
               <p>
@@ -153,163 +144,135 @@ export default async function AdminUserDetailsPage({ params }) {
                 {new Date(user.createdAt).toLocaleDateString()}
               </p>
             </div>
-          </StaggerItem>
+          </AdminPanel>
 
-          <StaggerItem
-            as="article"
-            className="admin-user-detail-card"
-          >
-            <h2>Current Membership</h2>
-
+          <AdminPanel title="Current Membership">
             {currentMembership ? (
               <div className="admin-user-detail-list">
                 <p>
-                  <strong>Tier:</strong>{" "}
-                  {currentMembership.tier.title}
+                  <strong>Tier:</strong> {currentMembership.tier.title}
                 </p>
 
                 <p>
-                  <strong>Status:</strong>{" "}
-                  {currentMembership.status}
+                  <strong>Status:</strong> {currentMembership.status}
                 </p>
 
                 <p>
                   <strong>Start Date:</strong>{" "}
                   {currentMembership.startDate
-                    ? new Date(
-                        currentMembership.startDate
-                      ).toLocaleDateString()
+                    ? new Date(currentMembership.startDate).toLocaleDateString()
                     : "Not set"}
                 </p>
 
                 <p>
                   <strong>Renewal Date:</strong>{" "}
                   {currentMembership.endDate
-                    ? new Date(
-                        currentMembership.endDate
-                      ).toLocaleDateString()
+                    ? new Date(currentMembership.endDate).toLocaleDateString()
                     : "Not set"}
                 </p>
 
-                <AdminUserMembershipControls
-                  membership={currentMembership}
-                />
+                <AdminUserMembershipControls membership={currentMembership} />
               </div>
             ) : (
-              <p className="admin-text">
-                No membership found.
-              </p>
+              <AdminEmptyState text="No membership found." />
             )}
-          </StaggerItem>
+          </AdminPanel>
 
-          <StaggerItem
-            as="article"
-            className="admin-user-detail-card admin-user-bio-card"
-          >
-            <h2>Biography</h2>
+          <AdminPanel title="Biography" className="admin-user-detail-wide">
+            <p className="admin-user-bio-text">
+              {user.bio || "No biography added."}
+            </p>
+          </AdminPanel>
+        </div>
 
-            <p>{user.bio || "No biography added."}</p>
-          </StaggerItem>
-        </Stagger>
+        <AdminPanel title="Assign Membership">
+          <AdminAssignMembershipForm userId={user.id} tiers={tiers} />
+        </AdminPanel>
 
-        <Reveal delay={0.12}>
-          <div className="admin-user-detail-card admin-membership-assign-card">
-            <h2>Assign Membership</h2>
+        <AdminPanel title="Membership History">
+          {user.memberships.length > 0 ? (
+            <div className="admin-user-history-list">
+              {user.memberships.map((membership) => (
+                <div key={membership.id} className="admin-user-history-item">
+                  <div>
+                    <h3>{membership.tier.title}</h3>
 
-            <AdminAssignMembershipForm
-              userId={user.id}
-              tiers={tiers}
-            />
-          </div>
-        </Reveal>
-
-        <Reveal delay={0.16}>
-          <div className="admin-user-detail-card admin-user-events-card">
-            <h2>Membership History</h2>
-
-            {user.memberships.length > 0 ? (
-              <div className="admin-user-events-list">
-                {user.memberships.map((membership) => (
-                  <div
-                    key={membership.id}
-                    className="admin-user-event-item"
-                  >
-                    <div>
-                      <h3>{membership.tier.title}</h3>
-
-                      <p>
-                        {membership.startDate
-                          ? new Date(
-                              membership.startDate
-                            ).toLocaleDateString()
-                          : "No start date"}{" "}
-                        —{" "}
-                        {membership.endDate
-                          ? new Date(
-                              membership.endDate
-                            ).toLocaleDateString()
-                          : "No renewal date"}
-                      </p>
-                    </div>
-
-                    <span className="admin-status active">
-                      {membership.status}
-                    </span>
+                    <p>
+                      {membership.startDate
+                        ? new Date(membership.startDate).toLocaleDateString()
+                        : "No start date"}{" "}
+                      —{" "}
+                      {membership.endDate
+                        ? new Date(membership.endDate).toLocaleDateString()
+                        : "No renewal date"}
+                    </p>
                   </div>
-                ))}
-              </div>
-            ) : (
-              <p className="admin-text">
-                No memberships assigned yet.
-              </p>
-            )}
-          </div>
-        </Reveal>
 
-        <Reveal delay={0.2}>
-          <div className="admin-user-detail-card admin-user-events-card">
-            <h2>Event Registrations</h2>
+                  <AdminStatus variant="active">{membership.status}</AdminStatus>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <AdminEmptyState text="No memberships assigned yet." />
+          )}
+        </AdminPanel>
 
-            {user.eventBookings.length > 0 ? (
-              <div className="admin-user-events-list">
-                {user.eventBookings.map((booking) => (
-                  <div
-                    key={booking.id}
-                    className="admin-user-event-item"
-                  >
-                    <div>
-                      <h3>{booking.event.title}</h3>
+        <AdminPanel title="Payment History">
+          {user.payments.length > 0 ? (
+            <div className="admin-user-history-list">
+              {user.payments.map((payment) => (
+                <div key={payment.id} className="admin-user-history-item">
+                  <div>
+                    <h3>{payment.tier?.title || "Membership Payment"}</h3>
 
-                      <p>
-                        {new Date(
-                          booking.event.startDate
-                        ).toLocaleDateString()}{" "}
-                        · {booking.event.location}
-                      </p>
-                    </div>
+                    <p>
+                      {new Date(payment.createdAt).toLocaleDateString()} ·{" "}
+                      {payment.currency.toUpperCase()}
+                    </p>
+                  </div>
 
-                    <span
-                      className={`admin-status ${
-                        booking.attended
-                          ? "active"
-                          : "inactive"
-                      }`}
+                  <div className="admin-user-payment-meta">
+                    <strong>${payment.amount}</strong>
+
+                    <AdminStatus
+                      variant={payment.status === "paid" ? "active" : "inactive"}
                     >
-                      {booking.attended
-                        ? "Attended"
-                        : "Registered"}
-                    </span>
+                      {payment.status}
+                    </AdminStatus>
                   </div>
-                ))}
-              </div>
-            ) : (
-              <p className="admin-text">
-                No event registrations yet.
-              </p>
-            )}
-          </div>
-        </Reveal>
-      </section>
-    </main>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <AdminEmptyState text="No payments found." />
+          )}
+        </AdminPanel>
+
+        <AdminPanel title="Event Registrations">
+          {user.eventBookings.length > 0 ? (
+            <div className="admin-user-history-list">
+              {user.eventBookings.map((booking) => (
+                <div key={booking.id} className="admin-user-history-item">
+                  <div>
+                    <h3>{booking.event.title}</h3>
+
+                    <p>
+                      {new Date(booking.event.startDate).toLocaleDateString()} ·{" "}
+                      {booking.event.location}
+                    </p>
+                  </div>
+
+                  <AdminStatus variant={booking.attended ? "active" : "warning"}>
+                    {booking.attended ? "Attended" : "Registered"}
+                  </AdminStatus>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <AdminEmptyState text="No event registrations yet." />
+          )}
+        </AdminPanel>
+      </div>
+    </AdminShell>
   );
 }

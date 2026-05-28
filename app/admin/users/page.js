@@ -9,20 +9,24 @@ import { ArrowRight } from "lucide-react";
 
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import AdminShell from "@/components/AdminShell";
 
 import {
-  Reveal,
-  Stagger,
-  StaggerItem,
-} from "@/components/MotionReveal";
+  AdminEmptyState,
+  AdminPageHeader,
+  AdminPanel,
+  AdminStatus,
+} from "@/components/admin/AdminUI";
 
-import "../../../styles/admin.css";
+import "@/styles/admin-users.css";
 
 export default async function AdminUsersPage() {
   const session = await getServerSession(authOptions);
 
   if (!session) redirect("/login");
   if (session.user?.role !== "SUPER_ADMIN") redirect("/");
+
+  const now = new Date();
 
   const users = await prisma.user.findMany({
     include: {
@@ -41,86 +45,86 @@ export default async function AdminUsersPage() {
   });
 
   return (
-    <main className="admin-page">
-      <section className="admin-container">
-        <div className="admin-topbar">
-          <div>
-            <Reveal>
-              <p className="admin-eyebrow">Admin Panel</p>
-            </Reveal>
+    <AdminShell>
+      <div className="admin-users-page">
+        <AdminPageHeader
+          eyebrow="Admin Panel"
+          title="Users"
+          text="View registered members, profile information, membership status, and account details."
+        />
 
-            <Reveal delay={0.08}>
-              <h1 className="admin-title">Users</h1>
-            </Reveal>
+        <AdminPanel title={`All Users (${users.length})`}>
+          {users.length > 0 ? (
+            <div className="admin-users-list">
+              {users.map((user) => {
+                const currentMembership = user.memberships.find(
+                  (membership) =>
+                    membership.endDate && new Date(membership.endDate) > now
+                );
 
-            <Reveal delay={0.16}>
-              <p className="admin-text">
-                View registered members, profile information, membership
-                status, and account details.
-              </p>
-            </Reveal>
-          </div>
-        </div>
+                const displayedStatus = currentMembership
+                  ? currentMembership.status
+                  : "No Membership";
 
-        <Stagger className="admin-users-grid">
-          {users.map((user) => {
-            const currentMembership = user.memberships[0];
-
-            return (
-              <StaggerItem
-                key={user.id}
-                as="article"
-              >
-                <Link
-                  href={`/admin/users/${user.id}`}
-                  className="admin-user-card"
-                >
-                  <div className="admin-user-avatar">
-                    {user.photo ? (
-                      <Image
-                        src={user.photo}
-                        alt={user.name || "User"}
-                        fill
-                        className="admin-user-avatar-img"
-                      />
-                    ) : (
-                      <span>
-                        {user.name
-                          ? user.name.charAt(0).toUpperCase()
-                          : "U"}
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="admin-user-main">
-                    <h2>{user.name || "Unnamed User"}</h2>
-
-                    <p>
-                      {user.organization || "No organization added"}
-                    </p>
-
-                    <div className="admin-user-meta">
-                      <span>{user.email}</span>
-
-                      <span>{user.phone || "No phone"}</span>
+                return (
+                  <Link
+                    key={user.id}
+                    href={`/admin/users/${user.id}`}
+                    className="admin-user-card"
+                  >
+                    <div className="admin-user-avatar">
+                      {user.photo ? (
+                        <Image
+                          src={user.photo}
+                          alt={user.name || "User"}
+                          fill
+                          sizes="84px"
+                          className="admin-user-avatar-img"
+                        />
+                      ) : (
+                        <span>
+                          {user.name ? user.name.charAt(0).toUpperCase() : "U"}
+                        </span>
+                      )}
                     </div>
 
-                    <div className="admin-user-bottom">
-                      <span className="admin-status active">
-                        {currentMembership?.status || "No Membership"}
-                      </span>
+                    <div className="admin-user-main">
+                      <div className="admin-user-top">
+                        <div>
+                          <h2>{user.name || "Unnamed User"}</h2>
+                          <p>{user.organization || "No organization added"}</p>
+                        </div>
 
-                      <span className="admin-table-link">
-                        View Profile <ArrowRight size={14} />
-                      </span>
+                        <AdminStatus
+                          variant={currentMembership ? "active" : "inactive"}
+                        >
+                          {displayedStatus}
+                        </AdminStatus>
+                      </div>
+
+                      <div className="admin-user-meta">
+                        <span>{user.email}</span>
+                        <span>{user.phone || "No phone"}</span>
+                        <span>
+                          {currentMembership?.tier?.title || "No tier"}
+                        </span>
+                      </div>
+
+                      <div className="admin-user-bottom">
+                        <span className="admin-user-link">
+                          View Profile <ArrowRight size={14} />
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              </StaggerItem>
-            );
-          })}
-        </Stagger>
-      </section>
-    </main>
+                  </Link>
+                );
+              })}
+            </div>
+          ) : (
+            <AdminEmptyState text="No users found." />
+          )}
+        </AdminPanel>
+      </div>
+    </AdminShell>
   );
 }

@@ -22,6 +22,7 @@ model User {
 profileCompleted Boolean @default(false)
   memberships   Membership[]
   eventBookings EventBooking[]
+  payments Payment[]
 
 }
 
@@ -35,6 +36,7 @@ model MembershipTier {
   createdAt   DateTime     @default(now())
 
   memberships Membership[]
+  payments Payment[]
 }
 
 model Membership {
@@ -122,4 +124,21 @@ enum MembershipStatus {
   PENDING
   EXPIRED
   CANCELLED
+}
+
+model Payment {
+  id              String   @id @default(cuid())
+
+  stripeSessionId String   @unique
+  amount          Float
+  currency        String   @default("usd")
+  status          String
+
+  createdAt       DateTime @default(now())
+
+  userId          String
+  tierId          String
+
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tier            MembershipTier @relation(fields: [tierId], references: [id])
 }

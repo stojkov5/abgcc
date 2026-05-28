@@ -86,7 +86,12 @@ export default function Navbar() {
             height={60}
             priority
             className="navbar-logo-image"
+            
           />
+          <p className="page-hero-eyebrow navbar-logo-text">
+                ABGCC
+              </p>
+          
         </Link>
 
         <div className="navbar-center">

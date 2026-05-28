@@ -1,109 +1,207 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import { authOptions } from "@/lib/auth";
+import {
+  BadgeDollarSign,
+  CalendarDays,
+  Mail,
+  Users,
+} from "lucide-react";
 
-import { Reveal, Stagger, StaggerItem } from "@/components/MotionReveal";
+import { authOptions } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
+import AdminShell from "@/components/AdminShell";
+import {
+  AdminActionCard,
+  AdminEmptyState,
+  AdminPageHeader,
+  AdminPanel,
+  AdminStatCard,
+} from "@/components/admin/AdminUI";
 
 import "../../styles/admin.css";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 const adminCards = [
   {
-    number: "01",
     title: "Memberships",
-    text: "Manage membership tiers, pricing, descriptions, and active status.",
+    text: "Manage tiers, pricing, descriptions, and active status.",
     href: "/admin/memberships",
+    icon: BadgeDollarSign,
   },
   {
-    number: "02",
     title: "Events",
-    text: "Create, edit, publish, and manage ABGCC business events.",
+    text: "Create, edit, publish, and manage ABGCC events.",
     href: "/admin/events",
+    icon: CalendarDays,
   },
   {
-    number: "03",
     title: "Contact Messages",
-    text: "Review incoming contact requests, inquiries, and partnership messages.",
+    text: "Review incoming contact requests and partnership messages.",
     href: "/admin/contact-messages",
+    icon: Mail,
   },
   {
-    number: "04",
     title: "Users",
-    text: "View members, permissions, and account access. Coming soon.",
+    text: "View members, profiles, payments, and memberships.",
     href: "/admin/users",
+    icon: Users,
   },
 ];
 
 export default async function AdminPage() {
   const session = await getServerSession(authOptions);
 
-  if (!session) {
-    redirect("/login");
-  }
+  if (!session) redirect("/login");
+  if (session.user?.role !== "SUPER_ADMIN") redirect("/");
 
-  if (session.user?.role !== "SUPER_ADMIN") {
-    redirect("/");
-  }
+  const now = new Date();
+
+  const [
+    totalUsers,
+    totalEvents,
+    activeMemberships,
+    revenueResult,
+    recentPayments,
+    recentUsers,
+  ] = await Promise.all([
+    prisma.user.count(),
+    prisma.event.count(),
+    prisma.membership.count({
+      where: {
+        status: "ACTIVE",
+        endDate: {
+          gt: now,
+        },
+      },
+    }),
+    prisma.payment.aggregate({
+      where: {
+        status: "paid",
+      },
+      _sum: {
+        amount: true,
+      },
+    }),
+    prisma.payment.findMany({
+      take: 6,
+      include: {
+        user: true,
+        tier: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    }),
+    prisma.user.findMany({
+      take: 6,
+      orderBy: {
+        createdAt: "desc",
+      },
+    }),
+  ]);
+
+  const totalRevenue = revenueResult._sum.amount || 0;
 
   return (
-    <main className="admin-page">
-      <section className="admin-container">
-        <Reveal>
-          <p className="admin-eyebrow">Admin Dashboard</p>
-        </Reveal>
+    <AdminShell>
+      <div className="admin-dashboard">
+        <AdminPageHeader
+          eyebrow="Admin Dashboard"
+          title="Overview"
+          text="Manage ABGCC members, payments, events, messages, and membership operations from one workspace."
+        />
 
-        <Reveal delay={0.08}>
-          <h1 className="admin-title">Welcome Admin</h1>
-        </Reveal>
+        <div className="admin-stats-grid">
+          <AdminStatCard
+            label="Total Revenue"
+            value={`$${totalRevenue.toLocaleString()}`}
+            text="Successful Stripe payments"
+          />
 
-        <Reveal delay={0.16}>
-          <p className="admin-text">
-            Manage ABGCC membership tiers, events, users, and operational
-            content from one clear dashboard.
-          </p>
-        </Reveal>
+          <AdminStatCard
+            label="Total Users"
+            value={totalUsers}
+            text="Registered accounts"
+          />
 
-        <Stagger className="admin-grid">
-          {adminCards.map((card) =>
-            card.href ? (
-              <StaggerItem
-                as="article"
-                key={card.title}
-                className="admin-card"
-              >
-                <Link href={card.href} className="admin-card-link">
-                  <span className="admin-card-number">{card.number}</span>
+          <AdminStatCard
+            label="Active Members"
+            value={activeMemberships}
+            text="Valid active memberships"
+          />
 
-                  <div>
-                    <h2>{card.title}</h2>
-                    <p>{card.text}</p>
+          <AdminStatCard
+            label="Total Events"
+            value={totalEvents}
+            text="Created ABGCC events"
+          />
+        </div>
+
+        <div className="admin-dashboard-grid">
+          <AdminPanel title="Management" className="admin-dashboard-main-panel">
+            <div className="admin-management-grid">
+              {adminCards.map((card) => (
+                <AdminActionCard
+                  key={card.title}
+                  href={card.href}
+                  icon={card.icon}
+                  title={card.title}
+                  text={card.text}
+                />
+              ))}
+            </div>
+          </AdminPanel>
+
+          <AdminPanel
+            title="Recent Payments"
+            action={<Link href="/admin/payments">View All</Link>}
+          >
+            {recentPayments.length > 0 ? (
+              <div className="admin-mini-list">
+                {recentPayments.map((payment) => (
+                  <div key={payment.id} className="admin-mini-item">
+                    <div>
+                      <strong>{payment.user?.name || payment.user?.email}</strong>
+                      <span>{payment.tier?.title || "Membership"}</span>
+                    </div>
+
+                    <b>${payment.amount}</b>
                   </div>
-
-                  <span className="admin-card-action">
-                    Open <ArrowRight size={15} />
-                  </span>
-                </Link>
-              </StaggerItem>
+                ))}
+              </div>
             ) : (
-              <StaggerItem
-                as="article"
-                key={card.title}
-                className="admin-card disabled"
-              >
-                <span className="admin-card-number">{card.number}</span>
+              <AdminEmptyState text="No payments yet." />
+            )}
+          </AdminPanel>
 
-                <div>
-                  <h2>{card.title}</h2>
-                  <p>{card.text}</p>
-                </div>
-
-                <span className="admin-card-action">Coming Soon</span>
-              </StaggerItem>
-            )
-          )}
-        </Stagger>
-      </section>
-    </main>
+          <AdminPanel
+            title="Recent Users"
+            action={<Link href="/admin/users">View All</Link>}
+          >
+            {recentUsers.length > 0 ? (
+              <div className="admin-mini-list">
+                {recentUsers.map((user) => (
+                  <Link
+                    href={`/admin/users/${user.id}`}
+                    key={user.id}
+                    className="admin-mini-item"
+                  >
+                    <div>
+                      <strong>{user.name || "Unnamed User"}</strong>
+                      <span>{user.email}</span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <AdminEmptyState text="No users yet." />
+            )}
+          </AdminPanel>
+        </div>
+      </div>
+    </AdminShell>
   );
 }

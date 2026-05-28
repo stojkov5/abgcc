@@ -1,15 +1,30 @@
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-import { prisma } from "@/lib/prisma";
 import Link from "next/link";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 import { ArrowRight, Plus } from "lucide-react";
 
-import { Reveal } from "@/components/MotionReveal";
+import { authOptions } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
+import AdminShell from "@/components/AdminShell";
 
-import "../../../styles/admin.css";
+import {
+  AdminEmptyState,
+  AdminPageHeader,
+  AdminPanel,
+  AdminStatus,
+} from "@/components/admin/AdminUI";
+
+import "@/styles/admin-events.css";
 
 export default async function AdminEventsPage() {
+  const session = await getServerSession(authOptions);
+
+  if (!session) redirect("/login");
+  if (session.user?.role !== "SUPER_ADMIN") redirect("/");
+
   const events = await prisma.event.findMany({
     include: {
       bookings: true,
@@ -20,93 +35,85 @@ export default async function AdminEventsPage() {
   });
 
   return (
-    <main className="admin-page">
-      <section className="admin-container">
-        <div className="admin-topbar">
-          <div>
-            <Reveal>
-              <p className="admin-eyebrow">Admin Panel</p>
-            </Reveal>
-
-            <Reveal delay={0.08}>
-              <h1 className="admin-title">Events</h1>
-            </Reveal>
-
-            <Reveal delay={0.16}>
-              <p className="admin-text">
-                Create, edit, publish, and manage ABGCC events from one clear
-                dashboard.
-              </p>
-            </Reveal>
-          </div>
-
-          <Reveal delay={0.2}>
-            <Link href="/admin/events/new" className="admin-primary-btn">
+    <AdminShell>
+      <div className="admin-events-page">
+        <AdminPageHeader
+          eyebrow="Admin Panel"
+          title="Events"
+          text="Create, edit, publish, and manage ABGCC events from one clear dashboard."
+          action={
+            <Link href="/admin/events/new" className="admin-events-create-btn">
               <Plus size={17} />
               Create Event
             </Link>
-          </Reveal>
-        </div>
+          }
+        />
 
-        <Reveal className="admin-table-card" delay={0.24}>
-          <div className="admin-table-wrap">
-            <table className="admin-table">
-              <thead>
-                <tr>
-                  <th>Title</th>
-                  <th>Registrations</th>
-                  <th>Location</th>
-                  <th>Date</th>
-                  <th>Status</th>
-                  <th className="admin-table-actions">Actions</th>
-                </tr>
-              </thead>
+        <AdminPanel title={`All Events (${events.length})`}>
+          {events.length > 0 ? (
+            <div className="admin-events-table-card">
+              <div className="admin-events-table-wrap">
+                <table className="admin-events-table">
+                  <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Registrations</th>
+                      <th>Location</th>
+                      <th>Date</th>
+                      <th>Status</th>
+                      <th className="admin-events-table-actions">Actions</th>
+                    </tr>
+                  </thead>
 
-              <tbody>
-                {events.map((event) => (
-                  <tr key={event.id}>
-                    <td>
-                      <span className="admin-table-title">
-                        {event.title}
-                      </span>
-                    </td>
+                  <tbody>
+                    {events.map((event) => (
+                      <tr key={event.id}>
+                        <td>
+                          <span className="admin-events-title">
+                            {event.title}
+                          </span>
+                        </td>
 
-                    <td>
-                      {event.bookings.length}
-                      {event.capacity ? ` / ${event.capacity}` : ""}
-                    </td>
+                        <td>
+                          {event.bookings.length}
+                          {event.capacity ? ` / ${event.capacity}` : ""}
+                        </td>
 
-                    <td>{event.location}</td>
+                        <td>{event.location || "No location"}</td>
 
-                    <td>
-                      {new Date(event.startDate).toLocaleDateString()}
-                    </td>
+                        <td>
+                          {event.startDate
+                            ? new Date(event.startDate).toLocaleDateString()
+                            : "No date"}
+                        </td>
 
-                    <td>
-                      <span
-                        className={`admin-status ${
-                          event.active ? "active" : "inactive"
-                        }`}
-                      >
-                        {event.active ? "Active" : "Inactive"}
-                      </span>
-                    </td>
+                        <td>
+                          <AdminStatus
+                            variant={event.active ? "active" : "inactive"}
+                          >
+                            {event.active ? "Active" : "Inactive"}
+                          </AdminStatus>
+                        </td>
 
-                    <td className="admin-table-actions">
-                      <Link
-                        href={`/admin/events/${event.id}/edit`}
-                        className="admin-table-link"
-                      >
-                        Edit <ArrowRight size={14} />
-                      </Link>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </Reveal>
-      </section>
-    </main>
+                        <td className="admin-events-table-actions">
+                          <Link
+                            href={`/admin/events/${event.id}/edit`}
+                            className="admin-events-table-link"
+                          >
+                            Edit <ArrowRight size={14} />
+                          </Link>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          ) : (
+            <AdminEmptyState text="No events found." />
+          )}
+        </AdminPanel>
+      </div>
+    </AdminShell>
   );
 }
