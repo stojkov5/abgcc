@@ -1,0 +1,116 @@
+.services-page {
+  min-height: 100vh;
+  background: #07111f;
+  overflow: hidden;
+}
+
+.services-hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 clamp(24px, 5vw, 72px) clamp(80px, 10vh, 120px);
+  overflow: hidden;
+}
+
+.services-hero-img {
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+}
+
+.services-hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(7, 17, 31, 0.15) 0%,
+      rgba(7, 17, 31, 0.45) 45%,
+      rgba(7, 17, 31, 0.92) 100%
+    );
+}
+
+.services-hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.services-eyebrow {
+  margin-bottom: 18px;
+  color: rgba(255, 215, 140, 0.78);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+
+.services-hero h1 {
+  max-width: 700px;
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(3.5rem, 9vw, 7rem);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.06em;
+}
+
+.services-description {
+  max-width: 720px;
+  margin-top: 28px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  line-height: 1.8;
+}
+
+.services-coming-soon {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 42px;
+}
+
+.services-coming-soon span {
+  width: 54px;
+  height: 1px;
+  background: rgba(255, 215, 140, 0.45);
+}
+
+.services-coming-soon p {
+  margin: 0;
+  color: #ffd78c;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .services-hero {
+    align-items: flex-end;
+    padding: 0 22px 72px;
+  }
+
+  .services-description {
+    line-height: 1.7;
+  }
+
+  .services-coming-soon {
+    gap: 12px;
+    margin-top: 32px;
+  }
+
+  .services-coming-soon span {
+    width: 34px;
+  }
+
+  .services-coming-soon p {
+    font-size: 0.76rem;
+    letter-spacing: 0.22em;
+  }
+}
