@@ -177,14 +177,14 @@ img {
 .page-hero-eyebrow,
 .section-label {
   display: inline-block;
-  margin-bottom: 1rem;
-  padding: 0.35rem 1rem;
+  margin-bottom: 1.25rem;
+  padding: 0.6rem 1.4rem;
   border-radius: 999rem;
   background-color: var(--sky-ink);
   color: var(--gold-main);
-  font-size: clamp(0.78rem, 0.9vw, 0.98rem);
+  font-size: clamp(0.95rem, 1.1vw, 1.15rem);
   font-weight: 800;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.28em;
   line-height: 1.4;
   text-transform: uppercase;
 }

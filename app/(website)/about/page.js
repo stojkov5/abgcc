@@ -15,7 +15,7 @@ const team = [
   },
   {
     name: "Lenard Moxley",
-    role: "“Renewable Energy and Infrastructure",
+    role: "Renewable Energy and Infrastructure",
     image: "/Lenard Moxley.webp",
     imageClass:"team-img-lenard",
     bio: "Comes from a renewable energy development and policy background, with experience in wind, solar, and battery storage. He speaks Macedonian fluently and has strong international experience.",
