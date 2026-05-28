@@ -51,7 +51,7 @@ export default async function MembershipPage() {
             </Reveal>
 
             <Reveal delay={0.12}>
-              <h1 className="page-hero-title">Choose your membership.</h1>
+              <h1 className="page-hero-title">Choose your membership</h1>
             </Reveal>
 
             <Reveal delay={0.2}>
@@ -79,9 +79,9 @@ export default async function MembershipPage() {
             <h2>A structured membership system built for serious growth.</h2>
 
             <p>
-              We offer a structured membership system designed for individuals,
-              professionals, businesses, corporations, and executive partners
-              who want priority access to our network, programs, and support.
+            We offer a structured membership system designed for individuals, small 
+businesses, corporations, and patrons to benefit from priority access to our 
+network, programs, and support
             </p>
           </Reveal>
         </div>

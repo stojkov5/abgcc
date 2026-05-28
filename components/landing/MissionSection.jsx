@@ -19,7 +19,7 @@ const missionCards = [
   },
   {
     title: "Promote",
-    text: "Highlight the rich cultural traditions and contemporary creativity of the Balkan countries while strengthening trade, investment, tourism, and people-to-people ties.",
+    text: "Highlight the rich cultural traditions and contemporary creativity of the Balkans while strengthening trade, investment, tourism, and people-to-people ties.",
   },
 ];
 

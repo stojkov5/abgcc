@@ -6,16 +6,18 @@ import { Reveal, Stagger, StaggerItem } from "@/components/MotionReveal";
 
 const team = [
   {
-    name: "Eliza Prendzov",
+    name: "Eliza Prendzov - President",
     role: "CEO & Co-Founder of Prend Capital",
     image: "/Eliza-Prendzov.webp",
+    imageClass:"team-img-eliza",
     bio: "A leader in sustainable finance and infrastructure partnership building, with over 20 years of experience across consulting, asset management, finance, sustainability, government, and multilateral relations.",
     linkedin:"https://www.linkedin.com/in/eliza-prendzov/"
   },
   {
     name: "Lenard Moxley",
-    role: "Renewable Energy & Policy",
+    role: "“Renewable Energy and Infrastructure",
     image: "/Lenard Moxley.webp",
+    imageClass:"team-img-lenard",
     bio: "Comes from a renewable energy development and policy background, with experience in wind, solar, and battery storage. He speaks Macedonian fluently and has strong international experience.",
     linkedin:"https://www.linkedin.com/in/lenardcmoxley/"
   },
@@ -23,6 +25,7 @@ const team = [
     name: "Charles Moxley",
     role: "Finance & Capital Markets",
     image: "/Charles Moxley.webp",
+    imageClass:"team-img-charles",
     bio: "A finance professional with experience in asset management, financial analysis, capital markets, electricity, and energy markets.",
     linkedin:"https://www.linkedin.com/in/charlesdmoxley/"
   },
@@ -98,22 +101,22 @@ export default function AboutPage() {
             <span className="section-label">Who we are</span>
 
             <h2>
-              Connecting business through investment, innovation, and
-              opportunity.
+              A platform for investment, innovation, and opportunity. 
             </h2>
           </Reveal>
 
           <Reveal delay={0.08} className="intro-content">
             <p>
-              ABGCC serves American companies seeking opportunities in Balkan
-              markets, Balkan-based businesses expanding into North America, and
-              Balkan-American entrepreneurs building across both regions.
+             ABGCC serves American companies seeking opportunities in the Balkan markets, 
+Balkan-based businesses expanding into North America, and globally, as well as 
+Balkan-American entrepreneurs building across both regions. 
             </p>
 
             <p>
-              Through curated events, B2B matchmaking, investment forums,
-              conferences, and one-on-one support, ABGCC creates high-value
-              connections for companies, founders, investors, and institutions.
+              Through curated 
+events, B2B matchmaking, investment forums, conferences, and one-on-one 
+support, ABGCC creates high-value connections for companies, founders, investors, 
+and institutions. 
             </p>
           </Reveal>
         </div>
@@ -178,10 +181,12 @@ export default function AboutPage() {
               <StaggerItem className="team-card" key={person.name}>
                 <div className="team-image-wrap">
                   <Image
+                  
                     src={person.image}
                     alt={person.name}
                     fill
-                    className="team-img"
+                    sizes="(max-width: 1024px) 100vw, 33vw"
+                     className={`team-img ${person.imageClass}`}
                   />
                 </div>
 

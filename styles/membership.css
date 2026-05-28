@@ -113,7 +113,7 @@
 
 .membership-tiers-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.15rem;
 }
 
@@ -146,12 +146,67 @@
 
 .membership-price {
   margin: 0;
+
   color: var(--sky-ink);
   font-size: clamp(2rem, 3vw, 2.8rem);
   line-height: 1;
   font-weight: 900;
   letter-spacing: -0.05em;
+
+  opacity: 0;
+  transform: translateY(0.8rem);
+  filter: blur(0.4rem);
+
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease,
+    filter 0.45s ease;
 }
+
+.membership-tier-card {
+  position: relative;
+
+  display: flex;
+  min-height: 25rem;
+  flex-direction: column;
+  padding: clamp(1.35rem, 2vw, 1.75rem);
+
+  border: 0.0625rem solid rgba(100, 181, 246, 0.22);
+  border-radius: 1.5rem;
+
+  background:
+    radial-gradient(circle at top right, rgba(255, 219, 145, 0.2), transparent 40%),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.94),
+      rgba(238, 248, 255, 0.76)
+    );
+
+  box-shadow: 0 1.5rem 4rem rgba(46, 111, 160, 0.14);
+  backdrop-filter: blur(0.8rem);
+
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+}
+
+.membership-tier-card:hover {
+  transform: translateY(-0.35rem);
+
+  border-color: rgba(245, 191, 84, 0.42);
+
+  box-shadow:
+    0 2rem 5rem rgba(46, 111, 160, 0.18),
+    0 0 0 0.0625rem rgba(245, 191, 84, 0.18);
+}
+
+.membership-tier-card:hover .membership-price {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
 
 .membership-period {
   margin: 1rem 0 0;
@@ -160,6 +215,19 @@
   font-weight: 800;
   letter-spacing: 0.2em;
   text-transform: uppercase;
+}
+.membership-period {
+  opacity: 0;
+  transform: translateY(0.4rem);
+
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+}
+
+.membership-tier-card:hover .membership-period {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .membership-description {

@@ -145,14 +145,29 @@
 
 .team-image-wrap {
   position: relative;
-  height: clamp(18rem, 27vw, 22rem);
+  height: clamp(20rem, 28vw, 24rem);
   overflow: hidden;
   background: rgba(223, 242, 255, 0.65);
 }
 
 .team-img {
   object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
+
+.team-img-eliza {
+  object-position: top center;
+}
+
+.team-img-lenard {
+  object-position: center 24%;
+}
+
+.team-img-charles {
+  object-position: center ;
+}
+
 
 .team-info {
   padding: clamp(1.35rem, 2vw, 1.75rem);
@@ -302,7 +317,11 @@
    RESPONSIVE
 ========================= */
 
+
 @media (max-width: 75em) {
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
   .industries-card-grid,
   .pillars-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -311,12 +330,13 @@
   .pillar-card {
     min-height: 18rem;
   }
+  
 }
 
 @media (max-width: 64em) {
   .about-grid,
   .team-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns:1fr;
   }
 }
 

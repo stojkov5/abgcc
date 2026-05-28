@@ -88,42 +88,49 @@ export default function Footer() {
           </div>
 
           <div className="footer-links-grid">
-            <div className="footer-column">
-              <h3>Navigation</h3>
+  <div className="footer-column">
+    <h3>Navigation</h3>
 
-              <Link href="/about">About</Link>
-              <Link href="/membership">Membership</Link>
-              <Link href="/events">Events</Link>
-              <Link href="/contact">Contact</Link>
-            </div>
+    <Link href="/about">About</Link>
+    <Link href="/membership">Membership</Link>
+    <Link href="/events">Events</Link>
+    <Link href="/contact">Contact</Link>
+  </div>
 
-            <div className="footer-column">
-              <h3>Member Access</h3>
+  <div className="footer-column">
+    <h3>Member Access</h3>
 
-              <Link href="/login">Member Login</Link>
-              <Link href="/register">Create Account</Link>
-              <Link href="/portal">Portal</Link>
-            </div>
+    <Link href="/login">Member Login</Link>
+    <Link href="/register">Create Account</Link>
+    <Link href="/portal">Profile</Link>
+  </div>
 
-            <div className="footer-column">
-              <h3>Contact</h3>
+  <div className="footer-column">
+    <h3>Press</h3>
 
-              <span>
-                <Globe2 size={16} />
-                United States · Balkans · Global
-              </span>
+    <Link href="/press-releases">Press Releases</Link>
+    <Link href="/media-features">Media Features</Link>
+  </div>
 
-              <span>
-                <MapPin size={16} />
-                New York / Balkan Markets
-              </span>
+  <div className="footer-column">
+    <h3>Contact</h3>
 
-              <span>
-                <Mail size={16} />
-                info@abgcc.org
-              </span>
-            </div>
-          </div>
+    <span>
+      <Globe2 size={16} />
+      United States · Balkans · Global
+    </span>
+
+    <span>
+      <MapPin size={16} />
+      New York / Balkan Markets
+    </span>
+
+    <span>
+      <Mail size={16} />
+      info@abgcc.org
+    </span>
+  </div>
+</div>
         </motion.div>
 
         

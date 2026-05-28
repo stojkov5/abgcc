@@ -13,7 +13,7 @@ export default function MembershipCTA() {
             <span className="section-label">Membership</span>
 
             <h2>
-              Are you ready to become a part of our membership network?
+              Join our membership network:
             </h2>
           </div>
 
