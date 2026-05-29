@@ -16,6 +16,14 @@ import {
 
 import "@/styles/event-details.css";
 
+function formatEventDate(date) {
+  return new Date(date).toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
 export default async function EventDetailsPage({ params }) {
   const { slug } = await params;
 
@@ -53,48 +61,75 @@ export default async function EventDetailsPage({ params }) {
           className="event-detail-hero-img"
         />
 
-        <div className="event-detail-overlay" />
+        {/* <div className="event-detail-overlay" /> */}
 
         <div className="event-detail-hero-content">
           <Reveal delay={0.05}>
+            <Link href="/events" className="event-detail-back">
+              ← Back to events
+            </Link>
+          </Reveal>
+
+          <Reveal delay={0.1}>
             <p className="event-detail-eyebrow">
-              {new Date(event.startDate).toLocaleDateString("en-US", {
-                month: "long",
-                day: "numeric",
-                year: "numeric",
-              })}{" "}
-              · {event.location}
+              {formatEventDate(event.startDate)} · {event.location}
             </p>
           </Reveal>
 
-          <Reveal delay={0.12}>
+          <Reveal delay={0.16}>
             <h1 className="event-detail-title">{event.title}</h1>
           </Reveal>
 
-          <Reveal delay={0.18}>
-            <div
-              className="event-detail-text event-rich-content"
-              dangerouslySetInnerHTML={{ __html: event.description }}
-            />
-          </Reveal>
-
-          <Reveal delay={0.24}>
+          <Reveal delay={0.22}>
             <div className="event-detail-actions">
               <Link href="#rsvp" className="event-detail-primary">
                 RSVP Now
               </Link>
 
-              <Link href="/events" className="event-detail-secondary">
-                All Events
+              <Link href="#details" className="event-detail-secondary">
+                Event Details
               </Link>
             </div>
           </Reveal>
         </div>
       </section>
 
-      <section className="event-detail-section">
-        <div className="event-detail-container event-detail-grid">
-          <Reveal className="event-detail-copy">
+      <section className="event-detail-section event-detail-main-section" id="details">
+        <div className="event-detail-container event-detail-layout">
+          <aside className="event-detail-info-card">
+            <Reveal>
+              <span className="event-detail-label">Event Info</span>
+
+              <div className="event-info-list">
+                <div>
+                  <strong>Date</strong>
+                  <span>{formatEventDate(event.startDate)}</span>
+                </div>
+
+                <div>
+                  <strong>Location</strong>
+                  <span>{event.location}</span>
+                </div>
+
+                {event.capacity && (
+                  <div>
+                    <strong>Capacity</strong>
+                    <span>
+                      {registeredCount} / {event.capacity} registered
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              <Link href="#rsvp" className="event-info-cta">
+                Reserve your place
+              </Link>
+            </Reveal>
+          </aside>
+
+          <Reveal className="event-detail-article">
+            <span className="event-detail-label">About The Event</span>
+
             <div
               className="event-rich-content"
               dangerouslySetInnerHTML={{ __html: event.description }}
@@ -126,6 +161,7 @@ export default async function EventDetailsPage({ params }) {
                       src={image.url}
                       alt={event.title}
                       fill
+                      sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw"
                       className="event-gallery-img"
                     />
                   </div>
@@ -139,9 +175,7 @@ export default async function EventDetailsPage({ params }) {
       <section className="event-detail-section" id="rsvp">
         <div className="event-detail-container">
           <Reveal className="event-rsvp-card">
-            <span className="event-detail-label">
-              Join The Experience
-            </span>
+            <span className="event-detail-label">Join The Experience</span>
 
             <h2 className="event-detail-heading">
               Reserve your place.

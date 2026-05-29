@@ -1,5 +1,5 @@
 "use client";
-
+import HeroVideo from "@/components/HeroVideo";
 import "@/styles/contact.css";
 import Image from "next/image";
 import { Send } from "lucide-react";
@@ -73,15 +73,7 @@ export default function ContactPage() {
   return (
     <main className="contact-page">
       <section className="page-hero contact-hero">
-        <Image
-          src="/Contact.webp"
-          alt="Contact American Balkan Global Chamber of Commerce"
-          fill
-          priority
-          quality={100}
-          sizes="100vw"
-          className="page-hero-img"
-        />
+       <HeroVideo video="/Contact.mp4" poster="/ContactPoster.webp" />
 
         <div className="page-hero-overlay" />
 

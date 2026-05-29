@@ -14,7 +14,7 @@ const team = [
     linkedin:"https://www.linkedin.com/in/eliza-prendzov/"
   },
   {
-    name: "Lenard Moxley",
+    name: "Lenard Moxley - Managing Director",
     role: "Renewable Energy and Infrastructure",
     image: "/Lenard Moxley.webp",
     imageClass:"team-img-lenard",
@@ -22,7 +22,7 @@ const team = [
     linkedin:"https://www.linkedin.com/in/lenardcmoxley/"
   },
   {
-    name: "Charles Moxley",
+    name: "Charles Moxley - Managing Director",
     role: "Finance & Capital Markets",
     image: "/Charles Moxley.webp",
     imageClass:"team-img-charles",
