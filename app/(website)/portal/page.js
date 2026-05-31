@@ -7,7 +7,7 @@ import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
-import { ArrowRight, Edit3 } from "lucide-react";
+import { ArrowRight, Edit3, ShieldCheck } from "lucide-react";
 
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
@@ -74,6 +74,22 @@ const displayedMembershipStatus = currentMembership
   return (
     <main className="portal-page">
       <div className="portal-container">
+        {!user.emailVerified && (
+          <div style={{
+            background: "#fef3cd",
+            border: "1px solid #f59e0b",
+            borderRadius: 12,
+            padding: "14px 20px",
+            marginBottom: 24,
+            fontSize: 14,
+            color: "#92400e",
+            lineHeight: 1.6,
+          }}>
+            <strong>Verify your email.</strong> Check your inbox for a verification link.
+            Some features (events, membership, contact) require a verified email.
+          </div>
+        )}
+
         <Reveal>
           <p className="portal-eyebrow">Member Portal</p>
         </Reveal>
@@ -121,10 +137,17 @@ const displayedMembershipStatus = currentMembership
               {user.bio && <div className="portal-bio">{user.bio}</div>}
             </div>
 
-            <Link href="/portal/profile" className="portal-edit-btn">
-              <Edit3 size={16} />
-              Edit Profile
-            </Link>
+            <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+              <Link href="/portal/profile" className="portal-edit-btn">
+                <Edit3 size={16} />
+                Edit Profile
+              </Link>
+
+              <Link href="/portal/security" className="portal-edit-btn">
+                <ShieldCheck size={16} />
+                Security
+              </Link>
+            </div>
           </div>
         </Reveal>
 

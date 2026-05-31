@@ -152,6 +152,10 @@ export default function LoginPage() {
         </AnimatePresence>
 
         <motion.p variants={itemReveal} className="auth-switch">
+          <Link href="/forgot-password">Forgot password?</Link>
+        </motion.p>
+
+        <motion.p variants={itemReveal} className="auth-switch">
           Don&apos;t have an account?{" "}
           <Link href="/register">Create account</Link>
         </motion.p>
