@@ -96,6 +96,22 @@ img { max-width: 100%; }
   color: var(--sky-ink);
 }
 
+/* reCAPTCHA badge — smaller, stays visible */
+.grecaptcha-badge {
+  width: 32px !important;
+  height: 60px !important;
+  transform: scale(0.72) !important;
+  transform-origin: bottom right !important;
+  overflow: hidden !important;
+  transition: width 0.3s ease !important;
+  bottom: 0 !important;
+  right: 0 !important;
+}
+
+.grecaptcha-badge:hover {
+  width: 256px !important;
+}
+
 /* =========================
    GOLD SHIMMER — section labels
 ========================= */
@@ -473,4 +489,8 @@ img { max-width: 100%; }
   .primary-page-btn {
     width: 100%;
   }
+}
+.grecaptcha-badge {
+
+
 }
