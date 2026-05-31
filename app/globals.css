@@ -204,13 +204,12 @@ img { max-width: 100%; }
   z-index: 1;
   background:
     linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.16) 100%,
-      rgba(231, 246, 255, 0.42) 100%,
-      rgba(247, 251, 255, 0.96) 100%
+      180deg,
+      rgba(16, 36, 63, 0.28) 0%,
+      rgba(16, 36, 63, 0.12) 50%,
+      rgba(16, 36, 63, 0.32) 100%
     ),
-    radial-gradient(circle at 18% 16%, rgba(255, 219, 145, 0.28), transparent 90%),
-    radial-gradient(circle at 82% 20%, rgba(116, 195, 255, 0.22), transparent 90%);
+    radial-gradient(circle at 50% 40%, rgba(16, 36, 63, 0.08), transparent 70%);
 }
 
 .page-hero-shell {
@@ -257,6 +256,9 @@ img { max-width: 100%; }
   font-weight: 600;
   letter-spacing: 0.01em;
   text-wrap: balance;
+  text-shadow:
+    0 2px 28px rgba(16, 36, 63, 0.5),
+    0 1px 8px rgba(16, 36, 63, 0.3);
 }
 
 .page-hero-bottom-text {
@@ -363,8 +365,12 @@ img { max-width: 100%; }
   background: rgba(255, 255, 255, 0.18);
 }
 
+/* On video heroes, white reads on any background — navy does not */
 .title-dark {
-  color: var(--sky-ink);
+  color: #ffffff;
+  text-shadow:
+    0 2px 24px rgba(16, 36, 63, 0.45),
+    0 1px 6px rgba(16, 36, 63, 0.3);
 }
 
 /* =========================

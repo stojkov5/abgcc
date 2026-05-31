@@ -1,5 +1,18 @@
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+// Membership tiers rarely change — cache for 1 hour
+export const revalidate = 3600;
+
+export const metadata = {
+  title: "Membership",
+  description:
+    "Join ABGCC and access a strategic network of business leaders, investors, institutions, and entrepreneurs across the US, the Balkans, and global markets.",
+  alternates: { canonical: "/membership" },
+  openGraph: {
+    title: "Membership | ABGCC",
+    description:
+      "Choose your ABGCC membership tier and gain priority access to our network, programs, events, and one-on-one support.",
+    url: "/membership",
+  },
+};
 
 import "@/styles/membership.css";
 import Link from "next/link";

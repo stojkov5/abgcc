@@ -1,3 +1,16 @@
+export const metadata = {
+  title: "About Us",
+  description:
+    "Learn about ABGCC — a premier platform dedicated to fostering commercial relationships, strategic partnerships, and economic collaboration between the United States and the Balkans.",
+  alternates: { canonical: "/about" },
+  openGraph: {
+    title: "About ABGCC",
+    description:
+      "A strategic bridge between the Balkans and the United States — learn about our mission, team, and core pillars.",
+    url: "/about",
+  },
+};
+
 import "@/styles/aboutus.css";
 import Image from "next/image";
 import HeroVideo from "@/components/HeroVideo";

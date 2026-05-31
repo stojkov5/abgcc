@@ -1,3 +1,16 @@
+export const metadata = {
+  title: "American Balkan Global Chamber of Commerce",
+  description:
+    "ABGCC strengthens commercial relationships, strategic partnerships, and economic collaboration between the United States, the Balkans, and global markets.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "ABGCC — American Balkan Global Chamber of Commerce",
+    description:
+      "Connecting business leaders, investors, and institutions across the US, the Balkans, and global markets.",
+    url: "/",
+  },
+};
+
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 

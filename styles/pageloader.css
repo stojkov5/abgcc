@@ -1,0 +1,86 @@
+.pageloader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 214, 133, 0.3), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(132, 203, 255, 0.3), transparent 40%),
+    linear-gradient(180deg, #ffffff 0%, #eef8ff 50%, #dff2ff 100%);
+}
+
+/* Gold top progress bar */
+.pageloader-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #d39b2f 30%,
+    #f5bf54 60%,
+    #d39b2f 100%
+  );
+  background-size: 200% 100%;
+  animation: barSweep 1.6s ease-in-out infinite;
+}
+
+@keyframes barSweep {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.pageloader-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+/* Logo pulse */
+.pageloader-logo {
+  animation: logoPulse 2s ease-in-out infinite;
+}
+
+.pageloader-logo-img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 24px rgba(200, 167, 106, 0.28));
+}
+
+@keyframes logoPulse {
+  0%, 100% { opacity: 1;    transform: scale(1); }
+  50%       { opacity: 0.82; transform: scale(0.97); }
+}
+
+/* Three gold dots */
+.pageloader-dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pageloader-dots span {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #d39b2f, #f5bf54);
+  animation: dotBounce 1.2s ease-in-out infinite;
+}
+
+.pageloader-dots span:nth-child(1) { animation-delay: 0s; }
+.pageloader-dots span:nth-child(2) { animation-delay: 0.18s; }
+.pageloader-dots span:nth-child(3) { animation-delay: 0.36s; }
+
+@keyframes dotBounce {
+  0%, 80%, 100% { transform: translateY(0);    opacity: 0.4; }
+  40%           { transform: translateY(-8px); opacity: 1; }
+}

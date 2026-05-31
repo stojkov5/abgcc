@@ -1,5 +1,18 @@
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
+// Events cached for 60 seconds — fresh enough, avoids DB hit on every visit
+export const revalidate = 60;
+
+export const metadata = {
+  title: "Events",
+  description:
+    "Explore ABGCC events — from high-profile receptions during global gatherings to focused industry roundtables connecting business leaders, investors, and innovators.",
+  alternates: { canonical: "/events" },
+  openGraph: {
+    title: "Events | ABGCC",
+    description:
+      "ABGCC events bring together business leaders, policymakers, investors, and innovators across the US and Balkans.",
+    url: "/events",
+  },
+};
 
 import "@/styles/events.css";
 import { prisma } from "@/lib/prisma";

@@ -1,3 +1,16 @@
+export const metadata = {
+  title: "Services",
+  description:
+    "ABGCC offers curated B2B meetings, industry conferences, and cultural events — strategic access, curated connection, and cultural exchange across the US and Balkans.",
+  alternates: { canonical: "/services" },
+  openGraph: {
+    title: "Services | ABGCC",
+    description:
+      "High-value opportunities designed to create meaningful business relationships and long-term growth between the US and the Balkans.",
+    url: "/services",
+  },
+};
+
 import Image from "next/image";
 import "@/styles/services.css";
 import HeroVideo from "@/components/HeroVideo";
