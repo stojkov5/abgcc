@@ -4,6 +4,7 @@ import "@/styles/contact.css";
 import Image from "next/image";
 import { Send } from "lucide-react";
 import { motion } from "framer-motion";
+import { RevealWords } from "@/components/MotionReveal";
 import { useState } from "react";
 
 const fadeUp = {
@@ -88,7 +89,7 @@ export default function ContactPage() {
               <p className="page-hero-eyebrow">Contact ABGCC</p>
 
               <h1 className="page-hero-title title-dark">
-                Connect with us
+                <RevealWords delay={0.12} wordDelay={0.1}>Connect with us</RevealWords>
               </h1>
 
               <p className="contact-hero-text">

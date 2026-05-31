@@ -8,7 +8,7 @@ import { prisma } from "@/lib/prisma";
 import HeroVideo from "@/components/HeroVideo";
 import MembershipCheckoutButton from "../../../components/MembershipCheckoutButton";
 
-import { Reveal, Stagger, StaggerItem } from "@/components/MotionReveal";
+import { Reveal, RevealWords, RevealLine, Stagger, StaggerItem } from "@/components/MotionReveal";
 
 import AnimatedPrice from "../../../components/AnimatedPrice";
 const membershipValues = [
@@ -52,7 +52,11 @@ export default async function MembershipPage() {
             </Reveal>
 
             <Reveal delay={0.12}>
-              <h1 className="page-hero-title">Choose your membership</h1>
+              <h1 className="page-hero-title">
+                <RevealWords delay={0.16} wordDelay={0.08}>
+                  Choose your membership
+                </RevealWords>
+              </h1>
             </Reveal>
 
             <Reveal delay={0.2}>
@@ -78,6 +82,8 @@ export default async function MembershipPage() {
             <span className="section-label">Membership</span>
 
             <h2>A structured membership system built for serious growth.</h2>
+
+            <RevealLine delay={0.2} style={{ margin: "1.5rem 0" }} />
 
             <p>
             We offer a structured membership system designed for individuals, small 

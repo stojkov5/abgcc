@@ -1,5 +1,6 @@
 import {
   Reveal,
+  RevealLine,
   Stagger,
   StaggerItem,
 } from "@/components/MotionReveal";
@@ -11,7 +12,7 @@ const missionCards = [
   },
   {
     title: "Build It",
-    text: "Unlock business opportunities between the Balkans, North America, and global hubs by showcasing the region’s potential, innovation, and strategic location.",
+    text: "Unlock business opportunities between the Balkans, North America, and global hubs by showcasing the region's potential, innovation, and strategic location.",
   },
   {
     title: "Collaborate",
@@ -29,10 +30,12 @@ export default function MissionSection() {
       <div className="mission-overlay" />
 
       <div className="landing-container mission-layout">
-        <Reveal className="mission-main-card" amount={0.35}>
+        <Reveal className="mission-main-card" delay={0.05}>
           <span className="section-label">Our Mission</span>
 
           <h2>Sustainable Economic Growth and Prosperity</h2>
+
+          <RevealLine delay={0.3} style={{ margin: "1.5rem 0" }} />
 
           <p>
             We strive to create a conducive business environment that fosters
@@ -47,7 +50,7 @@ export default function MissionSection() {
             <StaggerItem
               as="article"
               key={card.title}
-              className="mission-card "
+              className="mission-card"
             >
               <h3>{card.title}</h3>
               <p>{card.text}</p>

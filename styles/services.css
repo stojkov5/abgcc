@@ -1,113 +1,86 @@
 .services-page {
   min-height: 100vh;
-  background: var(--cream-bg);
   color: var(--sky-ink);
+  overflow: hidden;
+  padding-top: 0;
 }
 
 .services-section {
-  padding: clamp(80px, 10vw, 140px) clamp(20px, 5vw, 72px);
-  background:
-    radial-gradient(circle at top left, rgba(218, 165, 32, 0.18), transparent 35%),
-    linear-gradient(180deg, #fffaf0 0%, #f5efe3 100%);
+  padding: var(--section-padding) 0;
+  background: transparent;
 }
 
-.services-container {
-  max-width: 1280px;
-  margin: 0 auto;
+/* services uses .page-container from globals, which has padding-inline built in */
+
+.services-heading {
+  margin-bottom: clamp(3rem, 5vw, 4.5rem);
 }
 
-.services-intro {
-  max-width: 780px;
-  margin-bottom: clamp(42px, 6vw, 72px);
-}
-
-.services-intro h2 {
-  margin: 0;
-  font-size: clamp(2.3rem, 5vw, 5rem);
-  line-height: 0.98;
-  letter-spacing: -0.06em;
+.services-heading h2 {
+  margin: 0.75rem 0 0;
   color: var(--sky-ink);
+  font-size: clamp(1.9rem, 3vw, 3rem);
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-wrap: balance;
 }
 
 .services-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
+  gap: 1.25rem;
 }
 
 .service-card {
   position: relative;
-  min-height: 420px;
-  padding: clamp(28px, 3vw, 42px);
-  border: 1px solid rgba(10, 35, 66, 0.12);
-  border-radius: 34px;
-  background: rgba(255, 255, 255, 0.72);
-  box-shadow: 0 24px 70px rgba(10, 35, 66, 0.1);
-  backdrop-filter: blur(18px);
+  padding: clamp(2rem, 3vw, 3rem);
+  border: 1px solid rgba(100, 181, 246, 0.22);
+  border-radius: var(--card-radius);
+  background:
+    radial-gradient(circle at top right, rgba(255, 219, 145, 0.18), transparent 40%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(239, 248, 255, 0.74));
+  box-shadow: 0 1.5rem 4rem rgba(46, 111, 160, 0.12);
+  backdrop-filter: blur(0.7rem);
   overflow: hidden;
 }
 
-.service-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(218, 165, 32, 0.18),
-    transparent 42%
-  );
-  pointer-events: none;
-}
-
 .service-number {
-  position: relative;
-  display: inline-flex;
-  margin-bottom: 34px;
+  display: block;
+  margin-bottom: 1.75rem;
   color: var(--gold-main);
-  font-size: 0.85rem;
-  font-weight: 900;
-  letter-spacing: 0.25em;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
 }
 
 .service-card h3 {
-  position: relative;
-  margin: 0 0 22px;
-  font-size: clamp(1.5rem, 2.1vw, 2.15rem);
-  line-height: 1.05;
-  letter-spacing: -0.04em;
+  margin: 0 0 1.25rem;
   color: var(--sky-ink);
+  font-size: clamp(1.5rem, 2vw, 2.1rem);
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: 0;
 }
 
 .service-card p {
-  position: relative;
   margin: 0;
-  color: rgba(10, 35, 66, 0.76);
-  font-size: 1rem;
+  color: rgba(16, 36, 63, 0.7);
+  font-size: clamp(1.1rem, 1.2vw, 1.2rem);
   line-height: 1.85;
+  font-weight: 400;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 64em) {
   .services-grid {
     grid-template-columns: 1fr;
-  }
-
-  .service-card {
-    min-height: auto;
+    max-width: 48rem;
   }
 }
 
-@media (max-width: 640px) {
-  .services-section {
-    padding: 72px 20px;
-  }
-
+@media (max-width: 43.75em) {
   .service-card {
-    border-radius: 26px;
-    padding: 26px;
-  }
-
-  .service-card p {
-    font-size: 0.95rem;
-    line-height: 1.75;
+    border-radius: 1.25rem;
   }
 }

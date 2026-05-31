@@ -1,7 +1,7 @@
 .site-footer {
   position: relative;
   overflow: hidden;
-  padding: clamp(4rem, 8vw, 7rem) 1.5rem 2rem;
+  padding: var(--section-padding) 1.5rem clamp(2rem, 4vw, 3rem);
   color: #10243f;
 }
 
@@ -17,20 +17,23 @@
 }
 
 .footer-container {
-  width: min(100%, 80rem);
-  margin: 0 auto;
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: clamp(1.5rem, 4vw, 3rem);
+  box-sizing: border-box;
 }
 
 .footer-main {
   display: grid;
-  grid-template-columns: 1fr 1.35fr;
-  gap: clamp(2rem, 5vw, 5rem);
-  padding: clamp(2rem, 4vw, 3rem);
+  grid-template-columns: 1fr 1.4fr;
+  gap: clamp(2.5rem, 5vw, 5rem);
+  padding: clamp(2.5rem, 4vw, 3.5rem);
   border: 1px solid rgba(100, 181, 246, 0.22);
-  border-radius: 2rem;
+  border-radius: var(--card-radius-lg);
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(232, 246, 255, 0.78));
-  box-shadow: 0 1.5rem 4rem rgba(46, 111, 160, 0.14);
+  box-shadow: 0 1.5rem 4rem rgba(46, 111, 160, 0.12);
   backdrop-filter: blur(0.8rem);
 }
 
@@ -38,8 +41,8 @@
   display: inline-flex;
   align-items: center;
   width: fit-content;
-  margin-bottom: 1.4rem;
-  padding: 0.45rem 0.8rem;
+  margin-bottom: 1.5rem;
+  padding: 0.4rem 0.75rem;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.86);
   border: 1px solid rgba(100, 181, 246, 0.18);
@@ -47,21 +50,23 @@
 
 .footer-logo-img {
   width: auto;
-  height: 3.2rem;
+  height: 3rem;
   object-fit: contain;
 }
 
 .footer-brand p {
-  max-width: 27rem;
+  max-width: 28rem;
   margin: 0;
   color: rgba(16, 36, 63, 0.68);
+  font-size: clamp(1rem, 1.1vw, 1.1rem);
   line-height: 1.8;
+  font-weight: 400;
 }
 
 .footer-socials {
   display: flex;
-  gap: 0.7rem;
-  margin-top: 1.6rem;
+  gap: 0.65rem;
+  margin-top: 1.75rem;
 }
 
 .footer-socials a {
@@ -73,11 +78,11 @@
   color: #10243f;
   background: rgba(255, 255, 255, 0.74);
   border: 1px solid rgba(100, 181, 246, 0.2);
-  transition: 0.25s ease;
+  transition: transform 0.3s ease, background 0.3s ease;
 }
 
 .footer-socials a:hover {
-  transform: translateY(-0.15rem);
+  transform: translateY(-2px);
   background: linear-gradient(135deg, #ffd889 0%, #f5bf54 100%);
 }
 
@@ -88,11 +93,11 @@
 }
 
 .footer-column h3 {
-  margin: 0 0 1rem;
+  margin: 0 0 1.1rem;
   color: #10243f;
-  font-size: 0.82rem;
-  font-weight: 900;
-  letter-spacing: 0.16em;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
 }
 
@@ -100,18 +105,19 @@
 .footer-column span {
   display: flex;
   align-items: center;
-  gap: 0.55rem;
-  margin-top: 0.75rem;
-  color: rgba(16, 36, 63, 0.66);
-  font-size: 0.95rem;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+  color: rgba(16, 36, 63, 0.64);
+  font-size: clamp(0.95rem, 1vw, 1.05rem);
+  font-weight: 400;
   line-height: 1.5;
   text-decoration: none;
-  transition: 0.25s ease;
+  transition: color 0.25s ease, transform 0.25s ease;
 }
 
 .footer-column a:hover {
   color: #1f5f93;
-  transform: translateX(0.2rem);
+  transform: translateX(3px);
 }
 
 .footer-cta {
@@ -119,22 +125,23 @@
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
+  flex-wrap: wrap;
   margin-top: 1.25rem;
-  padding: clamp(1.6rem, 3vw, 2.4rem);
+  padding: clamp(2rem, 3.5vw, 3rem);
   border: 1px solid rgba(100, 181, 246, 0.22);
-  border-radius: 2rem;
+  border-radius: var(--card-radius-lg);
   background:
     radial-gradient(circle at top right, rgba(255, 219, 145, 0.24), transparent 38%),
     linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(232, 246, 255, 0.72));
-  box-shadow: 0 1.2rem 3.5rem rgba(46, 111, 160, 0.12);
+  box-shadow: 0 1.2rem 3.5rem rgba(46, 111, 160, 0.11);
 }
 
 .footer-eyebrow {
-  display: inline-block;
-  margin-bottom: 0.8rem;
+  display: block;
+  margin-bottom: 0.85rem;
   color: #d39b2f;
   font-size: 0.72rem;
-  font-weight: 900;
+  font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
 }
@@ -143,71 +150,73 @@
   max-width: 46rem;
   margin: 0;
   color: #10243f;
-  font-size: clamp(1.7rem, 3.4vw, 3.3rem);
-  line-height: 1;
-  font-weight: 900;
-  letter-spacing: -0.055em;
+  font-size: clamp(1.8rem, 3.5vw, 3.4rem);
+  line-height: 1.0;
+  font-weight: 600;
+  letter-spacing: 0.01em;
 }
 
 .footer-cta-btn {
+  flex-shrink: 0;
   display: inline-flex;
-  min-height: 3.2rem;
+  min-height: 3.25rem;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   white-space: nowrap;
   border-radius: 999px;
-  padding: 0.9rem 1.5rem;
+  padding: 0.9rem 1.75rem;
   color: #10243f;
   background: linear-gradient(135deg, #ffd889 0%, #f5bf54 100%);
   text-decoration: none;
-  font-size: 0.86rem;
-  font-weight: 900;
-  letter-spacing: 0.08em;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   box-shadow: 0 1rem 2.5rem rgba(245, 191, 84, 0.26);
-  transition: 0.25s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .footer-cta-btn:hover {
-  transform: translateY(-0.15rem);
+  transform: translateY(-2px);
+  box-shadow: 0 1.4rem 3rem rgba(245, 191, 84, 0.34);
 }
 
 .footer-bottom {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 1rem;
   margin-top: 1.5rem;
-  color: rgba(16, 36, 63, 0.52);
+  color: rgba(16, 36, 63, 0.5);
   font-size: 0.9rem;
+  font-weight: 400;
 }
 
-.footer-bottom p {
-  margin: 0;
-}
+.footer-bottom p { margin: 0; }
 
 .footer-bottom div {
   display: flex;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .footer-bottom a {
   color: inherit;
   text-decoration: none;
+  transition: color 0.25s ease;
 }
 
 .footer-bottom a:hover {
   color: #1f5f93;
 }
 
-@media (max-width: 64em) {
-  .footer-main,
-  .footer-cta {
-    grid-template-columns: 1fr;
-  }
+/* =========================
+   RESPONSIVE
+========================= */
 
+@media (max-width: 64em) {
   .footer-main {
-    display: grid;
+    grid-template-columns: 1fr;
   }
 
   .footer-links-grid {
@@ -215,8 +224,12 @@
   }
 
   .footer-cta {
-    align-items: flex-start;
     flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-cta-btn {
+    align-self: flex-start;
   }
 }
 
@@ -227,15 +240,16 @@
 
   .footer-main,
   .footer-cta {
-    border-radius: 1.35rem;
+    border-radius: 1.25rem;
   }
 
   .footer-links-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
   .footer-cta-btn {
     width: 100%;
+    justify-content: center;
   }
 
   .footer-bottom {

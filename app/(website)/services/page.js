@@ -1,6 +1,8 @@
 import Image from "next/image";
 import "@/styles/services.css";
 import HeroVideo from "@/components/HeroVideo";
+import { Reveal, RevealWords, Stagger, StaggerItem, RevealLine } from "@/components/MotionReveal";
+
 const services = [
   {
     number: "01",
@@ -15,7 +17,7 @@ const services = [
   {
     number: "03",
     title: "Cultural Events",
-    text: "We host cultural events that showcase the rich heritage of the Balkans, including concerts and special programs featuring some of the region's leading artists and musicians.",
+    text: "We host cultural events that showcase the rich heritage of the Balkans, including concerts and special programs featuring some of the region's leading artists and musicians. In April, we hosted world-renowned Macedonian pianist Simon Trpčeski with the Palm Beach Symphony at the Kravis Center for Performing Arts in West Palm Beach, Florida, for a post-concert VIP reception in the Founders Room for our distinguished guests and the symphony's patrons, in partnership with the West Palm Beach Symphony. Simon Trpčeski's performance showcases ABGCC's promotion of the cultural and business ties that unite our regions.",
   },
 ];
 
@@ -23,52 +25,63 @@ export default function ServicesPage() {
   return (
     <main className="services-page">
       <section className="page-hero">
-       <HeroVideo video="/Services.mp4" poster="/ServicesPoster.webp" />
-        
-
-        {/* <div className="page-hero-overlay" /> */}
+        <HeroVideo video="/Services.mp4" poster="/ServicesPoster.webp" />
 
         <div className="page-hero-shell">
           <div className="page-hero-content">
-            <p className="page-hero-eyebrow">Services</p>
+            <Reveal delay={0.05}>
+              <p className="page-hero-eyebrow">Services</p>
+            </Reveal>
 
-            <h1 className="page-hero-title ">
-              Strategic access, curated connection, and cultural exchange.
-            </h1>
+            <Reveal delay={0.14}>
+              <h1 className="page-hero-title">
+                <RevealWords delay={0.18}>
+                  Strategic access, curated connection, and cultural exchange.
+                </RevealWords>
+              </h1>
+            </Reveal>
           </div>
         </div>
 
-        <div className="page-hero-bottom-text">
-          <span>
-            ABGCC creates high-value opportunities for members to connect with
-            business leaders, investors, executives, and cultural voices across
-            the United States, the Balkans, and global markets.
-          </span>
-        </div>
+        <Reveal delay={0.3} y={12}>
+          <div className="page-hero-bottom-text">
+            <span>
+              ABGCC creates high-value opportunities for members to connect with
+              business leaders, investors, executives, and cultural voices across
+              the United States, the Balkans, and global markets.
+            </span>
+          </div>
+        </Reveal>
       </section>
 
       <section className="services-section">
         <div className="page-container">
           <div className="section-heading services-heading">
-            <span className="section-label">What We Offer</span>
+            <Reveal delay={0}>
+              <span className="section-label">What We Offer</span>
+            </Reveal>
 
-            <h2>
-              High-value opportunities designed to create meaningful business
-              relationships and long-term growth.
-            </h2>
+            <Reveal delay={0.1}>
+              <h2>
+                High-value opportunities designed to create meaningful business
+                relationships and long-term growth.
+              </h2>
+            </Reveal>
+
+            <Reveal delay={0.18}>
+              <RevealLine style={{ marginTop: "2rem" }} delay={0.3} />
+            </Reveal>
           </div>
 
-          <div className="services-grid">
+          <Stagger className="services-grid" staggerDelay={0.14}>
             {services.map((service) => (
-              <article className="service-card" key={service.number}>
+              <StaggerItem className="service-card" key={service.number}>
                 <span className="service-number">{service.number}</span>
-
                 <h3>{service.title}</h3>
-
                 <p>{service.text}</p>
-              </article>
+              </StaggerItem>
             ))}
-          </div>
+          </Stagger>
         </div>
       </section>
     </main>

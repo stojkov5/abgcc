@@ -2,7 +2,7 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  min-height: 34rem;
+  min-height: clamp(32rem, 50vw, 46rem);
 
   display: flex;
   align-items: center;

@@ -6,18 +6,18 @@
 }
 
 /* =========================
-   INTRO SECTION
+   INTRO
 ========================= */
 
 .about-intro {
-  padding: clamp(4rem, 7vw, 6.5rem) 0;
+  padding: var(--section-padding) 0;
   background: transparent;
 }
 
 .about-grid {
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
-  gap: clamp(2rem, 5vw, 4rem);
+  grid-template-columns: 1fr 1.1fr;
+  gap: clamp(2.5rem, 5vw, 5rem);
   align-items: start;
 }
 
@@ -25,18 +25,20 @@
 .vision-card h2 {
   margin: 0;
   color: var(--sky-ink);
-  font-size: clamp(2.1rem, 4.7vw, 4.7rem);
-  line-height: 1;
-  letter-spacing: -0.055em;
+  font-size: clamp(2.4rem, 5vw, 4.8rem);
+  line-height: 1.0;
+  font-weight: 600;
+  letter-spacing: 0.01em;
   text-wrap: balance;
 }
 
 .intro-content p,
 .vision-card p {
   margin: 0;
-  color: rgba(16, 36, 63, 0.72);
-  font-size: clamp(0.98rem, 1.25vw, 1.08rem);
+  color: rgba(16, 36, 63, 0.7);
+  font-size: clamp(1.15rem, 1.4vw, 1.3rem);
   line-height: 1.8;
+  font-weight: 400;
 }
 
 .intro-content p + p {
@@ -48,21 +50,21 @@
 ========================= */
 
 .industries-section {
-  padding: clamp(4rem, 7vw, 6.5rem) 0;
+  padding: var(--section-padding) 0;
 }
 
 .industries-card-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: clamp(1rem, 2vw, 1.5rem);
+  gap: clamp(0.9rem, 1.5vw, 1.25rem);
 }
 
 .industry-card {
   position: relative;
-  min-height: clamp(11rem, 17vw, 15rem);
+  aspect-ratio: 3 / 4;
   overflow: hidden;
-  border: 0.0625rem solid rgba(100, 181, 246, 0.24);
-  border-radius: 1.5rem;
+  border: 1px solid rgba(100, 181, 246, 0.24);
+  border-radius: var(--card-radius);
   background: rgba(255, 255, 255, 0.72);
   box-shadow: 0 1.4rem 4rem rgba(46, 111, 160, 0.14);
 }
@@ -74,7 +76,7 @@
 
 .industry-img {
   object-fit: cover;
-  transition: transform 0.45s ease;
+  transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .industry-card::after {
@@ -86,10 +88,9 @@
     linear-gradient(
       180deg,
       rgba(255, 255, 255, 0.02) 0%,
-      rgba(16, 36, 63, 0.12) 45%,
-      rgba(16, 36, 63, 0.62) 100%
-    ),
-    radial-gradient(circle at top, rgba(255, 224, 160, 0.22), transparent 45%);
+      rgba(16, 36, 63, 0.1) 45%,
+      rgba(16, 36, 63, 0.65) 100%
+    );
 }
 
 .industry-content {
@@ -97,55 +98,51 @@
   inset-inline: 0;
   bottom: 0;
   z-index: 2;
-  padding: clamp(1.2rem, 2vw, 1.6rem);
+  padding: clamp(1.1rem, 2vw, 1.5rem);
 }
 
 .industry-content h3 {
   margin: 0;
   color: #ffffff;
-  font-size: clamp(1.15rem, 1.8vw, 1.5rem);
-  line-height: 1.1;
-  font-weight: 800;
-  letter-spacing: -0.035em;
-  text-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.28);
+  font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.32);
 }
 
 .industry-card:hover .industry-img {
-  transform: scale(1.08);
+  transform: scale(1.07);
 }
 
 /* =========================
-   TEAM SECTION
+   TEAM
 ========================= */
 
 .team-section {
-  padding: clamp(4rem, 7vw, 6.5rem) 0;
+  padding: var(--section-padding) 0;
   background: transparent;
 }
 
 .team-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: clamp(1.15rem, 2vw, 1.5rem);
+  gap: clamp(1.1rem, 2vw, 1.5rem);
 }
 
 .team-card {
   overflow: hidden;
-  border: 0.0625rem solid rgba(100, 181, 246, 0.22);
-  border-radius: 1.5rem;
+  border: 1px solid rgba(100, 181, 246, 0.22);
+  border-radius: var(--card-radius);
   background:
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.9),
-      rgba(239, 248, 255, 0.72)
-    );
-  box-shadow: 0 1.4rem 4rem rgba(46, 111, 160, 0.14);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(239, 248, 255, 0.72));
+  box-shadow: 0 1.4rem 4rem rgba(46, 111, 160, 0.12);
   backdrop-filter: blur(0.7rem);
 }
 
 .team-image-wrap {
   position: relative;
-  height: clamp(20rem, 28vw, 24rem);
+  height: clamp(18rem, 26vw, 26rem);
   overflow: hidden;
   background: rgba(223, 242, 255, 0.65);
 }
@@ -156,67 +153,54 @@
   height: 100%;
 }
 
-.team-img-eliza {
-  object-position: top center;
-}
-
-.team-img-lenard {
-  object-position: center 24%;
-}
-
-.team-img-charles {
-  object-position: center ;
-}
-
+.team-img-eliza   { object-position: top center; }
+.team-img-lenard  { object-position: center 24%; }
+.team-img-charles { object-position: center; }
 
 .team-info {
-  padding: clamp(1.35rem, 2vw, 1.75rem);
+  padding: clamp(1.4rem, 2.5vw, 2rem);
 }
 
 .team-info h3 {
-  margin: 0 0 0.55rem;
+  margin: 0 0 0.5rem;
   color: var(--sky-ink);
-  font-size: clamp(1.25rem, 1.8vw, 1.55rem);
+  font-size: clamp(1.3rem, 1.8vw, 1.65rem);
   line-height: 1.1;
-  font-weight: 800;
-  letter-spacing: -0.035em;
+  font-weight: 600;
+  letter-spacing: 0;
 }
 
 .team-info span {
   display: block;
   margin-bottom: 1rem;
   color: #d39b2f;
-  font-size: 0.9rem;
-  font-weight: 800;
+  font-size: clamp(0.9rem, 1vw, 1rem);
+  font-weight: 500;
   line-height: 1.4;
 }
 
 .team-info p {
   margin: 0;
   color: rgba(16, 36, 63, 0.68);
-  font-size: 0.96rem;
-  line-height: 1.75;
+  font-size: clamp(1.1rem, 1.2vw, 1.2rem);
+  line-height: 1.8;
+  font-weight: 400;
 }
+
 .team-linkedin {
   display: inline-flex;
   align-items: center;
-  margin-top: 1rem;
-
+  margin-top: 1.1rem;
   font-size: 0.95rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  font-weight: 500;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-
   color: #f6c76a;
-
-  transition:
-    color 0.3s ease,
-    transform 0.3s ease,
-    opacity 0.3s ease;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .team-linkedin:hover {
-   color: #c8a76a;
+  color: #c8a76a;
   transform: translateX(4px);
 }
 
@@ -225,52 +209,50 @@
 ========================= */
 
 .pillars-section {
-  padding: clamp(4rem, 7vw, 6.5rem) 0;
+  padding: var(--section-padding) 0;
 }
 
 .pillars-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1.15rem;
+  gap: 1.1rem;
 }
 
 .pillar-card {
-  min-height: 22rem;
-  padding: clamp(1.35rem, 2vw, 1.75rem);
-  border: 0.0625rem solid rgba(100, 181, 246, 0.22);
-  border-radius: 1.5rem;
+  padding: clamp(1.75rem, 2.5vw, 2.25rem);
+  border: 1px solid rgba(100, 181, 246, 0.22);
+  border-radius: var(--card-radius);
   background:
     radial-gradient(circle at top right, rgba(255, 219, 145, 0.22), transparent 38%),
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.92),
-      rgba(239, 248, 255, 0.72)
-    );
-  box-shadow: 0 1.4rem 4rem rgba(46, 111, 160, 0.13);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(239, 248, 255, 0.72));
+  box-shadow: 0 1.4rem 4rem rgba(46, 111, 160, 0.12);
 }
 
 .pillar-card span {
   display: block;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.75rem;
   color: #d39b2f;
-  font-size: 0.85rem;
-  font-weight: 900;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
 }
 
 .pillar-card h3 {
   margin: 0 0 1rem;
   color: var(--sky-ink);
-  font-size: clamp(1.25rem, 1.8vw, 1.55rem);
+  font-size: clamp(1.3rem, 1.7vw, 1.6rem);
   line-height: 1.1;
-  font-weight: 800;
-  letter-spacing: -0.035em;
+  font-weight: 600;
+  letter-spacing: 0;
 }
 
 .pillar-card p {
   margin: 0;
   color: rgba(16, 36, 63, 0.68);
-  font-size: 0.96rem;
-  line-height: 1.75;
+  font-size: clamp(1.1rem, 1.2vw, 1.2rem);
+  line-height: 1.8;
+  font-weight: 400;
 }
 
 /* =========================
@@ -279,7 +261,7 @@
 
 .vision-section {
   position: relative;
-  padding: clamp(4rem, 8vw, 7rem) 0;
+  padding: var(--section-padding) 0;
 }
 
 .vision-section::before {
@@ -294,74 +276,71 @@
 .vision-card {
   position: relative;
   z-index: 1;
-  padding: clamp(2rem, 5vw, 4rem);
-  border: 0.0625rem solid rgba(100, 181, 246, 0.26);
-  border-radius: 2rem;
+  padding: clamp(2.5rem, 5vw, 4.5rem);
+  border: 1px solid rgba(100, 181, 246, 0.26);
+  border-radius: var(--card-radius-lg);
   background:
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.94),
-      rgba(232, 246, 255, 0.78)
-    ),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(232, 246, 255, 0.78)),
     radial-gradient(circle at top right, rgba(255, 219, 145, 0.22), transparent 42%);
-  box-shadow: 0 1.8rem 5rem rgba(46, 111, 160, 0.16);
+  box-shadow: 0 1.8rem 5rem rgba(46, 111, 160, 0.14);
   backdrop-filter: blur(0.8rem);
 }
 
 .vision-card p {
-  max-width: 48rem;
-  margin-top: 1.4rem;
+  max-width: 52rem;
+  margin-top: 1.5rem;
 }
 
 /* =========================
    RESPONSIVE
 ========================= */
 
-
 @media (max-width: 75em) {
-  .team-grid {
+  .industries-card-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  .industries-card-grid,
+
   .pillars-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .pillar-card {
-    min-height: 18rem;
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
-  
 }
 
 @media (max-width: 64em) {
-  .about-grid,
-  .team-grid {
-    grid-template-columns:1fr;
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
 }
 
 @media (max-width: 43.75em) {
-  .industries-card-grid,
-  .pillars-grid {
+  .industries-card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pillars-grid,
+  .team-grid {
     grid-template-columns: 1fr;
   }
 
   .industry-card {
-    min-height: 13rem;
-    border-radius: 1.35rem;
+    aspect-ratio: 4 / 3;
+    border-radius: 1.25rem;
   }
 
-  .team-card,
-  .pillar-card,
-  .vision-card {
-    border-radius: 1.35rem;
+  .team-card {
+    border-radius: 1.25rem;
   }
 
   .team-image-wrap {
     height: 20rem;
   }
 
+  .vision-card,
   .pillar-card {
-    min-height: auto;
+    border-radius: 1.25rem;
   }
 }

@@ -2,7 +2,7 @@ import "@/styles/aboutus.css";
 import Image from "next/image";
 import HeroVideo from "@/components/HeroVideo";
 
-import { Reveal, Stagger, StaggerItem } from "@/components/MotionReveal";
+import { Reveal, RevealWords, RevealLine, Stagger, StaggerItem } from "@/components/MotionReveal";
 
 const team = [
   {
@@ -77,7 +77,9 @@ export default function AboutPage() {
 
             <Reveal delay={0.12}>
               <h1 className="page-hero-title title-dark">
-                A strategic bridge between the Balkans and the United States
+                <RevealWords delay={0.16} wordDelay={0.065}>
+                  A strategic bridge between the Balkans and the United States
+                </RevealWords>
               </h1>
             </Reveal>
           </div>
@@ -101,8 +103,10 @@ export default function AboutPage() {
             <span className="section-label">Who we are</span>
 
             <h2>
-              A platform for investment, innovation, and opportunity. 
+              A platform for investment, innovation, and opportunity.
             </h2>
+
+            <RevealLine delay={0.3} style={{ marginTop: "1.5rem" }} />
           </Reveal>
 
           <Reveal delay={0.08} className="intro-content">

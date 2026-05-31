@@ -1,6 +1,6 @@
 import "./globals.css";
 
-import { Outfit, Manrope } from "next/font/google";
+import { Cormorant_Garamond } from "next/font/google";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -12,21 +12,18 @@ export const metadata = {
   description: "American Balkan Global Chamber of Commerce",
 };
 
-const outfit = Outfit({
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-heading",
 });
 
-const manrope = Manrope({
-  subsets: ["latin"],
-  variable: "--font-body",
-});
 
 export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${outfit.variable} ${manrope.variable}`}
+      className={cormorant.variable}
     >
       <body className="bg-black text-white">
         <SmoothScroll />

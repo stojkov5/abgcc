@@ -7,17 +7,24 @@
 }
 
 /* =========================
-   HOME LANDING SECTIONS
+   LANDING LAYOUT
 ========================= */
 
 .landing-container {
-  width: min(100% - 2rem, 80rem);
-  margin: 0 auto;
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: clamp(1.5rem, 4vw, 3rem);
+  box-sizing: border-box;
 }
 
 .landing-section {
-  padding: clamp(4rem, 7vw, 6.5rem) 0;
+  padding: var(--section-padding) 0;
 }
+
+/* =========================
+   PARTNER SECTION
+========================= */
 
 .partner-section {
   background: transparent;
@@ -26,41 +33,39 @@
 .partner-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1.15rem;
+  gap: 1.1rem;
   margin-top: clamp(2.5rem, 5vw, 4rem);
 }
 
 .partner-card {
-  min-height: 22rem;
-  padding: clamp(1.35rem, 2vw, 1.75rem);
-  border: 0.0625rem solid rgba(100, 181, 246, 0.22);
-  border-radius: 1.5rem;
+  padding: clamp(1.75rem, 2.5vw, 2.25rem);
+  border: 1px solid rgba(100, 181, 246, 0.22);
+  border-radius: var(--card-radius);
   background:
     radial-gradient(circle at top right, rgba(255, 219, 145, 0.18), transparent 38%),
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.94),
-      rgba(239, 248, 255, 0.74)
-    );
-  box-shadow: 0 1.5rem 4rem rgba(46, 111, 160, 0.14);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(239, 248, 255, 0.74));
+  box-shadow: 0 1.5rem 4rem rgba(46, 111, 160, 0.12);
   backdrop-filter: blur(0.7rem);
 }
 
 .card-number {
   display: block;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
   color: #d39b2f;
-  font-size: 0.85rem;
-  font-weight: 900;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
 }
 
 .partner-card h3,
 .mission-card h3 {
   margin: 0 0 1rem;
   color: var(--sky-ink);
-  font-size: clamp(1.25rem, 1.8vw, 1.55rem);
+  font-size: clamp(1.5rem, 2vw, 1.85rem);
   line-height: 1.1;
-  letter-spacing: -0.035em;
+  font-weight: 600;
+  letter-spacing: 0;
 }
 
 .partner-card p,
@@ -68,8 +73,9 @@
 .mission-main-card p {
   margin: 0;
   color: rgba(16, 36, 63, 0.68);
-  font-size: 0.96rem;
-  line-height: 1.75;
+  font-size: clamp(1.1rem, 1.2vw, 1.2rem);
+  line-height: 1.8;
+  font-weight: 400;
 }
 
 /* =========================
@@ -78,43 +84,27 @@
 
 .mission-section {
   position: relative;
-  padding: clamp(4rem, 8vw, 7rem) 0;
+  padding: var(--section-padding) 0;
   background-image: url("/mission-bg.webp");
   background-size: cover;
   background-position: center;
 }
 
-/* .mission-overlay {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(
-      90deg,
-      rgba(247, 251, 255, 0.25),
-      rgba(235, 247, 255, 0.45)
-    ),
-    radial-gradient(circle at center, rgba(255, 219, 145, 0.1), transparent 90%);
-} */
-
 .mission-layout {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
-  gap: clamp(2rem, 5vw, 4rem);
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 4vw, 3.5rem);
   align-items: center;
 }
 
 .mission-main-card {
   padding: clamp(2rem, 4vw, 3.5rem);
-  border: 0.0625rem solid rgba(100, 181, 246, 0.24);
-  border-radius: 1.75rem;
+  border: 1px solid rgba(100, 181, 246, 0.24);
+  border-radius: var(--card-radius-lg);
   background:
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.94),
-      rgba(232, 246, 255, 0.8)
-    ),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(232, 246, 255, 0.8)),
     radial-gradient(circle at top right, rgba(255, 219, 145, 0.22), transparent 40%);
   backdrop-filter: blur(0.8rem);
   box-shadow: 0 1.5rem 4rem rgba(46, 111, 160, 0.14);
@@ -124,14 +114,15 @@
 .membership-card h2 {
   margin: 0;
   color: var(--sky-ink);
-  font-size: clamp(2.1rem, 4.7vw, 3.7rem);
-  line-height: 1;
-  letter-spacing: -0.055em;
+  font-size: clamp(2.2rem, 3.5vw, 3.8rem);
+  line-height: 1.05;
+  font-weight: 600;
+  letter-spacing: 0.01em;
 }
 
 .mission-main-card p {
   margin-top: 1.5rem;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .mission-grid {
@@ -141,67 +132,42 @@
 }
 
 .mission-card {
-  min-height: 15.5rem;
-  padding: clamp(1.35rem, 2vw, 1.8rem);
-  border: 0.0625rem solid rgba(100, 181, 246, 0.2);
-  border-radius: 1.35rem;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.95),
-      rgba(240, 248, 255, 0.78)
-    );
+  padding: clamp(1.5rem, 2.5vw, 2rem);
+  border: 1px solid rgba(100, 181, 246, 0.2);
+  border-radius: var(--card-radius);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(240, 248, 255, 0.78));
   color: var(--sky-ink);
   backdrop-filter: blur(0.6rem);
-  box-shadow: 0 1.2rem 3rem rgba(46, 111, 160, 0.12);
+  box-shadow: 0 1.2rem 3rem rgba(46, 111, 160, 0.11);
 }
 
-.mission-card h3 {
-  color: var(--sky-ink);
-}
-
-.mission-card p {
-  color: rgba(16, 36, 63, 0.76);
-}
-
-
+/* =========================
+   EVENTS OUTLINE BUTTON
+========================= */
 
 .landing-outline-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.55rem;
-  min-height: 3.15rem;
+  min-height: 3.25rem;
   margin-top: 2.5rem;
-  padding: 0.85rem 1.55rem;
-  border: 0.0625rem solid rgba(100, 181, 246, 0.24);
+  padding: 0.9rem 1.75rem;
+  border: 1px solid rgba(100, 181, 246, 0.28);
   border-radius: 999rem;
   color: var(--sky-ink);
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.92),
-      rgba(232, 246, 255, 0.78)
-    );
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(232, 246, 255, 0.78));
   box-shadow: 0 1rem 2.5rem rgba(46, 111, 160, 0.12);
-  font-size: 0.9rem;
-  font-weight: 800;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   text-decoration: none;
-  transition:
-    transform 0.25s ease,
-    background 0.25s ease,
-    border-color 0.25s ease,
-    box-shadow 0.25s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .landing-outline-btn:hover {
-  transform: translateY(-0.15rem);
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 1),
-      rgba(220, 241, 255, 0.95)
-    );
+  transform: translateY(-2px);
+  box-shadow: 0 1.4rem 3rem rgba(46, 111, 160, 0.16);
 }
 
 /* =========================
@@ -210,7 +176,7 @@
 
 .membership-cta {
   position: relative;
-  padding: clamp(4rem, 8vw, 7rem) 0;
+  padding: var(--section-padding) 0;
   background-image: url("/membership-bg.webp");
   background-size: cover;
   background-position: center;
@@ -220,30 +186,23 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(
-      90deg,
-      rgba(247, 251, 255, 0.94),
-      rgba(233, 247, 255, 0.76)
-    ),
+    linear-gradient(90deg, rgba(247, 251, 255, 0.94), rgba(233, 247, 255, 0.76)),
     radial-gradient(circle at top right, rgba(255, 219, 145, 0.2), transparent 40%);
 }
 
 .membership-card {
   position: relative;
   z-index: 1;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 2rem;
+  display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
   padding: clamp(2rem, 5vw, 4rem);
-  border: 0.0625rem solid rgba(100, 181, 246, 0.24);
-  border-radius: 2rem;
+  border: 1px solid rgba(100, 181, 246, 0.24);
+  border-radius: var(--card-radius-lg);
   background:
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.94),
-      rgba(232, 246, 255, 0.8)
-    ),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(232, 246, 255, 0.8)),
     radial-gradient(circle at top right, rgba(255, 219, 145, 0.22), transparent 38%);
   backdrop-filter: blur(0.8rem);
   box-shadow: 0 1.6rem 4rem rgba(46, 111, 160, 0.14);
@@ -254,34 +213,29 @@
 }
 
 .membership-btn {
-  align-self: end;
+  flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.55rem;
-  min-height: 3.15rem;
-  padding: 0.85rem 1.55rem;
-  border: 0.0625rem solid rgba(245, 191, 84, 0.7);
+  min-height: 3.25rem;
+  padding: 0.9rem 1.75rem;
+  border: 1px solid rgba(245, 191, 84, 0.7);
   border-radius: 999rem;
   color: var(--sky-ink);
-  background:
-    linear-gradient(135deg, #ffd889 0%, #f5bf54 100%);
-  box-shadow: 0 1rem 2.5rem rgba(245, 191, 84, 0.24);
-  font-size: 0.9rem;
-  font-weight: 800;
+  background: linear-gradient(135deg, #ffd889 0%, #f5bf54 100%);
+  box-shadow: 0 1rem 2.5rem rgba(245, 191, 84, 0.26);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   text-decoration: none;
   white-space: nowrap;
-  transition:
-    transform 0.25s ease,
-    background 0.25s ease,
-    border-color 0.25s ease,
-    box-shadow 0.25s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .membership-btn:hover {
-  transform: translateY(-0.15rem);
-  background:
-    linear-gradient(135deg, #ffe3a8 0%, #f7c96a 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 1.4rem 3rem rgba(245, 191, 84, 0.34);
 }
 
 /* =========================
@@ -292,45 +246,28 @@
   .partner-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-
-  .partner-card {
-    min-height: 18rem;
-  }
 }
 
 @media (max-width: 64em) {
-  .mission-layout,
-  .membership-card {
+  .mission-layout {
     grid-template-columns: 1fr;
-  }
-
-  .membership-btn {
-    width: fit-content;
   }
 }
 
 @media (max-width: 43.75em) {
-  .landing-container {
-    width: min(100% - 1.5rem, 80rem);
-  }
-
   .partner-grid,
   .mission-grid {
     grid-template-columns: 1fr;
   }
 
-  .partner-card,
-  .mission-card {
-    min-height: auto;
-  }
-
-  .mission-main-card,
   .membership-card {
-    border-radius: 1.35rem;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .membership-btn,
   .landing-outline-btn {
     width: 100%;
+    justify-content: center;
   }
 }

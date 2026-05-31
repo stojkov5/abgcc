@@ -9,7 +9,7 @@ import HeroVideo from "../../components/HeroVideo";
 
 import "@/styles/home.css";
 
-import { Reveal } from "../../components/MotionReveal";
+import { Reveal, RevealWords, FadeIn } from "../../components/MotionReveal";
 
 export default function Home() {
   return (
@@ -19,17 +19,19 @@ export default function Home() {
 
         <div className="page-hero-shell">
           <div className="page-hero-content">
-            
+            <Reveal delay={0.08} y={14}>
+              <p className="page-hero-eyebrow">American Balkan Global Chamber of Commerce</p>
+            </Reveal>
 
-            <Reveal delay={0.12}>
+            <Reveal delay={0.18}>
               <h1 className="page-hero-title">
-                American Balkan
-                <br />
-                Global Chamber of Commerce
+                <RevealWords delay={0.22} wordDelay={0.07}>
+                  American Balkan Global Chamber of Commerce
+                </RevealWords>
               </h1>
             </Reveal>
 
-            <Reveal delay={0.2}>
+            <Reveal delay={0.55}>
               <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <Link href="/membership" className="primary-hero-btn">
                   Become a Member <ArrowRight size={17} />
@@ -43,18 +45,19 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="page-hero-bottom-text">
-          ABGCC strengthens commercial relationships, strategic partnerships,
-          and economic collaboration between the United States, the Balkans, and
-          global partners.
-        </div>
+        <FadeIn delay={0.6} duration={1.0}>
+          <div className="page-hero-bottom-text">
+            ABGCC strengthens commercial relationships, strategic partnerships,
+            and economic collaboration between the United States, the Balkans, and
+            global partners.
+          </div>
+        </FadeIn>
       </section>
 
       <PartnerSection />
       <MissionSection />
       <MembershipCTA />
       <EventsPreview />
-      
     </main>
   );
 }

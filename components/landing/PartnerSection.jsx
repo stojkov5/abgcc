@@ -1,5 +1,7 @@
 import {
   Reveal,
+  RevealWords,
+  RevealLine,
   Stagger,
   StaggerItem,
 } from "@/components/MotionReveal";
@@ -27,20 +29,30 @@ export default function PartnerSection() {
   return (
     <section className="landing-section partner-section">
       <div className="landing-container">
-        <Reveal className="section-heading center" amount={0.35}>
-          <span className="section-label">What We Do</span>
+        <div className="section-heading center">
+          <Reveal>
+            <span className="section-label">What We Do</span>
+          </Reveal>
 
-          <h2>
-            Your partner in growing{" "}
-            <span>US-Balkan</span> global relations.
-          </h2>
+          <Reveal delay={0.1}>
+            <h2>
+              Your partner in growing{" "}
+              <span>US-Balkan</span> global relations.
+            </h2>
+          </Reveal>
 
-          <p>
-            Our organization is dedicated to fostering economic growth, cultural
-            exchange, and business partnerships between the United States, the
-            Balkans, and globally.
-          </p>
-        </Reveal>
+          <Reveal delay={0.18}>
+            <p>
+              Our organization is dedicated to fostering economic growth, cultural
+              exchange, and business partnerships between the United States, the
+              Balkans, and globally.
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.26}>
+            <RevealLine delay={0.1} style={{ marginTop: "1.5rem" }} />
+          </Reveal>
+        </div>
 
         <Stagger className="partner-grid">
           {partnerCards.map((card, index) => (
