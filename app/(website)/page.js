@@ -32,9 +32,9 @@ export default function Home() {
 
         <div className="page-hero-shell">
           <div className="page-hero-content">
-            <Reveal delay={0.08} y={14}>
+            {/* <Reveal delay={0.08} y={14}>
               <p className="page-hero-eyebrow">American Balkan Global Chamber of Commerce</p>
-            </Reveal>
+            </Reveal> */}
 
             <Reveal delay={0.18}>
               <h1 className="page-hero-title">

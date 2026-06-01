@@ -8,7 +8,7 @@ import {
 
 const partnerCards = [
   {
-    title: "Invest, Trade, Manufacturer",
+    title: "Invest, Trade, Manufacture",
     text: "We facilitate trade and investment opportunities by connecting businesses, investors, and key stakeholders across the U.S., the Balkans, and strategic global markets.",
   },
   {
