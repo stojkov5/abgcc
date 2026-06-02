@@ -87,3 +87,45 @@ export async function PUT(request, { params }) {
     );
   }
 }
+
+export async function DELETE(request, { params }) {
+  try {
+    const session = await getServerSession(authOptions);
+
+    if (!session || session.user?.role !== "SUPER_ADMIN") {
+      return Response.json({ message: "Unauthorized." }, { status: 401 });
+    }
+
+    const { id } = await params;
+
+    const event = await prisma.event.findUnique({
+      where: { id },
+    });
+
+    if (!event) {
+      return Response.json({ message: "Event not found." }, { status: 404 });
+    }
+
+    // EventImage and EventBooking are set to onDelete: Cascade in the schema,
+    // so removing the event also removes its gallery images and registrations.
+    await prisma.event.delete({
+      where: { id },
+    });
+
+    revalidatePath("/events");
+    revalidatePath("/admin/events");
+    revalidatePath(`/events/${event.slug}`);
+
+    return Response.json({ message: "Event deleted successfully." });
+  } catch (error) {
+    console.error("DELETE_EVENT_ERROR:", error);
+
+    return Response.json(
+      {
+        message:
+          error?.message || "Something went wrong while deleting event.",
+      },
+      { status: 500 }
+    );
+  }
+}

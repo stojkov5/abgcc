@@ -9,6 +9,7 @@ import { ArrowRight, Plus } from "lucide-react";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import AdminShell from "@/components/AdminShell";
+import DeleteEventButton from "@/components/DeleteEventButton";
 
 import {
   AdminEmptyState,
@@ -96,12 +97,19 @@ export default async function AdminEventsPage() {
                         </td>
 
                         <td className="admin-events-table-actions">
-                          <Link
-                            href={`/admin/events/${event.id}/edit`}
-                            className="admin-events-table-link"
-                          >
-                            Edit <ArrowRight size={14} />
-                          </Link>
+                          <div className="admin-events-actions-group">
+                            <Link
+                              href={`/admin/events/${event.id}/edit`}
+                              className="admin-events-table-link"
+                            >
+                              Edit <ArrowRight size={14} />
+                            </Link>
+
+                            <DeleteEventButton
+                              eventId={event.id}
+                              eventTitle={event.title}
+                            />
+                          </div>
                         </td>
                       </tr>
                     ))}

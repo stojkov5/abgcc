@@ -1,0 +1,194 @@
+/* ------------------------------------------------------------------ *
+ * Rendered Puck event content (public site + editor preview)
+ * Colors use the ABGCC brand tokens from globals.css so content matches
+ * the rest of the site (navy text on the light event card, gold accents).
+ * Block classes are self-contained so they look identical inside the
+ * Puck editor and on the published event page.
+ * ------------------------------------------------------------------ */
+
+.puck-content {
+  width: 100%;
+}
+
+.puck-content > * + * {
+  margin-top: 1.25rem;
+}
+
+/* Heading -------------------------------------------------------------- */
+.puck-heading {
+  font-family: var(--font-heading), serif;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  color: var(--sky-ink);
+}
+h2.puck-heading {
+  font-size: clamp(1.9rem, 3.4vw, 3rem);
+}
+h3.puck-heading {
+  font-size: clamp(1.45rem, 2.5vw, 2rem);
+}
+h4.puck-heading {
+  font-size: clamp(1.2rem, 2vw, 1.45rem);
+}
+
+/* Text ----------------------------------------------------------------- */
+.puck-text {
+  white-space: pre-wrap;
+  line-height: 1.85;
+  color: rgba(16, 36, 63, 0.82);
+}
+.puck-text[data-size="sm"] {
+  font-size: 0.98rem;
+}
+.puck-text[data-size="base"] {
+  font-size: 1.08rem;
+}
+.puck-text[data-size="lg"] {
+  font-size: 1.25rem;
+}
+.puck-text[data-weight="medium"] {
+  font-weight: 500;
+}
+.puck-text[data-weight="bold"] {
+  font-weight: 700;
+}
+
+/* Image ---------------------------------------------------------------- */
+.puck-image {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+.puck-image[data-align="center"] {
+  align-items: center;
+}
+.puck-image[data-align="left"] {
+  align-items: flex-start;
+}
+.puck-image[data-align="right"] {
+  align-items: flex-end;
+}
+.puck-image img {
+  display: block;
+  height: auto;
+  object-fit: cover;
+}
+.puck-image[data-width="full"] img {
+  width: 100%;
+}
+.puck-image[data-width="large"] img {
+  width: min(100%, 800px);
+}
+.puck-image[data-width="medium"] img {
+  width: min(100%, 520px);
+}
+.puck-image[data-width="small"] img {
+  width: min(100%, 320px);
+}
+.puck-image img[data-rounded="lg"] {
+  border-radius: 16px;
+}
+.puck-image img[data-rounded="none"] {
+  border-radius: 0;
+}
+.puck-image figcaption {
+  margin-top: 0.6rem;
+  font-size: 0.9rem;
+  color: rgba(16, 36, 63, 0.55);
+  text-align: center;
+}
+.puck-image-empty {
+  padding: 2rem;
+  text-align: center;
+  border: 1px dashed rgba(16, 36, 63, 0.25);
+  border-radius: 12px;
+  color: rgba(16, 36, 63, 0.5);
+}
+
+/* Button --------------------------------------------------------------- */
+.puck-button-wrap {
+  width: 100%;
+}
+.puck-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.6rem;
+  border-radius: 999px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.puck-button[data-variant="primary"] {
+  color: var(--sky-ink);
+  background: linear-gradient(135deg, #ffd889 0%, #f5bf54 100%);
+  border: 1px solid rgba(245, 191, 84, 0.7);
+  box-shadow: 0 0.8rem 2rem rgba(245, 191, 84, 0.28);
+}
+.puck-button[data-variant="outline"] {
+  color: var(--sky-ink);
+  border: 1px solid rgba(16, 36, 63, 0.4);
+}
+.puck-button:hover {
+  transform: translateY(-2px);
+}
+
+/* Columns -------------------------------------------------------------- */
+.puck-columns {
+  display: grid;
+  gap: 1.5rem;
+}
+.puck-columns[data-distribution="equal"] {
+  grid-template-columns: 1fr 1fr;
+}
+.puck-columns[data-distribution="wide-left"] {
+  grid-template-columns: 2fr 1fr;
+}
+.puck-columns[data-distribution="wide-right"] {
+  grid-template-columns: 1fr 2fr;
+}
+.puck-column > * + * {
+  margin-top: 1rem;
+}
+@media (max-width: 720px) {
+  .puck-columns {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Spacer --------------------------------------------------------------- */
+.puck-spacer[data-size="sm"] {
+  height: 1rem;
+}
+.puck-spacer[data-size="md"] {
+  height: 2rem;
+}
+.puck-spacer[data-size="lg"] {
+  height: 3.5rem;
+}
+.puck-spacer[data-size="xl"] {
+  height: 5rem;
+}
+
+/* Divider -------------------------------------------------------------- */
+.puck-divider {
+  border: none;
+  border-top: 1px solid rgba(16, 36, 63, 0.15);
+  margin: 0;
+}
+
+/* Raw HTML passthrough (legacy content + Embed HTML block) ------------- */
+.puck-raw-html {
+  line-height: 1.85;
+  color: rgba(16, 36, 63, 0.82);
+}
+.puck-raw-html :where(h1, h2, h3) {
+  font-family: var(--font-heading), serif;
+  color: var(--sky-ink);
+}
+.puck-raw-html a {
+  color: #0f4c81;
+  text-decoration: underline;
+}

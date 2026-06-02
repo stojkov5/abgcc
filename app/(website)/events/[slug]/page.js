@@ -7,6 +7,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import EventRSVPSection from "@/components/EventRSVPSection";
+import { Render } from "@puckeditor/core/rsc";
+import { puckConfig } from "@/components/puck/puck.config";
+import { parsePuckData } from "@/lib/puck/preview";
 
 import {
   Reveal,
@@ -15,6 +18,7 @@ import {
 } from "@/components/MotionReveal";
 
 import "@/styles/event-details.css";
+import "@/styles/puck-content.css";
 
 function formatEventDate(date) {
   return new Date(date).toLocaleDateString("en-US", {
@@ -47,6 +51,9 @@ export default async function EventDetailsPage({ params }) {
   }
 
   const registeredCount = event.bookings.length;
+
+  // New events store Puck JSON; older events store legacy HTML/plain text.
+  const puckData = parsePuckData(event.description);
 
   return (
     <main className="event-detail-page">
@@ -130,10 +137,16 @@ export default async function EventDetailsPage({ params }) {
           <Reveal className="event-detail-article">
             <span className="event-detail-label">About The Event</span>
 
-            <div
-              className="event-rich-content"
-              dangerouslySetInnerHTML={{ __html: event.description }}
-            />
+            {puckData ? (
+              <div className="event-rich-content puck-content">
+                <Render config={puckConfig} data={puckData} />
+              </div>
+            ) : (
+              <div
+                className="event-rich-content"
+                dangerouslySetInnerHTML={{ __html: event.description }}
+              />
+            )}
           </Reveal>
         </div>
       </section>

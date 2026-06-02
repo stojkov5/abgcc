@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { Upload } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import RichTextEditor from "../components/ReactTextEdtior";
+import EventPuckEditor from "@/components/puck/EventPuckEditor";
 
 export default function EditEventForm({ event }) {
   const [form, setForm] = useState({
@@ -209,7 +209,7 @@ export default function EditEventForm({ event }) {
             Event Description
           </p>
 
-          <RichTextEditor
+          <EventPuckEditor
             value={form.description}
             onChange={(value) =>
               setForm({

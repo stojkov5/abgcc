@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { Upload } from "lucide-react";
 
-import RichTextEditor from "@/components/ReactTextEdtior";
+import EventPuckEditor from "@/components/puck/EventPuckEditor";
 
 export default function NewEventForm() {
   const [form, setForm] = useState({
@@ -97,7 +97,7 @@ export default function NewEventForm() {
         <div className="admin-event-editor-box">
           <p>Event Description</p>
 
-          <RichTextEditor
+          <EventPuckEditor
             value={form.description}
             onChange={(value) =>
               setForm({

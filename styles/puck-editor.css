@@ -1,0 +1,99 @@
+/* ------------------------------------------------------------------ *
+ * Embedded Puck editor shell (admin event create / edit forms)
+ * Puck ships its own light UI, so we give it a contained, bordered box.
+ * ------------------------------------------------------------------ */
+
+.puck-editor-shell {
+  position: relative;
+  width: 100%;
+  height: clamp(560px, 78vh, 900px);
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.puck-editor-shell .Puck {
+  height: 100%;
+}
+
+/* Custom image upload field (inside the right-hand field panel) -------- */
+.puck-upload-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.puck-upload-preview {
+  width: 100%;
+  max-height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.puck-upload-placeholder {
+  width: 100%;
+  padding: 1.25rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #6b7280;
+  border: 1px dashed rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+.puck-upload-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #111827;
+  background: #f3f4f6;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+  cursor: pointer;
+}
+.puck-upload-btn:hover {
+  background: #e5e7eb;
+}
+.puck-upload-url {
+  width: 100%;
+  padding: 0.5rem 0.7rem;
+  font-size: 0.8rem;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  border-radius: 8px;
+}
+.puck-upload-error {
+  font-size: 0.8rem;
+  color: #dc2626;
+}
+
+/* Brand color swatch field -------------------------------------------- */
+.puck-color-field {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.puck-color-swatch {
+  width: 30px;
+  height: 30px;
+  padding: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  background: #ffffff;
+  cursor: pointer;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.puck-color-swatch span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+.puck-color-swatch:hover {
+  border-color: rgba(0, 0, 0, 0.35);
+}
+.puck-color-swatch.is-active {
+  border-color: #10243f;
+  box-shadow: 0 0 0 2px rgba(16, 36, 63, 0.25);
+}

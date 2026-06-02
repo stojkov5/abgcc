@@ -99,6 +99,39 @@
   text-decoration: underline;
 }
 
+.admin-events-actions-group {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
+.admin-events-table-delete {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: #c0392b;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.admin-events-table-delete:hover {
+  text-decoration: underline;
+}
+
+.admin-events-table-delete:disabled {
+  opacity: 0.5;
+  cursor: default;
+  text-decoration: none;
+}
+
 .admin-events-back-link {
   display: inline-flex;
   width: fit-content;

@@ -22,10 +22,7 @@ import { ArrowRight, CalendarDays, MapPin } from "lucide-react";
 import HeroVideo from "@/components/HeroVideo";
 
 import { Reveal, Stagger, StaggerItem } from "@/components/MotionReveal";
-
-function stripHtml(html) {
-  return html?.replace(/<[^>]*>/g, "").slice(0, 160) || "";
-}
+import { getEventPreview } from "@/lib/puck/preview";
 
 export default async function EventsPage() {
   const events = await prisma.event.findMany({
@@ -124,7 +121,7 @@ export default async function EventsPage() {
 
                     <h3>{event.title}</h3>
 
-                    <p>{stripHtml(event.description)}</p>
+                    <p>{getEventPreview(event.description)}</p>
 
                     <Link href={`/events/${event.slug}`} className="event-btn">
                       View Event <ArrowRight size={16} />
