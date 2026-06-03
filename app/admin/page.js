@@ -64,7 +64,9 @@ export default async function AdminPage() {
     totalEvents,
     activeMemberships,
     revenueResult,
+    eventRevenueResult,
     recentPayments,
+    recentEventBookings,
     recentUsers,
   ] = await Promise.all([
     prisma.user.count(),
@@ -85,11 +87,31 @@ export default async function AdminPage() {
         amount: true,
       },
     }),
+    prisma.eventBooking.aggregate({
+      where: {
+        paid: true,
+      },
+      _sum: {
+        amountPaid: true,
+      },
+    }),
     prisma.payment.findMany({
       take: 6,
       include: {
         user: true,
         tier: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    }),
+    prisma.eventBooking.findMany({
+      where: {
+        paid: true,
+      },
+      take: 6,
+      include: {
+        event: true,
       },
       orderBy: {
         createdAt: "desc",
@@ -103,7 +125,29 @@ export default async function AdminPage() {
     }),
   ]);
 
-  const totalRevenue = revenueResult._sum.amount || 0;
+  const membershipRevenue = revenueResult._sum.amount || 0;
+  const eventRevenue = eventRevenueResult._sum.amountPaid || 0;
+  const totalRevenue = membershipRevenue + eventRevenue;
+
+  // Merge membership payments + paid event tickets into one recent list
+  const combinedPayments = [
+    ...recentPayments.map((payment) => ({
+      id: payment.id,
+      name: payment.user?.name || payment.user?.email || "Member",
+      label: payment.tier?.title || "Membership",
+      amount: payment.amount,
+      createdAt: payment.createdAt,
+    })),
+    ...recentEventBookings.map((booking) => ({
+      id: booking.id,
+      name: booking.name,
+      label: `${booking.event.title} · Event`,
+      amount: booking.amountPaid,
+      createdAt: booking.createdAt,
+    })),
+  ]
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    .slice(0, 6);
 
   return (
     <AdminShell>
@@ -159,13 +203,13 @@ export default async function AdminPage() {
             title="Recent Payments"
             action={<Link href="/admin/payments">View All</Link>}
           >
-            {recentPayments.length > 0 ? (
+            {combinedPayments.length > 0 ? (
               <div className="admin-mini-list">
-                {recentPayments.map((payment) => (
+                {combinedPayments.map((payment) => (
                   <div key={payment.id} className="admin-mini-item">
                     <div>
-                      <strong>{payment.user?.name || payment.user?.email}</strong>
-                      <span>{payment.tier?.title || "Membership"}</span>
+                      <strong>{payment.name}</strong>
+                      <span>{payment.label}</span>
                     </div>
 
                     <b>${payment.amount}</b>
