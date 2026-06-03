@@ -14,6 +14,7 @@ import {
   X,
   Home,
   QrCode,
+  CreditCard,
 } from "lucide-react";
 import { useState } from "react";
 import "@/styles/admin-layout.css";
@@ -43,6 +44,11 @@ const navItems = [
     label: "Memberships",
     href: "/admin/memberships",
     icon: BadgeDollarSign,
+  },
+  {
+    label: "Payments",
+    href: "/admin/payments",
+    icon: CreditCard,
   },
   {
     label: "Messages",

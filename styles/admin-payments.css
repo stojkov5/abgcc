@@ -1,0 +1,69 @@
+.admin-payments-page {
+  width: 100%;
+}
+
+.admin-payments-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 1rem;
+}
+
+.admin-payments-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 760px;
+}
+
+.admin-payments-table thead th {
+  text-align: left;
+  padding: 0.85rem 1rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(16, 36, 63, 0.5);
+  border-bottom: 1px solid rgba(16, 36, 63, 0.1);
+  white-space: nowrap;
+}
+
+.admin-payments-table tbody td {
+  padding: 1rem;
+  font-size: 0.95rem;
+  color: rgba(16, 36, 63, 0.82);
+  border-bottom: 1px solid rgba(16, 36, 63, 0.06);
+  vertical-align: middle;
+}
+
+.admin-payments-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.admin-payments-table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.admin-payments-table tbody tr:hover {
+  background: rgba(245, 191, 84, 0.06);
+}
+
+.admin-payments-table .strong {
+  font-weight: 700;
+  color: #10243f;
+}
+
+.admin-payments-table .muted {
+  color: rgba(16, 36, 63, 0.55);
+}
+
+.admin-payments-table .mono {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.03em;
+}
+
+.admin-payments-table .nowrap {
+  white-space: nowrap;
+}
+
+.admin-payments-table .ta-right {
+  text-align: right;
+}
