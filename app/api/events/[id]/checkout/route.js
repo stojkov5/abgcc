@@ -1,7 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { revalidatePath } from "next/cache";
-import { generateReference } from "@/lib/events/reference";
-import { sendBookingEmails } from "@/lib/events/bookingEmails";
+import { stripe } from "@/lib/stripe";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -10,7 +8,6 @@ export async function POST(request, { params }) {
   try {
     const { id } = await params;
     const body = await request.json();
-
     const { name, email, company, message } = body;
 
     if (!name || !email) {
@@ -27,15 +24,14 @@ export async function POST(request, { params }) {
 
     if (!event || event.archived || !event.active) {
       return Response.json(
-        { message: "Event is not available for RSVP." },
+        { message: "Event is not available." },
         { status: 404 }
       );
     }
 
-    // Paid events must go through Stripe checkout, not the free RSVP flow
-    if (event.price > 0) {
+    if (event.price <= 0) {
       return Response.json(
-        { message: "This event requires payment. Please use the checkout." },
+        { message: "This is a free event. Please use RSVP." },
         { status: 400 }
       );
     }
@@ -58,36 +54,38 @@ export async function POST(request, { params }) {
       );
     }
 
-    const booking = await prisma.eventBooking.create({
-      data: {
-        eventId: id,
-        name,
-        email,
-        company: company || null,
-        message: message || null,
-        reference: generateReference(),
-        paid: false,
-        amountPaid: 0,
-        status: "CONFIRMED",
+    const checkoutSession = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      mode: "payment",
+      customer_email: email,
+      line_items: [
+        {
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: event.title,
+              description: `Event ticket · ${event.location}`,
+            },
+            unit_amount: Math.round(event.price * 100),
+          },
+          quantity: 1,
+        },
+      ],
+      metadata: {
+        type: "event",
+        eventId: event.id,
+        name: name.slice(0, 200),
+        email: email.slice(0, 200),
+        company: (company || "").slice(0, 200),
+        message: (message || "").slice(0, 480),
       },
+      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/events/${event.slug}?booked=1`,
+      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/events/${event.slug}?canceled=1`,
     });
 
-    // Send ticket (with QR) to attendee + notify admin
-    await sendBookingEmails(booking, event, { source: "Website RSVP" });
-
-    revalidatePath("/events");
-    revalidatePath(`/events/${event.slug}`);
-    revalidatePath("/admin/events");
-
-    return Response.json(
-      {
-        message: "RSVP confirmed! Check your email for your ticket and QR code.",
-        booking: { id: booking.id, reference: booking.reference },
-      },
-      { status: 201 }
-    );
+    return Response.json({ url: checkoutSession.url });
   } catch (error) {
-    console.error("EVENT_RSVP_ERROR:", error);
+    console.error("EVENT_CHECKOUT_ERROR:", error);
     return Response.json(
       { message: error?.message || "Something went wrong." },
       { status: 500 }

@@ -13,6 +13,7 @@ import {
   Menu,
   X,
   Home,
+  QrCode,
 } from "lucide-react";
 import { useState } from "react";
 import "@/styles/admin-layout.css";
@@ -32,6 +33,11 @@ const navItems = [
     label: "Events",
     href: "/admin/events",
     icon: CalendarDays,
+  },
+  {
+    label: "Check-in",
+    href: "/admin/checkin",
+    icon: QrCode,
   },
   {
     label: "Memberships",

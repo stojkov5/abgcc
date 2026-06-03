@@ -118,6 +118,11 @@ export default async function EventDetailsPage({ params }) {
                   <span>{event.location}</span>
                 </div>
 
+                <div>
+                  <strong>Price</strong>
+                  <span>{event.price > 0 ? `$${event.price}` : "Free"}</span>
+                </div>
+
                 {event.capacity && (
                   <div>
                     <strong>Capacity</strong>
@@ -204,6 +209,7 @@ export default async function EventDetailsPage({ params }) {
               eventId={event.id}
               initialRegisteredCount={registeredCount}
               capacity={event.capacity}
+              price={event.price}
             />
           </Reveal>
         </div>

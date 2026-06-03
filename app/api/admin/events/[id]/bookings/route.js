@@ -2,6 +2,8 @@ import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
 import { authOptions } from "@/lib/auth";
+import { generateReference } from "@/lib/events/reference";
+import { sendBookingEmails } from "@/lib/events/bookingEmails";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -65,8 +67,17 @@ export async function POST(request, { params }) {
         email,
         company: company || null,
         message: message || "Added manually by admin.",
+        reference: generateReference(),
+        paid: false,
+        amountPaid: 0,
         status: "CONFIRMED",
       },
+    });
+
+    // Email the attendee their ticket + QR (no admin notification — admin added it)
+    await sendBookingEmails(booking, event, {
+      notifyAdmin: false,
+      source: "Admin (Manual)",
     });
 
     revalidatePath("/admin/events");
@@ -76,7 +87,7 @@ export async function POST(request, { params }) {
 
     return Response.json(
       {
-        message: "Attendee added successfully.",
+        message: "Attendee added and ticket emailed successfully.",
         booking,
       },
       { status: 201 }

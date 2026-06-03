@@ -66,6 +66,7 @@ export async function POST(request) {
       ],
 
       metadata: {
+        type: "membership",
         userId: session.user.id,
         tierId: tier.id,
       },
