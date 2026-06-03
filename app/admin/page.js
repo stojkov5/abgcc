@@ -6,6 +6,7 @@ import {
   CalendarDays,
   Mail,
   Users,
+  Newspaper,
 } from "lucide-react";
 
 import { authOptions } from "@/lib/auth";
@@ -36,6 +37,12 @@ const adminCards = [
     text: "Create, edit, publish, and manage ABGCC events.",
     href: "/admin/events",
     icon: CalendarDays,
+  },
+  {
+    title: "News & Blog",
+    text: "Write, publish, and manage news articles and blog posts.",
+    href: "/admin/posts",
+    icon: Newspaper,
   },
   {
     title: "Contact Messages",

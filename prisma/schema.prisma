@@ -52,6 +52,10 @@ model Membership {
   endDate     DateTime?
   createdAt   DateTime         @default(now())
 
+  paymentMethod    String   @default("CARD") // "CARD" | "BANK_TRANSFER"
+  invoiceReference String?  @unique
+  amount           Float?
+
   userId      String
   tierId      String
 
@@ -123,6 +127,22 @@ model ContactMessage {
   message   String
   read      Boolean  @default(false)
   createdAt DateTime @default(now())
+}
+
+model Post {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  excerpt     String?
+  content     String              // Puck JSON (same format as Event.description)
+  coverImage  String?
+  author      String?
+  published   Boolean  @default(true)
+  featured    Boolean  @default(false)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  publishedAt DateTime @default(now())
 }
 
 enum Role {

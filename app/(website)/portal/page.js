@@ -61,6 +61,13 @@ export default async function PortalPage() {
   return new Date(membership.endDate) > new Date();
 });
 
+const pendingBankTransfer = user.memberships.find(
+  (membership) =>
+    membership.status === "PENDING" &&
+    membership.paymentMethod === "BANK_TRANSFER" &&
+    membership.invoiceReference
+);
+
 const membershipIsExpired =
   currentMembership?.endDate &&
   new Date(currentMembership.endDate) < new Date();
@@ -88,6 +95,27 @@ const displayedMembershipStatus = currentMembership
             <strong>Verify your email.</strong> Check your inbox for a verification link.
             Some features (events, membership, contact) require a verified email.
           </div>
+        )}
+
+        {pendingBankTransfer && (
+          <Link
+            href={`/portal/invoice/${pendingBankTransfer.invoiceReference}`}
+            style={{
+              display: "block",
+              background: "#eaf3ff",
+              border: "1px solid #1f5f93",
+              borderRadius: 12,
+              padding: "14px 20px",
+              marginBottom: 24,
+              fontSize: 14,
+              color: "#10243f",
+              lineHeight: 1.6,
+              textDecoration: "none",
+            }}
+          >
+            <strong>Bank transfer pending.</strong> Your membership invoice is
+            awaiting payment — click to view the bank details and reference. →
+          </Link>
         )}
 
         <Reveal>

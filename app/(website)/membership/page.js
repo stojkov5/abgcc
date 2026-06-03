@@ -19,7 +19,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import HeroVideo from "@/components/HeroVideo";
-import MembershipCheckoutButton from "../../../components/MembershipCheckoutButton";
+import MembershipJoinButton from "../../../components/MembershipJoinButton";
 
 import { Reveal, RevealWords, RevealLine, Stagger, StaggerItem } from "@/components/MotionReveal";
 
@@ -159,7 +159,10 @@ network, programs, and support
 
                 <p className="membership-description">{tier.description}</p>
 
-                <MembershipCheckoutButton tierId={tier.id} />
+                <MembershipJoinButton
+                  tierId={tier.id}
+                  tierTitle={tier.title}
+                />
               </StaggerItem>
             ))}
           </Stagger>

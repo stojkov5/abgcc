@@ -10,6 +10,7 @@ import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
 import AdminShell from "@/components/AdminShell";
+import PendingBankTransfers from "@/components/PendingBankTransfers";
 
 import {
   AdminEmptyState,
@@ -31,11 +32,26 @@ export default async function AdminMembershipsPage() {
     redirect("/");
   }
 
-  const tiers = await prisma.membershipTier.findMany({
-    orderBy: {
-      price: "asc",
-    },
-  });
+  const [tiers, pending] = await Promise.all([
+    prisma.membershipTier.findMany({
+      orderBy: { price: "asc" },
+    }),
+    prisma.membership.findMany({
+      where: { status: "PENDING", paymentMethod: "BANK_TRANSFER" },
+      include: { tier: true, user: true },
+      orderBy: { createdAt: "desc" },
+    }),
+  ]);
+
+  const pendingRequests = pending.map((m) => ({
+    id: m.id,
+    userName: m.user?.name,
+    userEmail: m.user?.email,
+    tierTitle: m.tier.title,
+    amount: m.amount ?? m.tier.price,
+    reference: m.invoiceReference,
+    createdAt: m.createdAt,
+  }));
 
   return (
     <AdminShell>
@@ -54,6 +70,12 @@ export default async function AdminMembershipsPage() {
             </Link>
           }
         />
+
+        <AdminPanel
+          title={`Pending Bank Transfers (${pendingRequests.length})`}
+        >
+          <PendingBankTransfers requests={pendingRequests} />
+        </AdminPanel>
 
         <AdminPanel title={`All Tiers (${tiers.length})`}>
           {tiers.length > 0 ? (

@@ -10,6 +10,7 @@ export default async function sitemap() {
     { url: `${baseUrl}/services`,      priority: 0.85, changeFrequency: "monthly" },
     { url: `${baseUrl}/membership`,    priority: 0.9,  changeFrequency: "weekly"  },
     { url: `${baseUrl}/events`,        priority: 0.9,  changeFrequency: "daily"   },
+    { url: `${baseUrl}/news`,          priority: 0.8,  changeFrequency: "daily"   },
     { url: `${baseUrl}/contact`,       priority: 0.7,  changeFrequency: "yearly"  },
   ].map((page) => ({ ...page, lastModified: new Date() }));
 
@@ -30,5 +31,22 @@ export default async function sitemap() {
     // DB unavailable during build — skip dynamic pages
   }
 
-  return [...staticPages, ...eventPages];
+  // Dynamic news/blog pages
+  let postPages = [];
+  try {
+    const posts = await prisma.post.findMany({
+      where: { published: true },
+      select: { slug: true, updatedAt: true },
+    });
+    postPages = posts.map((post) => ({
+      url: `${baseUrl}/news/${post.slug}`,
+      lastModified: post.updatedAt,
+      priority: 0.7,
+      changeFrequency: "monthly",
+    }));
+  } catch {
+    // DB unavailable during build — skip dynamic pages
+  }
+
+  return [...staticPages, ...eventPages, ...postPages];
 }

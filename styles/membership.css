@@ -178,6 +178,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.55rem;
+  width: 100%;
   min-height: 3.25rem;
   margin-top: 2rem;
   padding: 0.9rem 1.5rem;
@@ -190,12 +191,187 @@
   font-weight: 600;
   letter-spacing: 0.04em;
   text-decoration: none;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
 }
 
 .membership-tier-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 1.4rem 3rem rgba(245, 191, 84, 0.34);
+}
+
+.membership-tier-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* =========================
+   JOIN MODAL
+========================= */
+
+.membership-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(16, 36, 63, 0.5);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: membershipModalFade 0.25s ease;
+}
+
+@keyframes membershipModalFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.membership-modal {
+  position: relative;
+  width: min(100%, 30rem);
+  padding: clamp(1.75rem, 4vw, 2.5rem);
+  border-radius: 1.75rem;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(238, 248, 255, 0.96)),
+    radial-gradient(circle at top right, rgba(255, 219, 145, 0.2), transparent 42%);
+  border: 1px solid rgba(100, 181, 246, 0.26);
+  box-shadow: 0 2rem 5rem rgba(16, 36, 63, 0.32);
+  animation: membershipModalRise 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes membershipModalRise {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.membership-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(16, 36, 63, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.8);
+  color: rgba(16, 36, 63, 0.6);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.membership-modal-close:hover {
+  background: #fff;
+  color: #10243f;
+}
+
+.membership-modal-eyebrow {
+  margin: 0 0 0.4rem;
+  color: #d39b2f;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.membership-modal-title {
+  margin: 0;
+  color: #10243f;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600;
+  line-height: 1.1;
+  padding-right: 2.5rem;
+}
+
+.membership-modal-text {
+  margin: 0.75rem 0 1.5rem;
+  color: rgba(16, 36, 63, 0.65);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.membership-modal-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.membership-modal-option {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 1rem 1.15rem;
+  border-radius: 1.1rem;
+  border: 1px solid rgba(100, 181, 246, 0.3);
+  background: rgba(255, 255, 255, 0.7);
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+
+.membership-modal-option:hover:not(:disabled) {
+  transform: translateY(-2px);
+  border-color: rgba(245, 191, 84, 0.6);
+  box-shadow: 0 1rem 2.4rem rgba(46, 111, 160, 0.16);
+}
+
+.membership-modal-option.primary {
+  border-color: rgba(245, 191, 84, 0.7);
+  background: linear-gradient(135deg, rgba(255, 216, 137, 0.4) 0%, rgba(245, 191, 84, 0.28) 100%);
+}
+
+.membership-modal-option:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.membership-modal-option-icon {
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  display: grid;
+  place-items: center;
+  border-radius: 0.85rem;
+  background: rgba(16, 36, 63, 0.06);
+  color: #10243f;
+}
+
+.membership-modal-option.primary .membership-modal-option-icon {
+  background: linear-gradient(135deg, #ffd889, #f5bf54);
+}
+
+.membership-modal-option-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.membership-modal-option-body strong {
+  color: #10243f;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.membership-modal-option-body small {
+  color: rgba(16, 36, 63, 0.6);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.membership-modal-option-arrow {
+  flex-shrink: 0;
+  color: rgba(16, 36, 63, 0.4);
+  transition: transform 0.25s ease;
+}
+
+.membership-modal-option:hover:not(:disabled) .membership-modal-option-arrow {
+  transform: translateX(3px);
+  color: #10243f;
 }
 
 /* =========================

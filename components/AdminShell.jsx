@@ -15,6 +15,7 @@ import {
   Home,
   QrCode,
   CreditCard,
+  Newspaper,
 } from "lucide-react";
 import { useState } from "react";
 import "@/styles/admin-layout.css";
@@ -39,6 +40,11 @@ const navItems = [
     label: "Check-in",
     href: "/admin/checkin",
     icon: QrCode,
+  },
+  {
+    label: "News",
+    href: "/admin/posts",
+    icon: Newspaper,
   },
   {
     label: "Memberships",
