@@ -13,19 +13,37 @@ export default function EventRSVPSection({
     initialRegisteredCount
   );
   const [justPaid, setJustPaid] = useState(false);
+  const [confirming, setConfirming] = useState(false);
 
   const isPaid = price > 0;
   const isSoldOut = capacity && registeredCount >= capacity;
 
-  // Detect return from Stripe Checkout (?booked=1)
+  // Detect return from Stripe Checkout (?session_id=...) and fulfill the booking
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    if (params.get("booked") === "1") {
-      setJustPaid(true);
-      setRegisteredCount((count) => count + 1);
-      // Clean the URL so a refresh doesn't keep the banner
-      window.history.replaceState({}, "", window.location.pathname + "#rsvp");
-    }
+    const sessionId = params.get("session_id");
+    if (!sessionId) return;
+
+    setConfirming(true);
+
+    fetch("/api/events/confirm", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ sessionId }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.ok) {
+          setJustPaid(true);
+          setRegisteredCount((count) => count + 1);
+        }
+      })
+      .catch(() => {})
+      .finally(() => {
+        setConfirming(false);
+        // Clean the URL so a refresh doesn't re-trigger
+        window.history.replaceState({}, "", window.location.pathname + "#rsvp");
+      });
   }, []);
 
   return (
@@ -44,7 +62,13 @@ export default function EventRSVPSection({
         {isSoldOut && <span>Sold Out</span>}
       </div>
 
-      {justPaid ? (
+      {confirming ? (
+        <div className="event-rsvp-success">
+          <div className="event-rsvp-spinner" />
+          <h3>Confirming your booking...</h3>
+          <p>Please wait a moment while we finalize your ticket.</p>
+        </div>
+      ) : justPaid ? (
         <div className="event-rsvp-success">
           <div className="event-rsvp-success-icon">✓</div>
           <h3>Payment successful!</h3>

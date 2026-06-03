@@ -7,8 +7,7 @@ import { prisma } from "@/lib/prisma";
 import { sendEmail } from "@/lib/email/sendEmail";
 import { paymentSuccessEmail } from "@/lib/email/templates/paymentSuccessEmail";
 import { adminMembershipActivatedEmail } from "@/lib/email/templates/adminMembershipActivatedEmail";
-import { generateReference } from "@/lib/events/reference";
-import { sendBookingEmails } from "@/lib/events/bookingEmails";
+import { fulfillEventCheckout } from "@/lib/events/fulfillEventCheckout";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -41,47 +40,9 @@ export async function POST(request) {
 
       // ── Event ticket payment ────────────────────────────────────────────
       if (checkoutSession.metadata?.type === "event") {
-        const { eventId, name, email, company, message } =
-          checkoutSession.metadata;
-
-        // Idempotency — Stripe may deliver the webhook more than once
-        const existing = await prisma.eventBooking.findUnique({
-          where: { stripeSessionId: checkoutSession.id },
-        });
-
-        if (existing) {
-          return Response.json({ received: true });
-        }
-
-        const eventRecord = await prisma.event.findUnique({
-          where: { id: eventId },
-        });
-
-        if (!eventRecord) {
-          return Response.json({ message: "Event not found." }, { status: 404 });
-        }
-
-        const booking = await prisma.eventBooking.create({
-          data: {
-            eventId,
-            name,
-            email,
-            company: company || null,
-            message: message || null,
-            reference: generateReference(),
-            paid: true,
-            amountPaid: Number(checkoutSession.amount_total || 0) / 100,
-            stripeSessionId: checkoutSession.id,
-            status: "CONFIRMED",
-          },
-        });
-
-        await sendBookingEmails(booking, eventRecord, {
-          source: "Website (Paid)",
-        });
+        await fulfillEventCheckout(checkoutSession);
 
         revalidatePath("/events");
-        revalidatePath(`/events/${eventRecord.slug}`);
         revalidatePath("/admin/events");
 
         return Response.json({ received: true });

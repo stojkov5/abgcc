@@ -460,6 +460,19 @@
   box-shadow: 0 10px 26px rgba(245, 191, 84, 0.3);
 }
 
+.event-rsvp-spinner {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 3px solid rgba(245, 191, 84, 0.25);
+  border-top-color: #f5bf54;
+  animation: rsvpSpin 0.8s linear infinite;
+}
+
+@keyframes rsvpSpin {
+  to { transform: rotate(360deg); }
+}
+
 .event-rsvp-success h3 {
   margin: 0;
   font-size: 1.6rem;

@@ -79,7 +79,7 @@ export async function POST(request, { params }) {
         company: (company || "").slice(0, 200),
         message: (message || "").slice(0, 480),
       },
-      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/events/${event.slug}?booked=1`,
+      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/events/${event.slug}?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/events/${event.slug}?canceled=1`,
     });
 
