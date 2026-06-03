@@ -145,7 +145,7 @@ export default function Navbar() {
                       className="navbar-dropdown-item"
                       onClick={() => setProfileDropdown(false)}
                     >
-                      Portal
+                      My Profile
                     </Link>
                     {isAdmin && (
                       <Link
@@ -237,7 +237,7 @@ export default function Navbar() {
                     className="navbar-mobile-secondary"
                     onClick={() => setMobileMenu(false)}
                   >
-                    My Portal
+                    My Profile
                   </Link>
                   {isAdmin && (
                     <Link

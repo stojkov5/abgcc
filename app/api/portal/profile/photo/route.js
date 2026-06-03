@@ -1,5 +1,7 @@
 import { getServerSession } from "next-auth";
+import { revalidatePath } from "next/cache";
 import cloudinary from "@/lib/cloudinary";
+import { prisma } from "@/lib/prisma";
 import { authOptions } from "@/lib/auth";
 
 export const runtime = "nodejs";
@@ -28,6 +30,10 @@ export async function POST(request) {
         {
           folder: "abgcc/members",
           resource_type: "image",
+          // Cap & optimise on upload so even very large photos are handled
+          transformation: [
+            { width: 1000, height: 1000, crop: "limit", quality: "auto:good" },
+          ],
         },
         (error, result) => {
           if (error) reject(error);
@@ -38,8 +44,17 @@ export async function POST(request) {
       uploadStream.end(buffer);
     });
 
+    // Persist immediately so the photo updates without needing a full save
+    await prisma.user.update({
+      where: { email: session.user.email },
+      data: { photo: result.secure_url },
+    });
+
+    revalidatePath("/portal");
+    revalidatePath("/portal/profile");
+
     return Response.json({
-      message: "Profile photo uploaded.",
+      message: "Profile photo updated.",
       url: result.secure_url,
     });
   } catch (error) {

@@ -2,8 +2,11 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 
 export default function EditProfileForm({ user }) {
+  const { update } = useSession();
+
   const [form, setForm] = useState({
     name: user.name || "",
     organization: user.organization || "",
@@ -46,7 +49,10 @@ export default function EditProfileForm({ user }) {
       photo: data.url,
     });
 
-    setMessage("Profile photo uploaded.");
+    // Refresh the session so the navbar avatar updates instantly (no re-login)
+    await update({ image: data.url });
+
+    setMessage("Profile photo updated.");
   }
 
   async function handleSubmit(e) {
@@ -69,6 +75,7 @@ export default function EditProfileForm({ user }) {
     setMessage(data.message);
 
     if (res.ok) {
+      await update({ image: form.photo || null, name: form.name });
       window.location.href = "/portal";
     }
   }
