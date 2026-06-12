@@ -157,7 +157,66 @@
 /* Active link gets a subtle gold tint background */
 .navbar-link.active {
   color: #c8870a;
-  
+
+}
+
+/* =========================
+   SECTION DROPDOWN (desktop)
+========================= */
+
+.navbar-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Name + chevron sit on one row inside the column-layout link */
+.navbar-link-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.navbar-link-chevron {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 1px;
+  color: rgba(16, 36, 63, 0.45);
+  transition: color 0.25s ease;
+}
+
+.navbar-item:hover .navbar-link-chevron,
+.navbar-link.active .navbar-link-chevron {
+  color: #c8870a;
+}
+
+/* Positioning wrapper — the transparent top padding bridges the gap
+   between the link and the card so hover doesn't drop on the way down */
+.navbar-section-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  padding-top: 14px;
+  z-index: 60;
+}
+
+.navbar-section-dropdown-card {
+  min-width: 224px;
+  padding: 6px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.97);
+  border: 1px solid rgba(200, 167, 106, 0.22);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow:
+    0 20px 50px rgba(16, 36, 63, 0.14),
+    0 1px 3px rgba(16, 36, 63, 0.06);
+}
+
+/* Section items reuse .navbar-dropdown-item, but are not uppercased */
+.navbar-section-dropdown-card .navbar-dropdown-item {
+  text-transform: none;
+  letter-spacing: 0.01em;
 }
 
 /* =========================
@@ -397,6 +456,76 @@
 .navbar-mobile-link.active::after {
   opacity: 1;
   transform: translateX(0);
+}
+
+/* Mobile accordion (links that have sections) */
+.navbar-mobile-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar-mobile-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.navbar-mobile-row .navbar-mobile-link {
+  flex: 1;
+}
+
+.navbar-mobile-expand {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border: 1px solid rgba(200, 167, 106, 0.26);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.7);
+  color: rgba(16, 36, 63, 0.6);
+  cursor: pointer;
+  transition: background 0.22s ease, border-color 0.22s ease,
+    color 0.22s ease, transform 0.3s ease;
+}
+
+.navbar-mobile-expand:hover {
+  background: rgba(245, 191, 84, 0.12);
+  border-color: rgba(200, 167, 106, 0.45);
+}
+
+.navbar-mobile-expand.open {
+  color: #c8870a;
+  transform: rotate(180deg);
+}
+
+.navbar-mobile-sublist {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  margin-left: 8px;
+  padding-left: 12px;
+  border-left: 1px solid rgba(200, 167, 106, 0.3);
+}
+
+.navbar-mobile-sublink {
+  padding: 11px 16px;
+  border-radius: 12px;
+  color: rgba(16, 36, 63, 0.6);
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.navbar-mobile-sublink:first-child {
+  margin-top: 4px;
+}
+
+.navbar-mobile-sublink:hover {
+  background: rgba(245, 191, 84, 0.1);
+  color: var(--sky-ink);
 }
 
 .navbar-mobile-divider {

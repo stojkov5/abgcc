@@ -11,6 +11,10 @@ export default function SmoothScroll() {
       touchMultiplier: 1.2,
     });
 
+    // Expose the instance so other components (e.g. the navbar section
+    // links) can drive offset-aware smooth scrolling via lenis.scrollTo.
+    window.lenis = lenis;
+
     function raf(time) {
       lenis.raf(time);
       requestAnimationFrame(raf);
@@ -20,6 +24,9 @@ export default function SmoothScroll() {
 
     return () => {
       lenis.destroy();
+      if (window.lenis === lenis) {
+        delete window.lenis;
+      }
     };
   }, []);
 

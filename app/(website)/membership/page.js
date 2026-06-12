@@ -89,7 +89,7 @@ export default async function MembershipPage() {
         </div>
       </section>
 
-      <section className="membership-intro-section">
+      <section className="membership-intro-section" id="membership-overview">
         <div className="page-container">
           <Reveal className="membership-intro-card">
             <span className="section-label">Membership</span>
@@ -107,7 +107,7 @@ network, programs, and support
         </div>
       </section>
 
-      <section className="membership-value-section">
+      <section className="membership-value-section" id="membership-value">
         <div className="page-container">
           <Reveal className="section-heading center">
             <span className="section-label">Membership Value</span>

@@ -19,6 +19,21 @@
 
 html {
   scroll-behavior: smooth;
+  /* Offset hash-link scroll targets so the fixed navbar doesn't cover them.
+     Applies to #id navigation via Next.js <Link> (scrollIntoView). */
+  scroll-padding-top: 120px;
+}
+
+@media (max-width: 1200px) {
+  html {
+    scroll-padding-top: 96px;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    scroll-padding-top: 84px;
+  }
 }
 
 html,

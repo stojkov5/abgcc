@@ -110,7 +110,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="about-intro">
+      <section className="about-intro" id="who-we-are">
         <div className="page-container about-grid">
           <Reveal>
             <span className="section-label">Who we are</span>
@@ -139,7 +139,7 @@ and institutions.
         </div>
       </section>
 
-      <section className="industries-section">
+      <section className="industries-section" id="industries">
         <div className="page-container">
           <Reveal className="section-heading">
             <span className="section-label">Industries</span>
@@ -167,7 +167,7 @@ and institutions.
         </div>
       </section>
       
-       <section className="vision-section">
+       <section className="vision-section" id="our-vision">
         <div className="page-container">
           <Reveal className="vision-card">
             <span className="section-label">Our Vision</span>
@@ -186,7 +186,7 @@ and institutions.
         </div>
       </section>
 
-      <section className="team-section">
+      <section className="team-section" id="meet-the-team">
         <div className="page-container">
           <Reveal className="section-heading">
             <span className="section-label">Meet the Team</span>
@@ -225,7 +225,7 @@ and institutions.
         </div>
       </section>
 
-      <section className="pillars-section">
+      <section className="pillars-section" id="core-pillars">
         <div className="page-container">
           <Reveal className="section-heading">
             <span className="section-label">Our Core Pillars</span>

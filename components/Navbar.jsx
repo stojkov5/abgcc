@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import "../styles/navbar.css";
 import Image from "next/image";
@@ -15,9 +15,13 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [profileDropdown, setProfileDropdown] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const [mobileExpanded, setMobileExpanded] = useState(null);
 
   const dropdownRef = useRef(null);
+  const pendingHashRef = useRef(null);
   const pathname = usePathname();
+  const router = useRouter();
   const { data: session, status } = useSession();
 
   const isLoading = status === "loading";
@@ -25,9 +29,27 @@ export default function Navbar() {
   const isAdmin = session?.user?.role === "SUPER_ADMIN";
 
   const navLinks = [
-    { name: "About", href: "/about" },
+    {
+      name: "About",
+      href: "/about",
+      sections: [
+        { label: "Who We Are", hash: "who-we-are" },
+        { label: "Industries", hash: "industries" },
+        { label: "Our Vision", hash: "our-vision" },
+        { label: "Meet the Team", hash: "meet-the-team" },
+        { label: "Core Pillars", hash: "core-pillars" },
+      ],
+    },
     { name: "Services", href: "/services" },
-    { name: "Membership", href: "/membership" },
+    {
+      name: "Membership",
+      href: "/membership",
+      sections: [
+        { label: "Overview", hash: "membership-overview" },
+        { label: "Membership Value", hash: "membership-value" },
+        { label: "Membership Tiers", hash: "membership-tiers" },
+      ],
+    },
     { name: "Events", href: "/events" },
     { name: "News", href: "/news" },
     { name: "Contact", href: "/contact" },
@@ -59,6 +81,85 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Offset (px) so the fixed navbar doesn't cover the section heading.
+  // Kept in parity with the scroll-padding-top breakpoints in globals.css.
+  const getNavOffset = () => {
+    if (typeof window === "undefined") return 120;
+    const width = window.innerWidth;
+    if (width <= 480) return 84;
+    if (width <= 1200) return 96;
+    return 120;
+  };
+
+  // Smooth-scroll to a section. Lenis owns the scroll loop, so a native
+  // scrollIntoView would be fought by it — drive lenis.scrollTo instead,
+  // falling back to native only if Lenis isn't ready.
+  const scrollToHash = (hash) => {
+    const lenis = typeof window !== "undefined" ? window.lenis : null;
+    if (lenis) {
+      // Recalculate Lenis dimensions first — after a client navigation its
+      // scroll limit can still be stale (0), which would clamp the target.
+      lenis.resize();
+      lenis.scrollTo(hash, { offset: -getNavOffset() });
+    } else {
+      document.querySelector(hash)?.scrollIntoView();
+    }
+  };
+
+  const closeMenus = () => {
+    setOpenDropdown(null);
+    setMobileMenu(false);
+    setMobileExpanded(null);
+    setProfileDropdown(false);
+  };
+
+  const handleSectionClick = (e, href, sectionHash) => {
+    const hash = `#${sectionHash}`;
+    closeMenus();
+
+    e.preventDefault();
+    if (pathname === href) {
+      // Already on the page — scroll directly.
+      scrollToHash(hash);
+    } else {
+      // Different page — navigate first, then scroll once it renders.
+      // scroll:false stops Next's default scroll-to-top from fighting the
+      // Lenis scroll we run when the destination section appears.
+      pendingHashRef.current = hash;
+      router.push(href, { scroll: false });
+    }
+  };
+
+  // After a cross-page section link navigates, scroll to the queued section
+  // once the destination page has rendered. Pages may stream a loading state
+  // first (loading.js) and fetch data, so poll for the target element rather
+  // than assuming it exists immediately.
+  useEffect(() => {
+    if (!pendingHashRef.current) return;
+    const hash = pendingHashRef.current;
+    pendingHashRef.current = null;
+
+    let cancelled = false;
+    let attempts = 0;
+    const tryScroll = () => {
+      if (cancelled) return;
+      if (document.querySelector(hash)) {
+        scrollToHash(hash);
+      } else if (attempts < 40) {
+        attempts += 1;
+        window.setTimeout(tryScroll, 50); // retry for up to ~2s
+      }
+    };
+    const start = window.setTimeout(tryScroll, 50);
+    return () => {
+      cancelled = true;
+      window.clearTimeout(start);
+    };
+    // Intentionally runs only on route change; scrollToHash is stable enough
+    // and must not re-trigger this effect before the new page has rendered.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
+
   return (
     <motion.header
       className="navbar-shell"
@@ -85,15 +186,77 @@ export default function Navbar() {
         <div className="navbar-center">
           {navLinks.map((link) => {
             const isActive = pathname === link.href;
+            const hasSections =
+              Array.isArray(link.sections) && link.sections.length > 0;
+            const isOpen = openDropdown === link.name;
+
             return (
-              <Link
+              <div
                 key={link.name}
-                href={link.href}
-                className={`navbar-link ${isActive ? "active" : ""}`}
+                className="navbar-item"
+                onMouseEnter={() => hasSections && setOpenDropdown(link.name)}
+                onMouseLeave={() => hasSections && setOpenDropdown(null)}
+                onFocus={() => hasSections && setOpenDropdown(link.name)}
+                onBlur={(e) => {
+                  if (
+                    hasSections &&
+                    !e.currentTarget.contains(e.relatedTarget)
+                  ) {
+                    setOpenDropdown(null);
+                  }
+                }}
               >
-                {link.name}
-                <span className="navbar-link-line" />
-              </Link>
+                <Link
+                  href={link.href}
+                  className={`navbar-link ${isActive ? "active" : ""}`}
+                  aria-haspopup={hasSections ? "true" : undefined}
+                  aria-expanded={hasSections ? isOpen : undefined}
+                  onClick={() => setOpenDropdown(null)}
+                >
+                  <span className="navbar-link-label">
+                    {link.name}
+                    {hasSections && (
+                      <motion.span
+                        className="navbar-link-chevron"
+                        animate={{ rotate: isOpen ? 180 : 0 }}
+                        transition={{ duration: 0.25, ease: "easeInOut" }}
+                      >
+                        <ChevronDown size={14} />
+                      </motion.span>
+                    )}
+                  </span>
+                  <span className="navbar-link-line" />
+                </Link>
+
+                {hasSections && (
+                  <AnimatePresence>
+                    {isOpen && (
+                      <motion.div
+                        className="navbar-section-dropdown"
+                        initial={{ opacity: 0, y: 6, scale: 0.98, x: "-50%" }}
+                        animate={{ opacity: 1, y: 0, scale: 1, x: "-50%" }}
+                        exit={{ opacity: 0, y: 6, scale: 0.98, x: "-50%" }}
+                        transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                      >
+                        <div className="navbar-section-dropdown-card">
+                          {link.sections.map((section) => (
+                            <Link
+                              key={section.hash}
+                              href={`${link.href}#${section.hash}`}
+                              className="navbar-dropdown-item"
+                              onClick={(e) =>
+                                handleSectionClick(e, link.href, section.hash)
+                              }
+                            >
+                              {section.label}
+                            </Link>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                )}
+              </div>
             );
           })}
         </div>
@@ -207,22 +370,78 @@ export default function Navbar() {
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           >
             <nav className="navbar-mobile-links">
-              {navLinks.map((link, i) => (
-                <motion.div
-                  key={link.name}
-                  initial={{ opacity: 0, x: -12 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05, duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  <Link
-                    href={link.href}
-                    onClick={() => setMobileMenu(false)}
-                    className={`navbar-mobile-link ${pathname === link.href ? "active" : ""}`}
+              {navLinks.map((link, i) => {
+                const hasSections =
+                  Array.isArray(link.sections) && link.sections.length > 0;
+                const isExpanded = mobileExpanded === link.name;
+
+                return (
+                  <motion.div
+                    key={link.name}
+                    initial={{ opacity: 0, x: -12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05, duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                   >
-                    {link.name}
-                  </Link>
-                </motion.div>
-              ))}
+                    {hasSections ? (
+                      <div className="navbar-mobile-group">
+                        <div className="navbar-mobile-row">
+                          <Link
+                            href={link.href}
+                            onClick={() => setMobileMenu(false)}
+                            className={`navbar-mobile-link ${pathname === link.href ? "active" : ""}`}
+                          >
+                            {link.name}
+                          </Link>
+                          <button
+                            type="button"
+                            className={`navbar-mobile-expand ${isExpanded ? "open" : ""}`}
+                            aria-label={`Toggle ${link.name} sections`}
+                            aria-expanded={isExpanded}
+                            onClick={() =>
+                              setMobileExpanded(isExpanded ? null : link.name)
+                            }
+                          >
+                            <ChevronDown size={18} />
+                          </button>
+                        </div>
+
+                        <AnimatePresence initial={false}>
+                          {isExpanded && (
+                            <motion.div
+                              className="navbar-mobile-sublist"
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: "auto", opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                            >
+                              {link.sections.map((section) => (
+                                <Link
+                                  key={section.hash}
+                                  href={`${link.href}#${section.hash}`}
+                                  onClick={(e) =>
+                                    handleSectionClick(e, link.href, section.hash)
+                                  }
+                                  className="navbar-mobile-sublink"
+                                >
+                                  {section.label}
+                                </Link>
+                              ))}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        onClick={() => setMobileMenu(false)}
+                        className={`navbar-mobile-link ${pathname === link.href ? "active" : ""}`}
+                      >
+                        {link.name}
+                      </Link>
+                    )}
+                  </motion.div>
+                );
+              })}
             </nav>
 
             <div className="navbar-mobile-divider" />
