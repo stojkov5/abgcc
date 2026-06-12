@@ -8,18 +8,18 @@
   left: 0;
   z-index: 50;
   width: 100%;
-  padding: 18px 28px;
+
   background: transparent;
   pointer-events: none;
 }
 
 /* =========================
-   CONTAINER (the pill itself)
+   CONTAINER 
 ========================= */
 
 .navbar-container {
   pointer-events: auto;
-  max-width: 1320px;
+  
   margin: 0 auto;
 
   display: grid;
@@ -27,17 +27,13 @@
   align-items: center;
   gap: 0;
 
-  border-radius: 999px;
+  
   border: 1px solid rgba(200, 167, 106, 0.18);
 
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.78) 0%,
-    rgba(240, 250, 255, 0.68) 100%
-  );
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(14px);
 
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+ 
 
   box-shadow:
     0 2px 0 rgba(255, 255, 255, 0.9) inset,
@@ -70,13 +66,13 @@
   align-items: center;
   gap: 0;
   text-decoration: none;
-  padding: 4px 4px 4px 6px;
+  
   flex-shrink: 0;
 }
 
 .navbar-logo-image {
   width: auto;
-  height: 80px;
+  height: 100px;
   object-fit: contain;
   transition: transform 0.35s ease;
 }
@@ -121,10 +117,10 @@
   gap: 0;
   padding: 10px 14px 9px;
   border-radius: 8px;
-  color: rgba(16, 36, 63, 0.58);
+  color: --var(--sky-ink);
   text-decoration: none;
-  font-size: 0.82rem;
-  font-weight: 600;
+  font-size: 0.90rem;
+  font-weight: 800;
   letter-spacing: 0.11em;
   text-transform: uppercase;
   transition: color 0.25s ease;
@@ -161,7 +157,7 @@
 /* Active link gets a subtle gold tint background */
 .navbar-link.active {
   color: #c8870a;
-  background: rgba(245, 191, 84, 0.08);
+  
 }
 
 /* =========================

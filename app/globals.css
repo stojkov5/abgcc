@@ -281,16 +281,16 @@ img { max-width: 100%; }
 .page-hero-bottom-text {
   position: absolute;
   left: 50%;
-  bottom: clamp(1.2rem, 5vh, 2.5rem);
+  bottom: 0;
   z-index: 5;
-  width: min(100% - 3rem, 80rem);
+  width: 100%;
   transform: translateX(-50%) !important;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1rem 1.75rem;
   border: 1px solid rgba(255, 255, 255, 0.28);
-  border-radius: 999rem;
+ 
   background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(14px);
   color: var(--sky-ink);
