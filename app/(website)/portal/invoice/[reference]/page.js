@@ -7,7 +7,7 @@ import { ArrowLeft, CheckCircle2 } from "lucide-react";
 
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { getBankDetails } from "@/lib/bankDetails";
+import { getBankDetails, bankDetailRows } from "@/lib/bankDetails";
 import { Reveal } from "@/components/MotionReveal";
 
 import "@/styles/invoice.css";
@@ -91,11 +91,12 @@ export default async function InvoicePage({ params }) {
                 <p className="invoice-label">Bank Transfer Details</p>
 
                 <div className="invoice-bank-grid">
-                  <div><span>Bank</span><strong>{bank.bankName}</strong></div>
-                  <div><span>Account Name</span><strong>{bank.accountName}</strong></div>
-                  <div><span>IBAN</span><strong>{bank.iban}</strong></div>
-                  <div><span>SWIFT / BIC</span><strong>{bank.swift}</strong></div>
-                  <div><span>Bank Address</span><strong>{bank.address}</strong></div>
+                  {bankDetailRows(bank).map((row) => (
+                    <div key={row.label}>
+                      <span>{row.label}</span>
+                      <strong>{row.value}</strong>
+                    </div>
+                  ))}
                 </div>
 
                 <p className="invoice-note">{bank.note}</p>

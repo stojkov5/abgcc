@@ -63,6 +63,28 @@
   transform: scale(1.06);
 }
 
+/* "Ended" badge on past-event cards */
+.event-ended-badge {
+  position: absolute;
+  top: 0.9rem;
+  left: 0.9rem;
+  z-index: 2;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(16, 36, 63, 0.78);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  backdrop-filter: blur(6px);
+}
+
+/* Slightly mute past-event thumbnails */
+.event-card.is-past .event-img {
+  filter: grayscale(0.25);
+}
+
 .event-content {
   padding: clamp(1.35rem, 2.4vw, 2rem);
 }

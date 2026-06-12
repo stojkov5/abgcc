@@ -8,6 +8,7 @@ export default function EventRSVPSection({
   initialRegisteredCount,
   capacity,
   price = 0,
+  isPast = false,
 }) {
   const [registeredCount, setRegisteredCount] = useState(
     initialRegisteredCount
@@ -20,6 +21,7 @@ export default function EventRSVPSection({
 
   // Detect return from Stripe Checkout (?session_id=...) and fulfill the booking
   useEffect(() => {
+    if (isPast) return;
     const params = new URLSearchParams(window.location.search);
     const sessionId = params.get("session_id");
     if (!sessionId) return;
@@ -59,10 +61,20 @@ export default function EventRSVPSection({
           {isPaid ? `$${price}` : "Free"}
         </span>
 
-        {isSoldOut && <span>Sold Out</span>}
+        {isPast ? (
+          <span className="event-ended-tag">Ended</span>
+        ) : (
+          isSoldOut && <span>Sold Out</span>
+        )}
       </div>
 
-      {confirming ? (
+      {isPast ? (
+        <div className="event-rsvp-closed">
+          <div className="event-rsvp-closed-icon">🗓</div>
+          <h3>Registration Closed</h3>
+          <p>This event has already taken place. Registration is no longer available.</p>
+        </div>
+      ) : confirming ? (
         <div className="event-rsvp-success">
           <div className="event-rsvp-spinner" />
           <h3>Confirming your booking...</h3>

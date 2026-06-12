@@ -7,6 +7,7 @@ import { prisma } from "@/lib/prisma";
 import { sendEmail } from "@/lib/email/sendEmail";
 import { paymentSuccessEmail } from "@/lib/email/templates/paymentSuccessEmail";
 import { adminMembershipActivatedEmail } from "@/lib/email/templates/adminMembershipActivatedEmail";
+import { invoiceReceiptEmail } from "@/lib/email/templates/invoiceReceiptEmail";
 import { fulfillEventCheckout } from "@/lib/events/fulfillEventCheckout";
 
 export const runtime = "nodejs";
@@ -166,6 +167,8 @@ export async function POST(request) {
           })
         : "Updated in your portal";
 
+      const amountValue = Number(checkoutSession.amount_total || 0) / 100;
+
       if (user?.email) {
         sendEmail({
           to: user.email,
@@ -178,6 +181,23 @@ export async function POST(request) {
           }),
         }).catch((error) => {
           console.error("PAYMENT_SUCCESS_EMAIL_ERROR:", error);
+        });
+
+        // Receipt / invoice for the completed purchase
+        sendEmail({
+          to: user.email,
+          subject: "Your ABGCC payment receipt",
+          html: invoiceReceiptEmail({
+            name: user.name,
+            email: user.email,
+            invoiceNumber: `ABGCC-${checkoutSession.id.slice(-8).toUpperCase()}`,
+            date: new Date(),
+            description: `${tier.title} — Membership`,
+            amount: amountValue,
+            paymentMethod: "Card",
+          }),
+        }).catch((error) => {
+          console.error("MEMBERSHIP_RECEIPT_EMAIL_ERROR:", error);
         });
       }
 

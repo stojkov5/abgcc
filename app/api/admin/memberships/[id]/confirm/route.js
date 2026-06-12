@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { authOptions } from "@/lib/auth";
 import { sendEmail } from "@/lib/email/sendEmail";
 import { paymentSuccessEmail } from "@/lib/email/templates/paymentSuccessEmail";
+import { invoiceReceiptEmail } from "@/lib/email/templates/invoiceReceiptEmail";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -79,6 +80,21 @@ export async function POST(request, { params }) {
           }),
         }),
       }).catch((err) => console.error("MEMBERSHIP_CONFIRM_EMAIL_ERROR:", err));
+
+      // Receipt / invoice for the completed bank-transfer purchase
+      sendEmail({
+        to: membership.user.email,
+        subject: "Your ABGCC payment receipt",
+        html: invoiceReceiptEmail({
+          name: membership.user.name,
+          email: membership.user.email,
+          invoiceNumber: membership.invoiceReference || `ABGCC-${membership.id.slice(-8).toUpperCase()}`,
+          date: now,
+          description: `${membership.tier.title} — Membership`,
+          amount,
+          paymentMethod: "Bank Transfer",
+        }),
+      }).catch((err) => console.error("MEMBERSHIP_RECEIPT_EMAIL_ERROR:", err));
     }
 
     revalidatePath("/admin/memberships");

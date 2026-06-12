@@ -329,6 +329,39 @@
   cursor: not-allowed;
 }
 
+/* "Coming soon" (bank transfer temporarily disabled) */
+.membership-modal-option.is-soon {
+  opacity: 1;
+  cursor: not-allowed;
+  background: rgba(16, 36, 63, 0.04);
+  border-color: rgba(16, 36, 63, 0.1);
+}
+
+.membership-modal-option.is-soon .membership-modal-option-icon,
+.membership-modal-option.is-soon .membership-modal-option-body strong,
+.membership-modal-option.is-soon .membership-modal-option-body small {
+  color: rgba(16, 36, 63, 0.4);
+}
+
+.membership-modal-option.is-soon:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: rgba(16, 36, 63, 0.1);
+}
+
+.membership-modal-soon {
+  flex-shrink: 0;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(16, 36, 63, 0.08);
+  color: rgba(16, 36, 63, 0.55);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
 .membership-modal-option-icon {
   flex-shrink: 0;
   width: 2.75rem;

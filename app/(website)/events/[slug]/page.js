@@ -52,6 +52,9 @@ export default async function EventDetailsPage({ params }) {
 
   const registeredCount = event.bookings.length;
 
+  // An event is "past" once its start date/time has passed.
+  const isPast = new Date(event.startDate) < new Date();
+
   // New events store Puck JSON; older events store legacy HTML/plain text.
   const puckData = parsePuckData(event.description);
 
@@ -89,9 +92,13 @@ export default async function EventDetailsPage({ params }) {
 
           <Reveal delay={0.22}>
             <div className="event-detail-actions">
-              <Link href="#rsvp" className="event-detail-primary">
-                RSVP Now
-              </Link>
+              {isPast ? (
+                <span className="event-detail-ended-pill">Event Ended</span>
+              ) : (
+                <Link href="#rsvp" className="event-detail-primary">
+                  RSVP Now
+                </Link>
+              )}
 
               <Link href="#details" className="event-detail-secondary">
                 Event Details
@@ -134,7 +141,7 @@ export default async function EventDetailsPage({ params }) {
               </div>
 
               <Link href="#rsvp" className="event-info-cta">
-                Reserve your place
+                {isPast ? "View Registration" : "Reserve your place"}
               </Link>
             </Reveal>
           </aside>
@@ -193,16 +200,18 @@ export default async function EventDetailsPage({ params }) {
       <section className="event-detail-section" id="rsvp">
         <div className="event-detail-container">
           <Reveal className="event-rsvp-card">
-            <span className="event-detail-label">Join The Experience</span>
+            <span className="event-detail-label">
+              {isPast ? "This Event Has Ended" : "Join The Experience"}
+            </span>
 
             <h2 className="event-detail-heading">
-              Reserve your place.
+              {isPast ? "Registration is closed." : "Reserve your place."}
             </h2>
 
             <p className="event-detail-text">
-              Connect with business leaders, investors, innovators,
-              institutions, and partners shaping international collaboration and
-              opportunity.
+              {isPast
+                ? "This event has already taken place, so registration is no longer available. Browse our upcoming events to reserve your spot."
+                : "Connect with business leaders, investors, innovators, institutions, and partners shaping international collaboration and opportunity."}
             </p>
 
             <EventRSVPSection
@@ -210,6 +219,7 @@ export default async function EventDetailsPage({ params }) {
               initialRegisteredCount={registeredCount}
               capacity={event.capacity}
               price={event.price}
+              isPast={isPast}
             />
           </Reveal>
         </div>

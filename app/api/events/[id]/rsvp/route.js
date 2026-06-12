@@ -32,6 +32,14 @@ export async function POST(request, { params }) {
       );
     }
 
+    // Past events cannot be booked
+    if (new Date(event.startDate) < new Date()) {
+      return Response.json(
+        { message: "This event has already taken place." },
+        { status: 400 }
+      );
+    }
+
     // Paid events must go through Stripe checkout, not the free RSVP flow
     if (event.price > 0) {
       return Response.json(

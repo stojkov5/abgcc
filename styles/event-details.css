@@ -473,6 +473,65 @@
   to { transform: rotate(360deg); }
 }
 
+/* Past / ended event states */
+.event-ended-tag {
+  border-radius: 999px;
+  background: rgba(16, 36, 63, 0.1) !important;
+  color: rgba(16, 36, 63, 0.6) !important;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.event-rsvp-closed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+  padding: 2rem 1rem;
+}
+
+.event-rsvp-closed-icon {
+  font-size: 2rem;
+  opacity: 0.85;
+}
+
+.event-rsvp-closed h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #0f2340;
+}
+
+.event-rsvp-closed p {
+  margin: 0;
+  max-width: 30rem;
+  color: rgba(16, 36, 63, 0.62);
+  font-size: 1.02rem;
+  line-height: 1.65;
+}
+
+/* Hero "Event Ended" pill (replaces the RSVP button on past events) */
+.event-detail-ended-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.25rem;
+  padding: 0.9rem 1.75rem;
+  border-radius: 999rem;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  backdrop-filter: blur(14px);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 .event-rsvp-success h3 {
   margin: 0;
   font-size: 1.6rem;

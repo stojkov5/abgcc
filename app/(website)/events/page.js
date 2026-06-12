@@ -79,11 +79,14 @@ export default async function EventsPage() {
 
           {events.length > 0 ? (
             <Stagger className="events-grid">
-              {events.map((event) => (
+              {events.map((event) => {
+                const isPast = new Date(event.startDate) < new Date();
+
+                return (
                 <StaggerItem
                   as="article"
                   key={event.id}
-                  className="event-card"
+                  className={`event-card ${isPast ? "is-past" : ""}`}
                 >
                   <div className="event-image-wrap">
                     <Image
@@ -94,6 +97,8 @@ export default async function EventsPage() {
                     />
 
                     <div className="event-image-overlay" />
+
+                    {isPast && <span className="event-ended-badge">Ended</span>}
                   </div>
 
                   <div className="event-content">
@@ -128,7 +133,8 @@ export default async function EventsPage() {
                     </Link>
                   </div>
                 </StaggerItem>
-              ))}
+                );
+              })}
             </Stagger>
           ) : (
             <Reveal className="events-empty-card">
