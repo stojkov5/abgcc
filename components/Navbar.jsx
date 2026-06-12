@@ -8,6 +8,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import "../styles/navbar.css";
 import Image from "next/image";
+import { getNavOffset } from "@/lib/scroll";
 
 export default function Navbar() {
   const [mobileMenu, setMobileMenu] = useState(false);
@@ -81,28 +82,27 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Offset (px) so the fixed navbar doesn't cover the section heading.
-  // Kept in parity with the scroll-padding-top breakpoints in globals.css.
-  const getNavOffset = () => {
-    if (typeof window === "undefined") return 120;
-    const width = window.innerWidth;
-    if (width <= 480) return 84;
-    if (width <= 1200) return 96;
-    return 120;
-  };
-
   // Smooth-scroll to a section. Lenis owns the scroll loop, so a native
   // scrollIntoView would be fought by it — drive lenis.scrollTo instead,
   // falling back to native only if Lenis isn't ready.
+  //
+  // We pass a numeric target (not the hash string) on purpose: for string /
+  // element targets Lenis also subtracts the CSS scroll-padding-top, which
+  // would stack with our offset and double it. A numeric target applies only
+  // the offset we compute, so the section lands exactly below the navbar.
   const scrollToHash = (hash) => {
+    const el = typeof document !== "undefined" ? document.querySelector(hash) : null;
+    if (!el) return;
+
     const lenis = typeof window !== "undefined" ? window.lenis : null;
     if (lenis) {
       // Recalculate Lenis dimensions first — after a client navigation its
       // scroll limit can still be stale (0), which would clamp the target.
       lenis.resize();
-      lenis.scrollTo(hash, { offset: -getNavOffset() });
+      const target = el.getBoundingClientRect().top + window.scrollY - getNavOffset();
+      lenis.scrollTo(target);
     } else {
-      document.querySelector(hash)?.scrollIntoView();
+      el.scrollIntoView();
     }
   };
 
@@ -155,9 +155,6 @@ export default function Navbar() {
       cancelled = true;
       window.clearTimeout(start);
     };
-    // Intentionally runs only on route change; scrollToHash is stable enough
-    // and must not re-trigger this effect before the new page has rendered.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   return (

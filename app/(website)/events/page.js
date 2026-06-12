@@ -20,6 +20,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, CalendarDays, MapPin } from "lucide-react";
 import HeroVideo from "@/components/HeroVideo";
+import ScrollCue from "@/components/ScrollCue";
 
 import { Reveal, Stagger, StaggerItem } from "@/components/MotionReveal";
 import { getEventPreview } from "@/lib/puck/preview";
@@ -51,14 +52,6 @@ export default async function EventsPage() {
                 Strategic global events and networking experiences
               </h1>
             </Reveal>
-
-            <Reveal delay={0.2}>
-              <div className="mt-8 flex justify-center">
-                <Link href="#events-list" className="primary-hero-btn">
-                  View Events <ArrowRight size={17} />
-                </Link>
-              </div>
-            </Reveal>
           </div>
         </div>
 
@@ -67,6 +60,8 @@ export default async function EventsPage() {
           summits, and collaborative international initiatives organized by the
           American Balkan Global Chamber of Commerce.
         </div>
+
+        <ScrollCue />
       </section>
 
       <section className="events-list-section" id="events-list">

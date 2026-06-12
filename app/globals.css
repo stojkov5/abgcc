@@ -281,7 +281,7 @@ img { max-width: 100%; }
 
 .page-hero-title {
   margin: 0;
-  color: var(--sun-gold);
+  color: white;
   font-size: clamp(2.8rem, 6vw, 5.5rem);
   line-height: 1.0;
   font-weight: 600;

@@ -11,14 +11,12 @@ export const metadata = {
   },
 };
 
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-
 import PartnerSection from "../../components/landing/PartnerSection";
 import MissionSection from "../../components/landing/MissionSection";
 import EventsPreview from "../../components/landing/EventsPreview";
 import MembershipCTA from "../../components/landing/MembershipCTA";
 import HeroVideo from "../../components/HeroVideo";
+import ScrollCue from "../../components/ScrollCue";
 
 import "@/styles/home.css";
 
@@ -43,18 +41,6 @@ export default function Home() {
                 </RevealWords>
               </h1>
             </Reveal>
-
-            <Reveal delay={0.55}>
-              <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <Link href="/membership" className="primary-hero-btn">
-                  Become a Member <ArrowRight size={17} />
-                </Link>
-
-                <Link href="/about" className="secondary-hero-btn">
-                  Learn More
-                </Link>
-              </div>
-            </Reveal>
           </div>
         </div>
 
@@ -65,6 +51,8 @@ export default function Home() {
             global partners.
           </div>
         </FadeIn>
+
+        <ScrollCue />
       </section>
 
       <PartnerSection />

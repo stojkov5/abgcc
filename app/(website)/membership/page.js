@@ -15,10 +15,9 @@ export const metadata = {
 };
 
 import "@/styles/membership.css";
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import HeroVideo from "@/components/HeroVideo";
+import ScrollCue from "@/components/ScrollCue";
 import MembershipJoinButton from "../../../components/MembershipJoinButton";
 
 import { Reveal, RevealWords, RevealLine, Stagger, StaggerItem } from "@/components/MotionReveal";
@@ -71,14 +70,6 @@ export default async function MembershipPage() {
                 </RevealWords>
               </h1>
             </Reveal>
-
-            <Reveal delay={0.2}>
-              <div className="mt-8 flex justify-center">
-                <Link href="#membership-tiers" className="primary-hero-btn">
-                  View Tiers <ArrowRight size={17} />
-                </Link>
-              </div>
-            </Reveal>
           </div>
         </div>
 
@@ -87,6 +78,8 @@ export default async function MembershipPage() {
           strategic network of business leaders, investors, institutions, and
           entrepreneurs.
         </div>
+
+        <ScrollCue />
       </section>
 
       <section className="membership-intro-section" id="membership-overview">

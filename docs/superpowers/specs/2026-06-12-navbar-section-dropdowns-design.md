@@ -106,8 +106,12 @@ section navigation. Section links therefore drive Lenis explicitly:
 
 - `SmoothScroll` exposes the instance as `window.lenis`.
 - The navbar's `handleSectionClick` calls `e.preventDefault()` and, for the
-  current page, `lenis.scrollTo(hash, { offset: -navOffset })`. The offset is
-  kept in parity with the `scroll-padding-top` breakpoints (120 / 96 / 84).
+  current page, scrolls via Lenis to a **numeric** target computed as
+  `element.top + scrollY - navOffset`. A numeric target is used deliberately:
+  for string/element targets Lenis also subtracts the CSS `scroll-padding-top`,
+  which would stack with our offset and double it. `navOffset` lives in
+  `lib/scroll.js` (`getNavOffset`) and is kept in parity with the
+  `scroll-padding-top` breakpoints (120 / 96 / 84).
 - For a different page it queues the hash, calls
   `router.push(href, { scroll: false })` (so Next's scroll-to-top doesn't fight
   Lenis), then polls for the target element on route change and scrolls once it
