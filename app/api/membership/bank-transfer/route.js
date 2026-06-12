@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { generateInvoiceReference } from "@/lib/membership/invoice";
 import { getBankDetails } from "@/lib/bankDetails";
 import { sendEmail } from "@/lib/email/sendEmail";
+import { membershipRecipients } from "@/lib/email/recipients";
 import { membershipInvoiceEmail } from "@/lib/email/templates/membershipInvoiceEmail";
 import { adminBankTransferRequestEmail } from "@/lib/email/templates/adminBankTransferRequestEmail";
 
@@ -81,15 +82,12 @@ export async function POST(request) {
       }),
     }).catch((err) => console.error("MEMBERSHIP_INVOICE_EMAIL_ERROR:", err));
 
-    // Notify ABGCC admin
-    const adminEmail =
-      process.env.CONTACT_EMAIL ||
-      process.env.ADMIN_EMAIL ||
-      process.env.EMAIL_FROM;
+    // Notify ABGCC admin (memberships → eliza@, + testing copy)
+    const recipients = membershipRecipients();
 
-    if (adminEmail) {
+    if (recipients.length) {
       sendEmail({
-        to: adminEmail,
+        to: recipients,
         subject: `New bank-transfer request: ${tier.title}`,
         html: adminBankTransferRequestEmail({
           userName: session.user.name,

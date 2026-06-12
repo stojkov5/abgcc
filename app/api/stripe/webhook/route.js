@@ -8,6 +8,7 @@ import { sendEmail } from "@/lib/email/sendEmail";
 import { paymentSuccessEmail } from "@/lib/email/templates/paymentSuccessEmail";
 import { adminMembershipActivatedEmail } from "@/lib/email/templates/adminMembershipActivatedEmail";
 import { invoiceReceiptEmail } from "@/lib/email/templates/invoiceReceiptEmail";
+import { membershipRecipients } from "@/lib/email/recipients";
 import { fulfillEventCheckout } from "@/lib/events/fulfillEventCheckout";
 
 export const runtime = "nodejs";
@@ -201,9 +202,10 @@ export async function POST(request) {
         });
       }
 
-      if (process.env.ADMIN_EMAIL) {
+      const membershipAdmins = membershipRecipients();
+      if (membershipAdmins.length) {
         sendEmail({
-          to: process.env.ADMIN_EMAIL,
+          to: membershipAdmins,
           subject: "New ABGCC membership activated",
           html: adminMembershipActivatedEmail({
             userName: user?.name,

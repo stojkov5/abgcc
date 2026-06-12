@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { sendEmail } from "@/lib/email/sendEmail";
+import { contactRecipients } from "@/lib/email/recipients";
 import { contactConfirmationEmail } from "@/lib/email/templates/contactConfirmationEmail";
 import { contactNotificationEmail } from "@/lib/email/templates/contactNotificationEmail";
 
@@ -91,11 +92,9 @@ export async function POST(request) {
 
     // ── Send emails (non-blocking — don't fail the request if email fails) ─
 
-    const adminEmail = process.env.CONTACT_EMAIL || process.env.EMAIL_FROM;
-
-    // 1. Notify ABGCC admin
+    // 1. Notify ABGCC admin (contact → info@, + testing copy)
     sendEmail({
-      to: adminEmail,
+      to: contactRecipients(),
       subject: `New Contact: ${cleanData.subject}`,
       html: contactNotificationEmail(cleanData),
       replyTo: cleanData.email,
