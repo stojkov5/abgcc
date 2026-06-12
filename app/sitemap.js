@@ -9,6 +9,7 @@ export default async function sitemap() {
     { url: `${baseUrl}/about`,         priority: 0.85, changeFrequency: "monthly" },
     { url: `${baseUrl}/services`,      priority: 0.85, changeFrequency: "monthly" },
     { url: `${baseUrl}/membership`,    priority: 0.9,  changeFrequency: "weekly"  },
+    { url: `${baseUrl}/members`,       priority: 0.7,  changeFrequency: "weekly"  },
     { url: `${baseUrl}/events`,        priority: 0.9,  changeFrequency: "daily"   },
     { url: `${baseUrl}/news`,          priority: 0.8,  changeFrequency: "daily"   },
     { url: `${baseUrl}/contact`,       priority: 0.7,  changeFrequency: "yearly"  },

@@ -16,6 +16,7 @@ import {
   QrCode,
   CreditCard,
   Newspaper,
+  Megaphone,
 } from "lucide-react";
 import { useState } from "react";
 import "@/styles/admin-layout.css";
@@ -60,6 +61,11 @@ const navItems = [
     label: "Messages",
     href: "/admin/contact-messages",
     icon: Mail,
+  },
+  {
+    label: "Subscribers",
+    href: "/admin/subscribers",
+    icon: Megaphone,
   },
 ];
 

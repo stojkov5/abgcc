@@ -145,6 +145,12 @@ model Post {
   publishedAt DateTime @default(now())
 }
 
+model Subscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
+
 enum Role {
   SUPER_ADMIN
   EDITOR

@@ -49,6 +49,7 @@ export default function Navbar() {
         { label: "Overview", hash: "membership-overview" },
         { label: "Membership Value", hash: "membership-value" },
         { label: "Membership Tiers", hash: "membership-tiers" },
+        { label: "Members Directory", href: "/members" },
       ],
     },
     { name: "Events", href: "/events" },
@@ -236,18 +237,29 @@ export default function Navbar() {
                         transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
                       >
                         <div className="navbar-section-dropdown-card">
-                          {link.sections.map((section) => (
-                            <Link
-                              key={section.hash}
-                              href={`${link.href}#${section.hash}`}
-                              className="navbar-dropdown-item"
-                              onClick={(e) =>
-                                handleSectionClick(e, link.href, section.hash)
-                              }
-                            >
-                              {section.label}
-                            </Link>
-                          ))}
+                          {link.sections.map((section) =>
+                            section.href ? (
+                              <Link
+                                key={section.href}
+                                href={section.href}
+                                className="navbar-dropdown-item"
+                                onClick={closeMenus}
+                              >
+                                {section.label}
+                              </Link>
+                            ) : (
+                              <Link
+                                key={section.hash}
+                                href={`${link.href}#${section.hash}`}
+                                className="navbar-dropdown-item"
+                                onClick={(e) =>
+                                  handleSectionClick(e, link.href, section.hash)
+                                }
+                              >
+                                {section.label}
+                              </Link>
+                            )
+                          )}
                         </div>
                       </motion.div>
                     )}
@@ -411,18 +423,29 @@ export default function Navbar() {
                               exit={{ height: 0, opacity: 0 }}
                               transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
                             >
-                              {link.sections.map((section) => (
-                                <Link
-                                  key={section.hash}
-                                  href={`${link.href}#${section.hash}`}
-                                  onClick={(e) =>
-                                    handleSectionClick(e, link.href, section.hash)
-                                  }
-                                  className="navbar-mobile-sublink"
-                                >
-                                  {section.label}
-                                </Link>
-                              ))}
+                              {link.sections.map((section) =>
+                                section.href ? (
+                                  <Link
+                                    key={section.href}
+                                    href={section.href}
+                                    onClick={closeMenus}
+                                    className="navbar-mobile-sublink"
+                                  >
+                                    {section.label}
+                                  </Link>
+                                ) : (
+                                  <Link
+                                    key={section.hash}
+                                    href={`${link.href}#${section.hash}`}
+                                    onClick={(e) =>
+                                      handleSectionClick(e, link.href, section.hash)
+                                    }
+                                    className="navbar-mobile-sublink"
+                                  >
+                                    {section.label}
+                                  </Link>
+                                )
+                              )}
                             </motion.div>
                           )}
                         </AnimatePresence>

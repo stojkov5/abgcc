@@ -16,25 +16,46 @@ export const metadata = {
 
 import "@/styles/events.css";
 import { prisma } from "@/lib/prisma";
-import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight, CalendarDays, MapPin } from "lucide-react";
 import HeroVideo from "@/components/HeroVideo";
 import ScrollCue from "@/components/ScrollCue";
 
-import { Reveal, Stagger, StaggerItem } from "@/components/MotionReveal";
+import { Reveal } from "@/components/MotionReveal";
 import { getEventPreview } from "@/lib/puck/preview";
+import EventsBrowser from "@/components/EventsBrowser";
+
+function toCard(event) {
+  return {
+    id: event.id,
+    title: event.title,
+    slug: event.slug,
+    image: event.image,
+    location: event.location || "",
+    dateLabel: new Date(event.startDate).toLocaleDateString("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    }),
+    preview: getEventPreview(event.description),
+  };
+}
 
 export default async function EventsPage() {
+  const now = new Date();
+
   const events = await prisma.event.findMany({
-    where: {
-      active: true,
-      archived: false,
-    },
-    orderBy: {
-      startDate: "asc",
-    },
+    where: { active: true, archived: false },
+    orderBy: { startDate: "asc" },
   });
+
+  const upcoming = events
+    .filter((e) => new Date(e.startDate) >= now)
+    .map(toCard);
+
+  // Past events: most recent first
+  const past = events
+    .filter((e) => new Date(e.startDate) < now)
+    .reverse()
+    .map(toCard);
 
   return (
     <main className="events-page">
@@ -66,83 +87,7 @@ export default async function EventsPage() {
 
       <section className="events-list-section" id="events-list">
         <div className="page-container">
-          <Reveal className="section-heading">
-            <span className="section-label">Upcoming Events</span>
-
-            <h2>Connect with leaders, investors, and global partners.</h2>
-          </Reveal>
-
-          {events.length > 0 ? (
-            <Stagger className="events-grid">
-              {events.map((event) => {
-                const isPast = new Date(event.startDate) < new Date();
-
-                return (
-                <StaggerItem
-                  as="article"
-                  key={event.id}
-                  className={`event-card ${isPast ? "is-past" : ""}`}
-                >
-                  <div className="event-image-wrap">
-                    <Image
-                      src={event.image}
-                      alt={event.title}
-                      fill
-                      className="event-img"
-                    />
-
-                    <div className="event-image-overlay" />
-
-                    {isPast && <span className="event-ended-badge">Ended</span>}
-                  </div>
-
-                  <div className="event-content">
-                    <div className="event-meta">
-                      <span>
-                        <CalendarDays size={16} />
-
-                        {new Date(event.startDate).toLocaleDateString(
-                          "en-US",
-                          {
-                            month: "long",
-                            day: "numeric",
-                            year: "numeric",
-                          }
-                        )}
-                      </span>
-
-                      {event.location && (
-                        <span>
-                          <MapPin size={16} />
-                          {event.location}
-                        </span>
-                      )}
-                    </div>
-
-                    <h3>{event.title}</h3>
-
-                    <p>{getEventPreview(event.description)}</p>
-
-                    <Link href={`/events/${event.slug}`} className="event-btn">
-                      View Event <ArrowRight size={16} />
-                    </Link>
-                  </div>
-                </StaggerItem>
-                );
-              })}
-            </Stagger>
-          ) : (
-            <Reveal className="events-empty-card">
-              <span className="section-label">No Events</span>
-
-              <h2>No upcoming events right now.</h2>
-
-              <p>
-                Please check back soon for upcoming ABGCC forums, networking
-                experiences, and business gatherings.
-              </p>
-            </Reveal>
-          )}
+          <EventsBrowser upcoming={upcoming} past={past} />
         </div>
       </section>
     </main>
