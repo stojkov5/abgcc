@@ -15,32 +15,38 @@ import "@/styles/aboutus.css";
 import Image from "next/image";
 import HeroVideo from "@/components/HeroVideo";
 
-import { Reveal, RevealWords, RevealLine, Stagger, StaggerItem } from "@/components/MotionReveal";
+import {
+  Reveal,
+  RevealWords,
+  RevealLine,
+  Stagger,
+  StaggerItem,
+} from "@/components/MotionReveal";
 
 const team = [
   {
     name: "Eliza Prendzov - President",
     role: "CEO & Co-Founder of Prend Capital",
     image: "/Eliza-Prendzov.webp",
-    imageClass:"team-img-eliza",
+    imageClass: "team-img-eliza",
     bio: "A leader in sustainable finance and infrastructure partnership building, with over 20 years of experience across consulting, asset management, finance, sustainability, government, and multilateral relations.",
-    linkedin:"https://www.linkedin.com/in/eliza-prendzov/"
+    linkedin: "https://www.linkedin.com/in/eliza-prendzov/",
   },
   {
-    name: "Lenard Moxley - Managing Director",
+    name: "Lenard Moxley - Vice President",
     role: "Renewable Energy and Infrastructure",
     image: "/Lenard Moxley.webp",
-    imageClass:"team-img-lenard",
+    imageClass: "team-img-lenard",
     bio: "Comes from a renewable energy development and policy background, with experience in wind, solar, and battery storage. He speaks Macedonian fluently and has strong international experience.",
-    linkedin:"https://www.linkedin.com/in/lenardcmoxley/"
+    linkedin: "https://www.linkedin.com/in/lenardcmoxley/",
   },
   {
-    name: "Charles Moxley - Managing Director",
+    name: "Charles Moxley - Vice President",
     role: "Finance & Capital Markets",
     image: "/Charles Moxley.webp",
-    imageClass:"team-img-charles",
+    imageClass: "team-img-charles",
     bio: "A finance professional with experience in asset management, financial analysis, capital markets, electricity, and energy markets.",
-    linkedin:"https://www.linkedin.com/in/charlesdmoxley/"
+    linkedin: "https://www.linkedin.com/in/charlesdmoxley/",
   },
 ];
 
@@ -115,25 +121,23 @@ export default function AboutPage() {
           <Reveal>
             <span className="section-label">Who we are</span>
 
-            <h2>
-              A platform for investment, innovation, and opportunity.
-            </h2>
+            <h2>A platform for investment, innovation, and opportunity.</h2>
 
             <RevealLine delay={0.3} style={{ marginTop: "1.5rem" }} />
           </Reveal>
 
           <Reveal delay={0.08} className="intro-content">
             <p>
-             ABGCC serves American companies seeking opportunities in the Balkan markets, 
-Balkan-based businesses expanding into North America, and globally, as well as 
-Balkan-American entrepreneurs building across both regions. 
+              ABGCC serves American companies seeking opportunities in the
+              Balkan markets, Balkan-based businesses expanding into North
+              America, and globally, as well as Balkan-American entrepreneurs
+              building across both regions.
             </p>
 
             <p>
-              Through curated 
-events, B2B matchmaking, investment forums, conferences, and one-on-one 
-support, ABGCC creates high-value connections for companies, founders, investors, 
-and institutions. 
+              Through curated events, B2B matchmaking, investment forums,
+              conferences, and one-on-one support, ABGCC creates high-value
+              connections for companies, founders, investors, and institutions.
             </p>
           </Reveal>
         </div>
@@ -166,8 +170,8 @@ and institutions.
           </Stagger>
         </div>
       </section>
-      
-       <section className="vision-section" id="our-vision">
+
+      <section className="vision-section" id="our-vision">
         <div className="page-container">
           <Reveal className="vision-card">
             <span className="section-label">Our Vision</span>
@@ -190,7 +194,6 @@ and institutions.
         <div className="page-container">
           <Reveal className="section-heading">
             <span className="section-label">Meet the Team</span>
-            
           </Reveal>
 
           <Stagger className="team-grid">
@@ -198,12 +201,11 @@ and institutions.
               <StaggerItem className="team-card" key={person.name}>
                 <div className="team-image-wrap">
                   <Image
-                  
                     src={person.image}
                     alt={person.name}
                     fill
-                    sizes="(max-width: 1024px) 100vw, 33vw"
-                     className={`team-img ${person.imageClass}`}
+                    sizes="(max-width: 900px) min(92vw, 26rem), 33vw"
+                    className={`team-img ${person.imageClass}`}
                   />
                 </div>
 
@@ -211,13 +213,13 @@ and institutions.
                   <h3>{person.name}</h3>
                   <span>{person.role}</span>
                   <a
-  href={person.linkedin}
-  target="_blank"
-  rel="noopener noreferrer"
-  className="team-linkedin"
->
-  LinkedIn Profile
-</a>
+                    href={person.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="team-linkedin"
+                  >
+                    LinkedIn Profile
+                  </a>
                 </div>
               </StaggerItem>
             ))}
@@ -246,8 +248,6 @@ and institutions.
           </Stagger>
         </div>
       </section>
-
-     
     </main>
   );
 }

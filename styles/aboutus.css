@@ -127,10 +127,14 @@
 .team-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: clamp(1.1rem, 2vw, 1.5rem);
+  gap: clamp(1.25rem, 2.2vw, 1.75rem);
+  align-items: stretch;
 }
 
 .team-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   overflow: hidden;
   border: 1px solid rgba(100, 181, 246, 0.22);
   border-radius: var(--card-radius);
@@ -138,11 +142,20 @@
     linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(239, 248, 255, 0.72));
   box-shadow: 0 1.4rem 4rem rgba(46, 111, 160, 0.12);
   backdrop-filter: blur(0.7rem);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
+.team-card:hover {
+  transform: translateY(-0.4rem);
+  box-shadow: 0 2rem 5rem rgba(46, 111, 160, 0.2);
+}
+
+/* Every photo is forced into the same portrait frame, so the source
+   images (4:5, 1:1 and 2:3) all read as one uniform, equal-height set. */
 .team-image-wrap {
   position: relative;
-  height: clamp(18rem, 26vw, 26rem);
+  width: 100%;
+  aspect-ratio: 4 / 5;
   overflow: hidden;
   background: rgba(223, 242, 255, 0.65);
 }
@@ -153,18 +166,23 @@
   height: 100%;
 }
 
-.team-img-eliza   { object-position: top center; }
-.team-img-lenard  { object-position: center 24%; }
-.team-img-charles { object-position: center; }
+/* Focal point tuned per photo so no head is ever clipped. */
+.team-img-eliza   { object-position: center top; }
+.team-img-lenard  { object-position: center center; }
+.team-img-charles { object-position: center 18%; }
 
 .team-info {
-  padding: clamp(1.4rem, 2.5vw, 2rem);
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: clamp(1.5rem, 2.5vw, 2rem);
 }
 
 .team-info h3 {
-  margin: 0 0 0.5rem;
+  margin: 0;
+  min-height: 2.2em; /* reserve two lines so every role starts on the same line */
   color: var(--sky-ink);
-  font-size: clamp(1.3rem, 1.8vw, 1.65rem);
+  font-size: clamp(1.3rem, 1.8vw, 1.6rem);
   line-height: 1.1;
   font-weight: 600;
   letter-spacing: 0;
@@ -172,7 +190,7 @@
 
 .team-info span {
   display: block;
-  margin-bottom: 1rem;
+  margin-top: 0.65rem;
   color: #d39b2f;
   font-size: clamp(0.9rem, 1vw, 1rem);
   font-weight: 500;
@@ -190,18 +208,30 @@
 .team-linkedin {
   display: inline-flex;
   align-items: center;
-  margin-top: 1.1rem;
+  gap: 0.5rem;
+  margin-top: auto; /* pin to the bottom so the link aligns across all cards */
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(100, 181, 246, 0.2);
   font-size: 0.95rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #f6c76a;
-  transition: color 0.3s ease, transform 0.3s ease;
+  color: var(--gold-main);
+  transition: color 0.3s ease;
+}
+
+.team-linkedin::after {
+  content: "→";
+  font-size: 1.05rem;
+  transition: transform 0.3s ease;
 }
 
 .team-linkedin:hover {
-  color: #c8a76a;
-  transform: translateX(4px);
+  color: #d39b2f;
+}
+
+.team-linkedin:hover::after {
+  transform: translateX(0.3rem);
 }
 
 /* =========================
@@ -303,10 +333,6 @@
   .pillars-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-
-  .team-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 @media (max-width: 64em) {
@@ -316,13 +342,21 @@
   }
 }
 
+/* Tablet portrait + mobile: a single, centered, width-capped column
+   keeps the cards uniform instead of leaving an orphan third card. */
+@media (max-width: 56.25em) {
+  .team-grid {
+    grid-template-columns: minmax(0, 26rem);
+    justify-content: center;
+  }
+}
+
 @media (max-width: 43.75em) {
   .industries-card-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .pillars-grid,
-  .team-grid {
+  .pillars-grid {
     grid-template-columns: 1fr;
   }
 
@@ -332,11 +366,7 @@
   }
 
   .team-card {
-    border-radius: 1.25rem;
-  }
-
-  .team-image-wrap {
-    height: 20rem;
+    border-radius: 1.5rem;
   }
 
   .vision-card,
