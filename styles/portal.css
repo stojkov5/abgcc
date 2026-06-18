@@ -290,6 +290,14 @@
   color: #f8efd9;
 }
 
+.portal-membercard-number {
+  margin: 0.5rem 0 0;
+  color: rgba(246, 199, 106, 0.9);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+}
+
 .portal-membercard-bottom {
   display: flex;
   align-items: flex-end;

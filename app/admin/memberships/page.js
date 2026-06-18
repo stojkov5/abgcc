@@ -11,6 +11,7 @@ import { prisma } from "@/lib/prisma";
 
 import AdminShell from "@/components/AdminShell";
 import PendingBankTransfers from "@/components/PendingBankTransfers";
+import DeleteTierButton from "@/components/DeleteTierButton";
 
 import {
   AdminEmptyState,
@@ -117,6 +118,11 @@ export default async function AdminMembershipsPage() {
                     >
                       Edit Tier <ArrowRight size={15} />
                     </Link>
+
+                    <DeleteTierButton
+                      tierId={tier.id}
+                      tierTitle={tier.title}
+                    />
                   </div>
                 </article>
               ))}

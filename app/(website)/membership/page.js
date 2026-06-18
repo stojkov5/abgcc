@@ -18,11 +18,12 @@ import "@/styles/membership.css";
 import { prisma } from "@/lib/prisma";
 import HeroVideo from "@/components/HeroVideo";
 import ScrollCue from "@/components/ScrollCue";
-import MembershipJoinButton from "../../../components/MembershipJoinButton";
 
 import { Reveal, RevealWords, RevealLine, Stagger, StaggerItem } from "@/components/MotionReveal";
+import { MEMBERSHIP_INTRO, TIERS } from "@/lib/membership/tiers";
+import MembershipTiers from "@/components/MembershipTiers";
+import MembershipComparison from "@/components/MembershipComparison";
 
-import AnimatedPrice from "../../../components/AnimatedPrice";
 const membershipValues = [
   {
     title: "Stronger network, better opportunities",
@@ -42,15 +43,31 @@ const membershipValues = [
   },
 ];
 
+// Match a curated tier to a real DB tier (by title alias) so checkout works.
+function normalize(s) {
+  return (s || "").toLowerCase().replace(/membership/g, "").trim();
+}
+
 export default async function MembershipPage() {
-  const tiers = await prisma.membershipTier.findMany({
-    where: {
-      active: true,
-    },
-    orderBy: {
-      price: "asc",
-    },
+  const dbTiers = await prisma.membershipTier.findMany({
+    where: { active: true },
   });
+
+  const tiers = TIERS.map((t) => {
+    const match = dbTiers.find((db) =>
+      t.aliases.some((a) => normalize(db.title).includes(a))
+    );
+    return {
+      key: t.key,
+      title: t.title,
+      premier: Boolean(t.premier),
+      description: t.description,
+      price: match?.price ?? t.price,
+      tierId: match?.id || null,
+    };
+  });
+
+  const introParas = MEMBERSHIP_INTRO.split("\n\n");
 
   return (
     <main className="membership-page">
@@ -82,24 +99,21 @@ export default async function MembershipPage() {
         <ScrollCue />
       </section>
 
+      {/* Intro */}
       <section className="membership-intro-section" id="membership-overview">
         <div className="page-container">
           <Reveal className="membership-intro-card">
             <span className="section-label">Membership</span>
-
-            <h2>A structured membership system built for serious growth.</h2>
-
+            <h2>A membership level designed to help you achieve your goals.</h2>
             <RevealLine delay={0.2} style={{ margin: "1.5rem 0" }} />
-
-            <p>
-            We offer a structured membership system designed for individuals, small 
-businesses, corporations, and patrons to benefit from priority access to our 
-network, programs, and support
-            </p>
+            {introParas.map((para, i) => (
+              <p key={i}>{para}</p>
+            ))}
           </Reveal>
         </div>
       </section>
 
+      {/* Why become a member */}
       <section className="membership-value-section" id="membership-value">
         <div className="page-container">
           <Reveal className="section-heading center">
@@ -115,9 +129,7 @@ network, programs, and support
                 key={item.title}
               >
                 <span className="membership-card-number">0{index + 1}</span>
-
                 <h3>{item.title}</h3>
-
                 <p>{item.text}</p>
               </StaggerItem>
             ))}
@@ -125,40 +137,29 @@ network, programs, and support
         </div>
       </section>
 
+      {/* Tiers */}
       <section className="membership-tiers-section" id="membership-tiers">
         <div className="page-container">
-          <Reveal className="section-heading">
+          <Reveal className="section-heading center">
             <span className="section-label">Membership Tiers</span>
-
-      
+            <h2>Find the right level for you.</h2>
           </Reveal>
 
-          <Stagger className="membership-tiers-grid">
-            {tiers.map((tier) => (
-              <StaggerItem
-                as="article"
-                key={tier.id}
-                className="membership-tier-card"
-              >
-                <div>
-                  <h3>{tier.title}</h3>
+          <MembershipTiers tiers={tiers} />
+        </div>
+      </section>
 
-                  <p className="membership-price">
-                  <AnimatedPrice value={tier.price} />
-                  </p>
+      {/* Comparison */}
+      <section className="membership-comparison-section" id="membership-comparison">
+        <div className="page-container">
+          <Reveal className="section-heading center">
+            <span className="section-label">Benefits Comparison</span>
+            <h2>Compare membership benefits.</h2>
+          </Reveal>
 
-                  <p className="membership-period">{tier.period}</p>
-                </div>
-
-                <p className="membership-description">{tier.description}</p>
-
-                <MembershipJoinButton
-                  tierId={tier.id}
-                  tierTitle={tier.title}
-                />
-              </StaggerItem>
-            ))}
-          </Stagger>
+          <Reveal delay={0.08}>
+            <MembershipComparison />
+          </Reveal>
         </div>
       </section>
     </main>

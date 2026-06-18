@@ -180,8 +180,8 @@
   gap: 0.55rem;
   width: 100%;
   min-height: 3.25rem;
-  margin-top: 2rem;
   padding: 0.9rem 1.5rem;
+  white-space: nowrap;
   border: 1px solid rgba(245, 191, 84, 0.7);
   border-radius: 999rem;
   color: var(--sky-ink);
@@ -438,5 +438,443 @@
   .membership-tier-btn {
     width: 100%;
     justify-content: center;
+  }
+}
+
+/* =========================================================
+   REDESIGNED TIERS · INFO TOOLTIPS · COMPARISON TABLE
+========================================================= */
+
+.membership-comparison-section {
+  padding: 0 0 var(--section-padding);
+}
+
+/* ---- Tier cards ---- */
+.mtiers-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+.mtier-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* Two cards per row; the lone 5th card centers */
+  flex: 0 1 calc(50% - 0.75rem);
+  max-width: 34rem;
+  min-width: 0;
+  padding: clamp(1.6rem, 2.2vw, 2.4rem) clamp(1.5rem, 2vw, 2.2rem);
+  border: 1px solid rgba(100, 181, 246, 0.22);
+  border-radius: var(--card-radius);
+  background:
+    radial-gradient(circle at top right, rgba(255, 219, 145, 0.16), transparent 40%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(238, 248, 255, 0.78));
+  box-shadow: 0 1.2rem 3.5rem rgba(46, 111, 160, 0.1);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.mtier-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 1.8rem 4.2rem rgba(46, 111, 160, 0.16);
+}
+
+/* Presidential Circle — premier featured styling */
+.mtier-card.is-premier {
+  border: 1.5px solid rgba(201, 162, 39, 0.7);
+  background:
+    radial-gradient(circle at top, rgba(246, 199, 106, 0.28), transparent 55%),
+    linear-gradient(180deg, #ffffff, #fff8ea);
+  box-shadow:
+    0 1.6rem 4rem rgba(201, 162, 39, 0.22),
+    0 0 0 1px rgba(201, 162, 39, 0.18);
+}
+
+.mtier-premier-badge {
+  position: absolute;
+  top: -0.8rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #f7e3a8, #c9a227);
+  color: #3a2c00;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow: 0 0.6rem 1.4rem rgba(201, 162, 39, 0.4);
+}
+
+.mtier-title {
+  margin: 0.4rem 0 0;
+  color: var(--sky-ink);
+  font-size: clamp(1.3rem, 1.5vw, 1.6rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0;
+  min-height: 2.4em; /* reserve 2 lines so prices align across cards */
+}
+
+.mtier-price {
+  margin: 0.5rem 0 0;
+  color: var(--sky-ink);
+  font-size: clamp(1.6rem, 2.2vw, 2.1rem);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.mtier-price span {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: rgba(16, 36, 63, 0.5);
+  letter-spacing: 0.02em;
+}
+
+/* Card description — clamped so every card is the same height */
+.mtier-desc {
+  margin: 1rem 0 0;
+  color: rgba(16, 36, 63, 0.66);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Benefit list (used inside the modal) */
+.mtier-benefits {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.mtier-benefits li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(16, 36, 63, 0.82);
+  font-size: 0.95rem;
+  line-height: 1.3;
+}
+
+.mtier-check {
+  flex-shrink: 0;
+  color: #1f8f52;
+}
+
+.mtier-benefits li span {
+  flex: 1;
+}
+
+/* Card actions — pinned to the bottom for equal alignment */
+.mtier-actions {
+  margin-top: auto;
+  padding-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.mtier-benefits-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  width: 100%;
+  min-height: 2.85rem;
+  border: 1px solid rgba(16, 36, 63, 0.14);
+  border-radius: 999px;
+  background: rgba(16, 36, 63, 0.04);
+  color: var(--sky-ink);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.mtier-benefits-btn:hover {
+  background: rgba(16, 36, 63, 0.08);
+  border-color: rgba(16, 36, 63, 0.2);
+}
+
+/* ---- "See all benefits" modal ---- */
+.mtier-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(16, 36, 63, 0.5);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: membershipModalFade 0.25s ease;
+}
+
+.mtier-modal {
+  position: relative;
+  width: min(100%, 32rem);
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: clamp(1.75rem, 4vw, 2.5rem);
+  border-radius: 1.75rem;
+  border: 1px solid rgba(100, 181, 246, 0.26);
+  background: linear-gradient(180deg, #ffffff, #f3f9ff);
+  box-shadow: 0 2rem 5rem rgba(16, 36, 63, 0.32);
+  animation: membershipModalRise 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Slim, on-brand scrollbar (Firefox) */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(200, 167, 106, 0.55) transparent;
+}
+
+/* Slim, on-brand scrollbar (WebKit / Chrome / Safari) */
+.mtier-modal::-webkit-scrollbar {
+  width: 8px;
+}
+
+.mtier-modal::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 1rem 0;
+}
+
+.mtier-modal::-webkit-scrollbar-thumb {
+  background: rgba(200, 167, 106, 0.5);
+  border-radius: 999px;
+}
+
+.mtier-modal::-webkit-scrollbar-thumb:hover {
+  background: rgba(200, 167, 106, 0.75);
+}
+
+.mtier-modal.is-premier {
+  border: 1.5px solid rgba(201, 162, 39, 0.7);
+  background:
+    radial-gradient(circle at top, rgba(246, 199, 106, 0.22), transparent 50%),
+    linear-gradient(180deg, #ffffff, #fff8ea);
+}
+
+.mtier-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(16, 36, 63, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  color: rgba(16, 36, 63, 0.6);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.mtier-modal-close:hover {
+  background: #fff;
+  color: #10243f;
+}
+
+.mtier-modal-badge {
+  position: static;
+  display: inline-block;
+  transform: none;
+  margin-bottom: 0.85rem;
+}
+
+.mtier-modal-title {
+  margin: 0;
+  color: var(--sky-ink);
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  font-weight: 600;
+  padding-right: 2.5rem;
+}
+
+.mtier-modal-price {
+  margin: 0.5rem 0 0;
+}
+
+.mtier-modal-desc {
+  margin: 1rem 0 0;
+  color: rgba(16, 36, 63, 0.7);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.mtier-modal-benefits-label {
+  margin: 1.5rem 0 0.85rem;
+  color: rgba(16, 36, 63, 0.45);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.mtier-modal-benefits {
+  padding-top: 0;
+  border-top: none;
+}
+
+.mtier-modal-action {
+  margin-top: 1.75rem;
+}
+
+/* ---- Info "i" icon tooltip ---- */
+.benefit-info {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.benefit-info-btn {
+  display: grid;
+  place-items: center;
+  width: 1.2rem;
+  height: 1.2rem;
+  border: none;
+  border-radius: 50%;
+  background: rgba(16, 36, 63, 0.08);
+  color: rgba(16, 36, 63, 0.55);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.benefit-info-btn:hover {
+  background: rgba(245, 191, 84, 0.3);
+  color: #10243f;
+}
+
+.benefit-info-pop {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+  width: 16rem;
+  padding: 0.85rem 1rem;
+  border-radius: 0.85rem;
+  background: #10243f;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  font-weight: 400;
+  text-align: left;
+  box-shadow: 0 1rem 2.5rem rgba(16, 36, 63, 0.35);
+}
+
+.benefit-info-pop strong {
+  display: block;
+  margin-bottom: 0.3rem;
+  color: #f6c76a;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.benefit-info-pop::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #10243f;
+}
+
+/* ---- Comparison table ---- */
+.mcompare-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: var(--card-radius);
+  border: 1px solid rgba(100, 181, 246, 0.2);
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 1.2rem 3.5rem rgba(46, 111, 160, 0.1);
+}
+
+.mcompare-table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+}
+
+.mcompare-table th,
+.mcompare-table td {
+  padding: 0.9rem 1rem;
+  text-align: center;
+  border-bottom: 1px solid rgba(16, 36, 63, 0.07);
+}
+
+.mcompare-table thead th {
+  position: sticky;
+  top: 0;
+  background: #10243f;
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.mcompare-table thead th.is-premier {
+  color: #f6c76a;
+}
+
+.mcompare-benefit-col {
+  text-align: left !important;
+  min-width: 16rem;
+}
+
+.mcompare-benefit-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #10243f;
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+.mcompare-table td.is-premier {
+  background: rgba(246, 199, 106, 0.08);
+}
+
+.mcompare-table tbody tr:hover td {
+  background: rgba(245, 191, 84, 0.06);
+}
+
+.mcompare-table tbody tr:hover td.is-premier {
+  background: rgba(246, 199, 106, 0.14);
+}
+
+.mcompare-check {
+  color: #1f8f52;
+}
+
+.mcompare-dash {
+  color: rgba(16, 36, 63, 0.25);
+}
+
+.mcompare-limited {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #c47d0a;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 40em) {
+  .mtier-card {
+    flex-basis: 100%;
+    max-width: 100%;
+  }
+
+  .benefit-info-pop {
+    width: 13rem;
   }
 }

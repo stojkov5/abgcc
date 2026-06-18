@@ -1,0 +1,293 @@
+.jt-page {
+  min-height: 100vh;
+  color: var(--sky-ink);
+  overflow: hidden;
+}
+
+/* Hero */
+.jt-hero {
+  padding: clamp(9rem, 18vh, 12rem) 0 clamp(1.5rem, 3vw, 2.5rem);
+  text-align: center;
+}
+
+.jt-title {
+  margin: 0;
+  color: var(--sky-ink);
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
+  line-height: 1.0;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.jt-intro {
+  max-width: 50rem;
+  margin: 1.4rem auto 0;
+  color: rgba(16, 36, 63, 0.68);
+  font-size: clamp(1.05rem, 1.3vw, 1.25rem);
+  line-height: 1.8;
+}
+
+/* Body layout */
+.jt-body {
+  padding: clamp(2rem, 4vw, 3.5rem) 0 var(--section-padding);
+}
+
+.jt-layout {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: start;
+}
+
+/* Positions panel */
+.jt-positions {
+  padding: clamp(1.75rem, 3vw, 2.5rem);
+  border-radius: var(--card-radius-lg);
+  border: 1px solid rgba(100, 181, 246, 0.22);
+  background:
+    radial-gradient(circle at top right, rgba(255, 219, 145, 0.18), transparent 42%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(232, 246, 255, 0.82));
+  box-shadow: 0 1.2rem 3.5rem rgba(46, 111, 160, 0.1);
+}
+
+.jt-positions h2 {
+  margin: 1rem 0 0.75rem;
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+  font-weight: 600;
+  color: var(--sky-ink);
+}
+
+.jt-positions p {
+  margin: 0;
+  color: rgba(16, 36, 63, 0.68);
+  font-size: 1.02rem;
+  line-height: 1.7;
+}
+
+.jt-checklist {
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.jt-checklist li {
+  position: relative;
+  padding-left: 1.6rem;
+  color: rgba(16, 36, 63, 0.78);
+  font-size: 1rem;
+}
+
+.jt-checklist li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #c8870a;
+  font-weight: 700;
+}
+
+/* Form card */
+.jt-form-card {
+  padding: clamp(1.75rem, 3vw, 2.5rem);
+  border-radius: var(--card-radius-lg);
+  border: 1px solid rgba(100, 181, 246, 0.22);
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 1.5rem 4rem rgba(46, 111, 160, 0.12);
+}
+
+.jt-form-card h2 {
+  margin: 0 0 1.5rem;
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+  font-weight: 600;
+  color: var(--sky-ink);
+}
+
+/* Form */
+.jt-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.jt-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.jt-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.jt-field label {
+  color: var(--sky-ink);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.jt-hint {
+  color: rgba(16, 36, 63, 0.45);
+  font-weight: 400;
+}
+
+.jt-field input,
+.jt-field textarea {
+  width: 100%;
+  border: 1px solid rgba(100, 181, 246, 0.28);
+  border-radius: 0.85rem;
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--sky-ink);
+  padding: 0.85rem 1rem;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.jt-field textarea {
+  resize: vertical;
+  min-height: 6rem;
+}
+
+.jt-field input:focus,
+.jt-field textarea:focus {
+  border-color: rgba(245, 191, 84, 0.7);
+  box-shadow: 0 0 0 4px rgba(245, 191, 84, 0.14);
+}
+
+.jt-input-error {
+  border-color: rgba(180, 35, 24, 0.55) !important;
+}
+
+.jt-error {
+  color: #b42318;
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+/* Upload */
+.jt-upload {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  width: 100%;
+  padding: 0.9rem 1.1rem;
+  border: 1px dashed rgba(100, 181, 246, 0.45);
+  border-radius: 0.85rem;
+  background: rgba(233, 246, 255, 0.5);
+  color: rgba(16, 36, 63, 0.7);
+  font-size: 0.98rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.jt-upload:hover {
+  border-color: rgba(245, 191, 84, 0.7);
+  background: rgba(255, 248, 235, 0.7);
+}
+
+.jt-upload-name {
+  color: var(--sky-ink);
+  font-weight: 600;
+  word-break: break-all;
+}
+
+/* Submit */
+.jt-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: fit-content;
+  min-width: 14rem;
+  min-height: 3.25rem;
+  margin-top: 0.5rem;
+  padding: 0 1.75rem;
+  border: 1px solid rgba(245, 191, 84, 0.6);
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ffd889 0%, #f5bf54 100%);
+  color: var(--sky-ink);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  box-shadow: 0 0.9rem 2.2rem rgba(245, 191, 84, 0.28);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.jt-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 1.3rem 2.8rem rgba(245, 191, 84, 0.36);
+}
+
+.jt-submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.jt-server-error {
+  margin: 0.5rem 0 0;
+  color: #b42318;
+  font-weight: 500;
+}
+
+/* Success */
+.jt-success {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.jt-success-icon {
+  display: grid;
+  place-items: center;
+  width: 3.75rem;
+  height: 3.75rem;
+  margin: 0 auto 1.25rem;
+  border-radius: 50%;
+  background: rgba(39, 174, 96, 0.12);
+  color: #1f8f52;
+}
+
+.jt-success h3 {
+  margin: 0 0 0.6rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--sky-ink);
+}
+
+.jt-success p {
+  margin: 0 auto;
+  max-width: 30rem;
+  color: rgba(16, 36, 63, 0.68);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 64em) {
+  .jt-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 43.75em) {
+  .jt-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .jt-positions,
+  .jt-form-card {
+    border-radius: 1.25rem;
+  }
+
+  .jt-submit {
+    width: 100%;
+  }
+}

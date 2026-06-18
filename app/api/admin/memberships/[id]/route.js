@@ -57,16 +57,27 @@ export async function DELETE(request, { params }) {
 
     const { id } = await params;
 
-    const tier = await prisma.membershipTier.update({
-      where: { id },
-      data: {
-        active: false,
-      },
-    });
+    // A tier can't be deleted if members or payments reference it (it would
+    // orphan their records). Ask the admin to deactivate it instead.
+    const [membershipCount, paymentCount] = await Promise.all([
+      prisma.membership.count({ where: { tierId: id } }),
+      prisma.payment.count({ where: { tierId: id } }),
+    ]);
+
+    if (membershipCount > 0 || paymentCount > 0) {
+      return Response.json(
+        {
+          message:
+            "This tier is in use by members or payments and can't be deleted. Set it inactive instead.",
+        },
+        { status: 400 }
+      );
+    }
+
+    await prisma.membershipTier.delete({ where: { id } });
 
     return Response.json({
-      message: "Membership tier deactivated successfully.",
-      tier,
+      message: "Membership tier deleted successfully.",
     });
   } catch (error) {
     console.error("DELETE_MEMBERSHIP_TIER_ERROR", error);

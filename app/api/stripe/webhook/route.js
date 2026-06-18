@@ -9,6 +9,7 @@ import { paymentSuccessEmail } from "@/lib/email/templates/paymentSuccessEmail";
 import { adminMembershipActivatedEmail } from "@/lib/email/templates/adminMembershipActivatedEmail";
 import { invoiceReceiptEmail } from "@/lib/email/templates/invoiceReceiptEmail";
 import { membershipRecipients } from "@/lib/email/recipients";
+import { assignMemberNumber } from "@/lib/membership/memberNumber";
 import { fulfillEventCheckout } from "@/lib/events/fulfillEventCheckout";
 
 export const runtime = "nodejs";
@@ -155,6 +156,9 @@ export async function POST(request) {
 
         membershipEndDate = newMembership.endDate;
       }
+
+      // Give the member their permanent member number (idempotent)
+      await assignMemberNumber(userId);
 
       const formattedAmount = `$${Number(
         checkoutSession.amount_total || 0,

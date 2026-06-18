@@ -5,6 +5,7 @@ import { authOptions } from "@/lib/auth";
 import { sendEmail } from "@/lib/email/sendEmail";
 import { paymentSuccessEmail } from "@/lib/email/templates/paymentSuccessEmail";
 import { invoiceReceiptEmail } from "@/lib/email/templates/invoiceReceiptEmail";
+import { assignMemberNumber } from "@/lib/membership/memberNumber";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -42,6 +43,9 @@ export async function POST(request, { params }) {
         endDate,
       },
     });
+
+    // Give the member their permanent member number (idempotent)
+    await assignMemberNumber(membership.userId);
 
     // Record the payment so it counts toward revenue / payment history
     const amount = membership.amount ?? membership.tier.price;

@@ -131,6 +131,11 @@ export default async function AdminUserDetailsPage({ params }) {
               </p>
 
               <p>
+                <strong>Member Number:</strong>{" "}
+                {user.memberNumber || "Not assigned"}
+              </p>
+
+              <p>
                 <strong>Role:</strong> {user.role}
               </p>
 

@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
 import { authOptions } from "@/lib/auth";
+import { assignMemberNumber } from "@/lib/membership/memberNumber";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -30,6 +31,11 @@ export async function PATCH(request, { params }) {
         user: true,
       },
     });
+
+    // Assign a member number when a membership is set to active
+    if (status === "ACTIVE") {
+      await assignMemberNumber(membership.userId);
+    }
 
     revalidatePath("/admin/users");
     revalidatePath(`/admin/users/${membership.userId}`);

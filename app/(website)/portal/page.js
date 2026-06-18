@@ -132,6 +132,11 @@ export default async function PortalPage() {
                 <h2 className="portal-membercard-name">
                   {user.name || "ABGCC Member"}
                 </h2>
+                {user.memberNumber && (
+                  <p className="portal-membercard-number">
+                    Member No. {user.memberNumber}
+                  </p>
+                )}
               </div>
 
               <div className="portal-membercard-bottom">

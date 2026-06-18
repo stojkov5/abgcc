@@ -104,7 +104,9 @@ export default async function AdminUsersPage() {
 
                       <div className="admin-user-meta">
                         <span>{user.email}</span>
-                        <span>{user.phone || "No phone"}</span>
+                        {user.memberNumber && (
+                          <span>Member #{user.memberNumber}</span>
+                        )}
                         <span>
                           {currentMembership?.tier?.title || "No tier"}
                         </span>

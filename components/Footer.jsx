@@ -146,6 +146,7 @@ export default function Footer() {
               <Link href="/membership">Membership</Link>
               <Link href="/events">Events</Link>
               <Link href="/news">News</Link>
+              <Link href="/join-our-team">Join Our Team</Link>
               <Link href="/contact">Contact</Link>
             </div>
 

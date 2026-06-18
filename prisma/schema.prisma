@@ -21,6 +21,8 @@ model User {
   photo         String?
   profileCompleted Boolean @default(false)
 
+  memberNumber  Int?      @unique
+
   emailVerified          Boolean   @default(false)
   verificationToken      String?   @unique
   verificationTokenExpiry DateTime?

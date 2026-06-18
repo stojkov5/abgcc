@@ -255,7 +255,36 @@
 .admin-membership-footer {
   display: flex;
   justify-content: flex-end;
+  gap: 8px;
   margin-top: 24px;
+}
+
+.admin-membership-delete-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 42px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: rgba(220, 38, 38, 0.08);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  color: #b42318;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.admin-membership-delete-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: rgba(220, 38, 38, 0.14);
+}
+
+.admin-membership-delete-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .admin-membership-edit-btn {

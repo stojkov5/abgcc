@@ -12,6 +12,7 @@ export default async function sitemap() {
     { url: `${baseUrl}/members`,       priority: 0.7,  changeFrequency: "weekly"  },
     { url: `${baseUrl}/events`,        priority: 0.9,  changeFrequency: "daily"   },
     { url: `${baseUrl}/news`,          priority: 0.8,  changeFrequency: "daily"   },
+    { url: `${baseUrl}/join-our-team`, priority: 0.6,  changeFrequency: "monthly" },
     { url: `${baseUrl}/contact`,       priority: 0.7,  changeFrequency: "yearly"  },
   ].map((page) => ({ ...page, lastModified: new Date() }));
 

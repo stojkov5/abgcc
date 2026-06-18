@@ -49,6 +49,7 @@ export default function Navbar() {
         { label: "Overview", hash: "membership-overview" },
         { label: "Membership Value", hash: "membership-value" },
         { label: "Membership Tiers", hash: "membership-tiers" },
+        { label: "Benefits Comparison", hash: "membership-comparison" },
         { label: "Members Directory", href: "/members" },
       ],
     },
