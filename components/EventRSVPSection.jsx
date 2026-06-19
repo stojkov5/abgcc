@@ -3,11 +3,30 @@
 import { useEffect, useState } from "react";
 import EventRSVPForm from "@/components/EventRSVPForm";
 
+// Mirrors lib/events/pricing.js computeEventPrice for the initial client render.
+// The server is always the source of truth; this just seeds the UI.
+function clientPricing({ nonMemberPrice, memberPrice, isMember }) {
+  const base = Number(nonMemberPrice || 0);
+  const hasMemberPrice = memberPrice != null;
+  const member = hasMemberPrice ? Number(memberPrice) : null;
+  const effectivePrice = isMember && hasMemberPrice ? member : base;
+
+  return {
+    nonMemberPrice: base,
+    memberPrice: member,
+    effectivePrice,
+    isFree: effectivePrice <= 0,
+    isMember: Boolean(isMember),
+  };
+}
+
 export default function EventRSVPSection({
   eventId,
   initialRegisteredCount,
   capacity,
-  price = 0,
+  nonMemberPrice = 0,
+  memberPrice = null,
+  viewerIsMember = false,
   isPast = false,
 }) {
   const [registeredCount, setRegisteredCount] = useState(
@@ -16,8 +35,18 @@ export default function EventRSVPSection({
   const [justPaid, setJustPaid] = useState(false);
   const [confirming, setConfirming] = useState(false);
 
-  const isPaid = price > 0;
+  const [pricing, setPricing] = useState(() =>
+    clientPricing({ nonMemberPrice, memberPrice, isMember: viewerIsMember })
+  );
+
+  const isPaid = pricing.effectivePrice > 0;
   const isSoldOut = capacity && registeredCount >= capacity;
+
+  // Show the non-member price struck through when a member rate is in effect.
+  const showMemberDiscount =
+    pricing.isMember &&
+    pricing.memberPrice != null &&
+    pricing.memberPrice < pricing.nonMemberPrice;
 
   // Detect return from Stripe Checkout (?session_id=...) and fulfill the booking
   useEffect(() => {
@@ -48,6 +77,10 @@ export default function EventRSVPSection({
       });
   }, []);
 
+  function priceText(value) {
+    return value > 0 ? `$${value}` : "Free";
+  }
+
   return (
     <>
       <div className="event-capacity-box">
@@ -57,9 +90,18 @@ export default function EventRSVPSection({
             : `${registeredCount} registered`}
         </p>
 
-        <span className="event-price-tag">
-          {isPaid ? `$${price}` : "Free"}
-        </span>
+        {showMemberDiscount ? (
+          <span className="event-price-tag">
+            <span className="event-price-was">
+              {priceText(pricing.nonMemberPrice)}
+            </span>
+            {priceText(pricing.effectivePrice)}
+          </span>
+        ) : (
+          <span className="event-price-tag">
+            {priceText(pricing.effectivePrice)}
+          </span>
+        )}
 
         {isPast ? (
           <span className="event-ended-tag">Ended</span>
@@ -96,8 +138,9 @@ export default function EventRSVPSection({
       ) : (
         <EventRSVPForm
           eventId={eventId}
-          isPaid={isPaid}
-          price={price}
+          pricing={pricing}
+          viewerIsMember={viewerIsMember}
+          onPricingChange={setPricing}
           onSuccess={() => setRegisteredCount((count) => count + 1)}
         />
       )}

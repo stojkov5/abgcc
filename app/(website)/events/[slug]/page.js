@@ -5,6 +5,10 @@ import { prisma } from "@/lib/prisma";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { getServerSession } from "next-auth";
+
+import { authOptions } from "@/lib/auth";
+import { resolveMember, computeEventPrice } from "@/lib/events/pricing";
 
 import EventRSVPSection from "@/components/EventRSVPSection";
 import { Render } from "@puckeditor/core/rsc";
@@ -51,6 +55,21 @@ export default async function EventDetailsPage({ params }) {
   }
 
   const registeredCount = event.bookings.length;
+
+  // Is the current visitor a logged-in active member? If so they see (and pay)
+  // the member rate automatically.
+  const session = await getServerSession(authOptions);
+  const { isMember: viewerIsMember } = await resolveMember({
+    userId: session?.user?.id || null,
+  });
+
+  const pricing = computeEventPrice(event, viewerIsMember);
+  const hasMemberRate =
+    event.memberPrice != null && event.memberPrice < event.nonMemberPrice;
+
+  function priceLabel(value) {
+    return value > 0 ? `$${value}` : "Free";
+  }
 
   // An event is "past" once its start date/time has passed.
   const isPast = new Date(event.startDate) < new Date();
@@ -127,7 +146,14 @@ export default async function EventDetailsPage({ params }) {
 
                 <div>
                   <strong>Price</strong>
-                  <span>{event.price > 0 ? `$${event.price}` : "Free"}</span>
+                  {hasMemberRate ? (
+                    <span>
+                      Members {priceLabel(event.memberPrice)} · Non-members{" "}
+                      {priceLabel(event.nonMemberPrice)}
+                    </span>
+                  ) : (
+                    <span>{priceLabel(event.nonMemberPrice)}</span>
+                  )}
                 </div>
 
                 {event.capacity && (
@@ -218,7 +244,9 @@ export default async function EventDetailsPage({ params }) {
               eventId={event.id}
               initialRegisteredCount={registeredCount}
               capacity={event.capacity}
-              price={event.price}
+              nonMemberPrice={event.nonMemberPrice}
+              memberPrice={event.memberPrice}
+              viewerIsMember={viewerIsMember}
               isPast={isPast}
             />
           </Reveal>

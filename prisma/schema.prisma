@@ -21,6 +21,20 @@ model User {
   photo         String?
   profileCompleted Boolean @default(false)
 
+  // Member directory / company profile (shown in the public /members directory)
+  logo               String?
+  companyDescription String?
+  website            String?
+  industrySector     String?
+  industryTags       String?
+  keyContactName     String?
+  keyContactTitle    String?
+  keyContactEmail    String?
+  address            String?
+  bannerImage        String?
+  featuredProjects   String?
+  directoryVisible   Boolean @default(true)
+
   memberNumber  Int?      @unique
 
   emailVerified          Boolean   @default(false)
@@ -72,7 +86,13 @@ model Event {
   description String
   location    String
   image       String
-  price       Float
+
+  // Pricing: nonMemberPrice is the general/public rate (0 = free for everyone).
+  // memberPrice is the optional discounted rate for active members — null means
+  // members pay the same as everyone; 0 means free for members.
+  nonMemberPrice Float       @default(0)
+  memberPrice    Float?
+
   capacity    Int?
   active      Boolean        @default(true)
   featured    Boolean        @default(false)
@@ -110,6 +130,7 @@ model EventBooking {
   reference       String?  @unique
   paid            Boolean  @default(false)
   amountPaid      Float    @default(0)
+  memberNumber    Int?     // set when the member rate was claimed (login or entered number)
   stripeSessionId String?  @unique
 
   createdAt   DateTime @default(now())

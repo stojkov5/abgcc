@@ -437,6 +437,79 @@
   color: rgba(16, 36, 63, 0.55);
 }
 
+/* Struck-through non-member price shown inside the gold price pill */
+.event-price-was {
+  margin-right: 0.5rem;
+  text-decoration: line-through;
+  opacity: 0.6;
+  font-weight: 800;
+}
+
+/* Member-pricing block in the RSVP form */
+.event-rsvp-member-note {
+  margin: 1rem 0 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #1a7a4f;
+}
+
+.event-rsvp-member-box {
+  margin-top: 1.1rem;
+}
+
+.event-rsvp-member-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #b8860b;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.event-rsvp-member-toggle:hover {
+  color: #10243f;
+}
+
+.event-rsvp-member-entry {
+  display: flex;
+  gap: 0.6rem;
+  align-items: stretch;
+}
+
+.event-rsvp-member-entry input {
+  flex: 1;
+  border: 1px solid rgba(15, 35, 60, 0.14);
+  border-radius: 0.6rem;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.95rem;
+}
+
+.event-rsvp-member-entry input:focus {
+  outline: none;
+  border-color: rgba(211, 155, 47, 0.58);
+  box-shadow: 0 0 0 4px rgba(211, 155, 47, 0.12);
+}
+
+.event-rsvp-member-entry button {
+  border: none;
+  border-radius: 0.6rem;
+  padding: 0 1.3rem;
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: #10243f;
+  background: linear-gradient(135deg, #ffd889 0%, #f5bf54 100%);
+  cursor: pointer;
+}
+
+.event-rsvp-member-entry button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
 /* Paid-booking success card (after returning from Stripe) */
 .event-rsvp-success {
   display: flex;

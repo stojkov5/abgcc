@@ -42,7 +42,8 @@ export async function PUT(request, { params }) {
       description,
       location,
       image,
-      price,
+      nonMemberPrice,
+      memberPrice,
       capacity,
      startDate,
       active,
@@ -57,7 +58,11 @@ export async function PUT(request, { params }) {
         description,
         location,
         image,
-        price: Number(price || 0),
+        nonMemberPrice: Number(nonMemberPrice || 0),
+        memberPrice:
+          memberPrice === "" || memberPrice == null
+            ? null
+            : Number(memberPrice),
         capacity: capacity ? Number(capacity) : null,
         startDate: new Date(startDate),
         active: Boolean(active),

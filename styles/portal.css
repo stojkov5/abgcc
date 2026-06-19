@@ -660,7 +660,8 @@
 }
 
 .portal-profile-form input,
-.portal-profile-form textarea {
+.portal-profile-form textarea,
+.portal-profile-form select {
   width: 100%;
   border: 1px solid rgba(16, 36, 63, 0.12);
   border-radius: 1rem;
@@ -673,7 +674,8 @@
 }
 
 .portal-profile-form input:focus,
-.portal-profile-form textarea:focus {
+.portal-profile-form textarea:focus,
+.portal-profile-form select:focus {
   border-color: rgba(245, 191, 84, 0.7);
   box-shadow: 0 0 0 4px rgba(245, 191, 84, 0.14);
 }
@@ -730,6 +732,76 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: rgba(16, 36, 63, 0.5);
+}
+
+/* Directory profile section within the portal profile form */
+.portal-profile-section {
+  margin-top: 1rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(16, 36, 63, 0.1);
+}
+
+.portal-profile-section-title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #10243f;
+}
+
+.portal-profile-section-hint {
+  margin: 0.4rem 0 0;
+  font-size: 0.9rem;
+  color: rgba(16, 36, 63, 0.55);
+}
+
+.portal-asset-upload {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.portal-asset-preview {
+  position: relative;
+  overflow: hidden;
+  flex: 0 0 auto;
+  border: 1px solid rgba(16, 36, 63, 0.12);
+  background: rgba(16, 36, 63, 0.04);
+  display: grid;
+  place-items: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(16, 36, 63, 0.4);
+  text-align: center;
+}
+
+.portal-asset-preview--logo {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 1rem;
+}
+
+.portal-asset-preview--banner {
+  width: 12rem;
+  height: 6rem;
+  border-radius: 1rem;
+}
+
+.portal-asset-img {
+  object-fit: cover;
+}
+
+.portal-profile-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+  color: #10243f;
+}
+
+.portal-profile-checkbox input {
+  width: auto;
 }
 
 /* =========================================================

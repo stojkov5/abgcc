@@ -1,5 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { stripe } from "@/lib/stripe";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { resolveMember, computeEventPrice } from "@/lib/events/pricing";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -8,7 +11,7 @@ export async function POST(request, { params }) {
   try {
     const { id } = await params;
     const body = await request.json();
-    const { name, email, company, message } = body;
+    const { name, email, company, message, memberNumber } = body;
 
     if (!name || !email) {
       return Response.json(
@@ -37,7 +40,16 @@ export async function POST(request, { params }) {
       );
     }
 
-    if (event.price <= 0) {
+    // Resolve membership (logged-in member or a valid member number) and the
+    // price this person actually pays. Never trust a price from the client.
+    const session = await getServerSession(authOptions);
+    const { isMember, memberNumber: validNumber } = await resolveMember({
+      userId: session?.user?.id || null,
+      memberNumber,
+    });
+    const { effectivePrice } = computeEventPrice(event, isMember);
+
+    if (effectivePrice <= 0) {
       return Response.json(
         { message: "This is a free event. Please use RSVP." },
         { status: 400 }
@@ -72,9 +84,11 @@ export async function POST(request, { params }) {
             currency: "usd",
             product_data: {
               name: event.title,
-              description: `Event ticket · ${event.location}`,
+              description: isMember
+                ? `Event ticket (member rate) · ${event.location}`
+                : `Event ticket · ${event.location}`,
             },
-            unit_amount: Math.round(event.price * 100),
+            unit_amount: Math.round(effectivePrice * 100),
           },
           quantity: 1,
         },
@@ -86,6 +100,7 @@ export async function POST(request, { params }) {
         email: email.slice(0, 200),
         company: (company || "").slice(0, 200),
         message: (message || "").slice(0, 480),
+        memberNumber: validNumber != null ? String(validNumber) : "",
       },
       success_url: `${process.env.NEXT_PUBLIC_APP_URL}/events/${event.slug}?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/events/${event.slug}?canceled=1`,

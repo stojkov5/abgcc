@@ -12,7 +12,8 @@ export default function NewEventForm() {
     description: "",
     location: "",
     image: "",
-    price: "0",
+    nonMemberPrice: "0",
+    memberPrice: "",
     capacity: "",
     startDate: "",
     active: true,
@@ -155,12 +156,29 @@ export default function NewEventForm() {
         <div className="admin-event-form-grid">
           <input
             type="number"
-            placeholder="Price"
-            value={form.price}
+            min="0"
+            step="0.01"
+            placeholder="Non-member price ($)"
+            value={form.nonMemberPrice}
             onChange={(e) =>
               setForm({
                 ...form,
-                price: e.target.value,
+                nonMemberPrice: e.target.value,
+              })
+            }
+            className="admin-event-input"
+          />
+
+          <input
+            type="number"
+            min="0"
+            step="0.01"
+            placeholder="Member price ($, optional)"
+            value={form.memberPrice}
+            onChange={(e) =>
+              setForm({
+                ...form,
+                memberPrice: e.target.value,
               })
             }
             className="admin-event-input"
@@ -179,6 +197,11 @@ export default function NewEventForm() {
             className="admin-event-input"
           />
         </div>
+
+        <p className="admin-event-note">
+          Leave member price blank if members pay the same as everyone. Set it to
+          0 to make the event free for members.
+        </p>
 
         <input
           type="datetime-local"

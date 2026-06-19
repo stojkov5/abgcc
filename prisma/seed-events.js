@@ -22,7 +22,7 @@ async function main() {
 
       image: "/events/unga-week/image1.jpg",
 
-      price: 0,
+      nonMemberPrice: 0,
 
       capacity: 250,
 

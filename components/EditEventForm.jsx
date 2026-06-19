@@ -12,7 +12,8 @@ export default function EditEventForm({ event }) {
     description: event.description,
     location: event.location,
     image: event.image,
-    price: event.price,
+    nonMemberPrice: event.nonMemberPrice ?? 0,
+    memberPrice: event.memberPrice ?? "",
     capacity: event.capacity || "",
     startDate: new Date(event.startDate).toISOString().slice(0, 16),
     active: event.active,
@@ -263,14 +264,34 @@ export default function EditEventForm({ event }) {
           )}
         </div>
 
+        <label className="admin-upload-label">Non-member price ($)</label>
         <motion.input
           whileFocus={{ scale: 1.01 }}
           type="number"
-          value={form.price}
-          onChange={(e) => setForm({ ...form, price: e.target.value })}
+          min="0"
+          step="0.01"
+          value={form.nonMemberPrice}
+          onChange={(e) =>
+            setForm({ ...form, nonMemberPrice: e.target.value })
+          }
           className="admin-input"
         />
 
+        <label className="admin-upload-label">
+          Member price ($) — leave blank if same as non-member; 0 = free for members
+        </label>
+        <motion.input
+          whileFocus={{ scale: 1.01 }}
+          type="number"
+          min="0"
+          step="0.01"
+          placeholder="Member price (optional)"
+          value={form.memberPrice}
+          onChange={(e) => setForm({ ...form, memberPrice: e.target.value })}
+          className="admin-input"
+        />
+
+        <label className="admin-upload-label">Capacity</label>
         <motion.input
           whileFocus={{ scale: 1.01 }}
           type="number"

@@ -1,7 +1,10 @@
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 import { generateReference } from "@/lib/events/reference";
 import { sendBookingEmails } from "@/lib/events/bookingEmails";
+import { resolveMember, computeEventPrice } from "@/lib/events/pricing";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -11,7 +14,7 @@ export async function POST(request, { params }) {
     const { id } = await params;
     const body = await request.json();
 
-    const { name, email, company, message } = body;
+    const { name, email, company, message, memberNumber } = body;
 
     if (!name || !email) {
       return Response.json(
@@ -40,8 +43,17 @@ export async function POST(request, { params }) {
       );
     }
 
-    // Paid events must go through Stripe checkout, not the free RSVP flow
-    if (event.price > 0) {
+    // Resolve membership (logged-in member or a valid member number) and the
+    // price this person actually pays. Never trust a price from the client.
+    const session = await getServerSession(authOptions);
+    const { isMember, memberNumber: validNumber } = await resolveMember({
+      userId: session?.user?.id || null,
+      memberNumber,
+    });
+    const { effectivePrice } = computeEventPrice(event, isMember);
+
+    // Anything with a price must go through Stripe checkout, not the free RSVP.
+    if (effectivePrice > 0) {
       return Response.json(
         { message: "This event requires payment. Please use the checkout." },
         { status: 400 }
@@ -76,6 +88,7 @@ export async function POST(request, { params }) {
         reference: generateReference(),
         paid: false,
         amountPaid: 0,
+        memberNumber: validNumber,
         status: "CONFIRMED",
       },
     });

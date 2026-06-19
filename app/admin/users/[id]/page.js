@@ -15,6 +15,7 @@ import { prisma } from "@/lib/prisma";
 import AdminShell from "@/components/AdminShell";
 import AdminAssignMembershipForm from "@/components/AdminAssignMembershipForm";
 import AdminUserMembershipControls from "@/components/AdminUserMembershipControls";
+import AdminDirectoryProfileForm from "@/components/AdminDirectoryProfileForm";
 
 import {
   AdminEmptyState,
@@ -189,6 +190,10 @@ export default async function AdminUserDetailsPage({ params }) {
             </p>
           </AdminPanel>
         </div>
+
+        <AdminPanel title="Directory Profile">
+          <AdminDirectoryProfileForm userId={user.id} user={user} />
+        </AdminPanel>
 
         <AdminPanel title="Assign Membership">
           <AdminAssignMembershipForm userId={user.id} tiers={tiers} />

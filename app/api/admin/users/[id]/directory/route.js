@@ -6,24 +6,20 @@ import { authOptions } from "@/lib/auth";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-export async function PUT(request) {
+// Admin edit of a member's directory / company profile.
+export async function PUT(request, { params }) {
   try {
     const session = await getServerSession(authOptions);
 
-    if (!session) {
+    if (!session || session.user?.role !== "SUPER_ADMIN") {
       return Response.json({ message: "Unauthorized." }, { status: 401 });
     }
 
+    const { id } = await params;
     const body = await request.json();
 
     const {
-      name,
       organization,
-      position,
-      phone,
-      bio,
-      photo,
-      // Directory / company profile fields
       logo,
       companyDescription,
       website,
@@ -38,24 +34,10 @@ export async function PUT(request) {
       directoryVisible,
     } = body;
 
-    if (!name) {
-      return Response.json(
-        { message: "Name is required." },
-        { status: 400 }
-      );
-    }
-
-    const updatedUser = await prisma.user.update({
-      where: {
-        email: session.user.email,
-      },
+    const updated = await prisma.user.update({
+      where: { id },
       data: {
-        name,
         organization: organization || null,
-        position: position || null,
-        phone: phone || null,
-        bio: bio || null,
-        photo: photo || null,
         logo: logo || null,
         companyDescription: companyDescription || null,
         website: website || null,
@@ -69,22 +51,18 @@ export async function PUT(request) {
         featuredProjects: featuredProjects || null,
         directoryVisible:
           directoryVisible === undefined ? true : Boolean(directoryVisible),
-        profileCompleted: true,
       },
     });
 
     revalidatePath("/members");
-
-    revalidatePath("/portal");
-    revalidatePath("/portal/profile");
+    revalidatePath(`/admin/users/${id}`);
 
     return Response.json({
-      message: "Profile updated successfully.",
-      user: updatedUser,
+      message: "Directory profile updated.",
+      user: updated,
     });
   } catch (error) {
-    console.error("UPDATE_PROFILE_ERROR:", error);
-
+    console.error("ADMIN_DIRECTORY_UPDATE_ERROR:", error);
     return Response.json(
       { message: error?.message || "Something went wrong." },
       { status: 500 }
