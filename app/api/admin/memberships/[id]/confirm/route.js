@@ -41,6 +41,9 @@ export async function POST(request, { params }) {
         status: "ACTIVE",
         startDate: now,
         endDate,
+        // New term → let renewal reminders fire again.
+        reminder30SentAt: null,
+        reminder7SentAt: null,
       },
     });
 

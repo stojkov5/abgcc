@@ -139,6 +139,9 @@ export async function POST(request) {
             tierId,
             endDate: extendedEndDate,
             status: "ACTIVE",
+            // New term → let renewal reminders fire again.
+            reminder30SentAt: null,
+            reminder7SentAt: null,
           },
         });
 

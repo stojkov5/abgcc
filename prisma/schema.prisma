@@ -72,6 +72,11 @@ model Membership {
   invoiceReference String?  @unique
   amount           Float?
 
+  // Renewal reminders sent for the CURRENT term — reset to null on renewal so
+  // the next term's reminders fire again.
+  reminder30SentAt DateTime?
+  reminder7SentAt  DateTime?
+
   userId      String
   tierId      String
 
