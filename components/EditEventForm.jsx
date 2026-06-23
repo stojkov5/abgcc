@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { Upload } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import EventPuckEditor from "@/components/puck/EventPuckEditor";
+import RichTextEditor from "@/components/RichTextEditor";
 
 export default function EditEventForm({ event }) {
   const [form, setForm] = useState({
@@ -12,6 +12,7 @@ export default function EditEventForm({ event }) {
     description: event.description,
     location: event.location,
     image: event.image,
+    titleColor: event.titleColor || "",
     nonMemberPrice: event.nonMemberPrice ?? 0,
     memberPrice: event.memberPrice ?? "",
     capacity: event.capacity || "",
@@ -28,6 +29,7 @@ export default function EditEventForm({ event }) {
     company: "",
   });
 
+  const [galleryUrl, setGalleryUrl] = useState("");
   const [message, setMessage] = useState("");
   const [saving, setSaving] = useState(false);
   const [uploadingHero, setUploadingHero] = useState(false);
@@ -88,30 +90,79 @@ export default function EditEventForm({ event }) {
   }
 
   async function uploadGalleryImage(e) {
-    const file = e.target.files?.[0];
-    if (!file) return;
+    const selected = Array.from(e.target.files || []);
+    if (!selected.length) return;
+
+    const files = selected.slice(0, 10);
+    const overLimit = selected.length > 10;
 
     setUploadingGallery(true);
     setMessage("");
 
-    const uploadData = new FormData();
-    uploadData.append("file", file);
+    const images = (
+      await Promise.all(
+        files.map(async (file) => {
+          const uploadData = new FormData();
+          uploadData.append("file", file);
+          try {
+            const res = await fetch(`/api/admin/events/${event.id}/gallery`, {
+              method: "POST",
+              body: uploadData,
+            });
+            const data = await safeJson(res);
+            return res.ok ? data.image : null;
+          } catch {
+            return null;
+          }
+        })
+      )
+    ).filter(Boolean);
+
+    setUploadingGallery(false);
+    e.target.value = "";
+
+    if (images.length) {
+      setGalleryImages([...images, ...galleryImages]);
+    }
+
+    const failed = files.length - images.length;
+    setMessage(
+      [
+        images.length
+          ? `${images.length} image${images.length > 1 ? "s" : ""} uploaded.`
+          : "",
+        failed ? `${failed} failed to upload.` : "",
+        overLimit ? "Max 10 per batch — extra files were skipped." : "",
+      ]
+        .filter(Boolean)
+        .join(" ")
+    );
+  }
+
+  async function addGalleryImageUrl() {
+    const url = galleryUrl.trim();
+    if (!url) return;
+
+    setUploadingGallery(true);
+    setMessage("");
 
     const res = await fetch(`/api/admin/events/${event.id}/gallery`, {
       method: "POST",
-      body: uploadData,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ url }),
     });
 
     const data = await safeJson(res);
     setUploadingGallery(false);
 
     if (!res.ok) {
-      setMessage(data.message || "Gallery image upload failed.");
+      setMessage(data.message || "Could not add image from URL.");
       return;
     }
 
     setGalleryImages([data.image, ...galleryImages]);
-    setMessage("Gallery image uploaded.");
+    setGalleryUrl("");
+    setMessage("Gallery image added.");
   }
 
   async function removeGalleryImage(imageId) {
@@ -205,12 +256,38 @@ export default function EditEventForm({ event }) {
           className="admin-input"
         />
 
+        <div className="admin-event-title-color">
+          <label className="admin-event-check-row">
+            <input
+              type="checkbox"
+              checked={!!form.titleColor}
+              onChange={(e) =>
+                setForm({
+                  ...form,
+                  titleColor: e.target.checked ? "#ffffff" : "",
+                })
+              }
+            />
+            <span>Custom title color (for readability over the hero photo)</span>
+          </label>
+
+          {form.titleColor && (
+            <input
+              type="color"
+              value={form.titleColor}
+              onChange={(e) => setForm({ ...form, titleColor: e.target.value })}
+              className="admin-event-color-input"
+              aria-label="Title color"
+            />
+          )}
+        </div>
+
         <div className="space-y-3">
           <p className="text-sm font-semibold uppercase tracking-[0.15em] text-white/50">
             Event Description
           </p>
 
-          <EventPuckEditor
+          <RichTextEditor
             value={form.description}
             onChange={(value) =>
               setForm({
@@ -218,6 +295,7 @@ export default function EditEventForm({ event }) {
                 description: value,
               })
             }
+            placeholder="Describe the event…"
           />
         </div>
 
@@ -351,18 +429,42 @@ export default function EditEventForm({ event }) {
         <div className="admin-upload-box">
           <label className="admin-upload-label">
             <Upload size={16} />
-            Gallery Images
+            Gallery Images (up to 10 at once)
           </label>
 
           <input
             type="file"
             accept="image/*"
+            multiple
             onChange={uploadGalleryImage}
             className="admin-input"
           />
 
+          <div className="admin-event-gallery-url">
+            <input
+              type="url"
+              placeholder="…or paste an image URL"
+              value={galleryUrl}
+              onChange={(e) => setGalleryUrl(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  addGalleryImageUrl();
+                }
+              }}
+              className="admin-input"
+            />
+            <button
+              type="button"
+              onClick={addGalleryImageUrl}
+              disabled={uploadingGallery}
+            >
+              Add
+            </button>
+          </div>
+
           {uploadingGallery && (
-            <p className="admin-upload-note">Uploading gallery image...</p>
+            <p className="admin-upload-note">Adding gallery image...</p>
           )}
 
           {galleryImages.length > 0 && (

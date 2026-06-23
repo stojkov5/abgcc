@@ -87,6 +87,10 @@ model Event {
   location    String
   image       String
 
+  // Optional hero title color override (hex), for readability over photos.
+  // null = use the default navy.
+  titleColor  String?
+
   // Pricing: nonMemberPrice is the general/public rate (0 = free for everyone).
   // memberPrice is the optional discounted rate for active members — null means
   // members pay the same as everyone; 0 means free for members.

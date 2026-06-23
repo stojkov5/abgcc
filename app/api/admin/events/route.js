@@ -29,12 +29,14 @@ export async function POST(request) {
       description,
       location,
       image,
+      titleColor,
       nonMemberPrice,
       memberPrice,
       capacity,
       startDate,
       active,
       featured,
+      galleryImages,
     } = body;
 
     if (!title || !description || !location || !image || !startDate) {
@@ -63,6 +65,7 @@ export async function POST(request) {
         description,
         location,
         image,
+        titleColor: titleColor || null,
         nonMemberPrice: Number(nonMemberPrice || 0),
         memberPrice:
           memberPrice === "" || memberPrice == null
@@ -74,6 +77,15 @@ export async function POST(request) {
         featured: Boolean(featured),
       },
     });
+
+    // Attach any gallery images queued during creation (already Cloudinary URLs).
+    if (Array.isArray(galleryImages) && galleryImages.length > 0) {
+      await prisma.eventImage.createMany({
+        data: galleryImages
+          .filter((url) => typeof url === "string" && url.trim())
+          .map((url) => ({ url, eventId: event.id })),
+      });
+    }
 
     revalidatePath("/events");
     revalidatePath("/admin/events");

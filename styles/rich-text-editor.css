@@ -1,0 +1,287 @@
+/* TipTap editor chrome: dark toolbar + light document surface. */
+
+.rt-editor {
+  border: 1px solid rgba(16, 36, 63, 0.16);
+  border-radius: 1rem;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* ── Toolbar ───────────────────────────────────────────────────────── */
+
+.rt-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem 0.6rem;
+  background: #1d1f24;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.rt-divider {
+  width: 1px;
+  align-self: stretch;
+  margin: 0.25rem 0.35rem;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.rt-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.82);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.rt-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.rt-btn.is-active {
+  background: rgba(245, 191, 84, 0.9);
+  color: #10243f;
+}
+
+.rt-select {
+  height: 2rem;
+  max-width: 11rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 0.5rem;
+  background: #2a2c33;
+  color: #fff;
+  font-size: 0.85rem;
+  padding: 0 0.5rem;
+  cursor: pointer;
+}
+
+.rt-select--sm {
+  max-width: 4.5rem;
+}
+
+.rt-select:focus {
+  outline: none;
+  border-color: rgba(245, 191, 84, 0.7);
+}
+
+/* Color picker swatch (native input hidden behind it) */
+.rt-color {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.rt-color:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.rt-color-swatch {
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.65);
+}
+
+.rt-color input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Image popover */
+.rt-popover-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.rt-popover {
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  left: 0;
+  z-index: 20;
+  width: 16rem;
+  padding: 0.85rem;
+  border-radius: 0.75rem;
+  background: #fff;
+  border: 1px solid rgba(16, 36, 63, 0.14);
+  box-shadow: 0 1.2rem 3rem rgba(16, 36, 63, 0.22);
+}
+
+.rt-popover-upload {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px dashed rgba(16, 36, 63, 0.3);
+  border-radius: 0.6rem;
+  background: rgba(16, 36, 63, 0.03);
+  color: #10243f;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.rt-popover-upload:hover {
+  background: rgba(16, 36, 63, 0.06);
+}
+
+.rt-popover-or {
+  margin: 0.6rem 0;
+  font-size: 0.75rem;
+  text-align: center;
+  color: rgba(16, 36, 63, 0.5);
+}
+
+.rt-popover-url {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.rt-popover-url input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid rgba(16, 36, 63, 0.18);
+  border-radius: 0.5rem;
+  padding: 0.45rem 0.6rem;
+  font-size: 0.85rem;
+}
+
+.rt-popover-url button {
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0 0.85rem;
+  background: #10243f;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+/* ── Editing surface ───────────────────────────────────────────────── */
+
+.rt-editor .ProseMirror {
+  min-height: 18rem;
+  padding: 1.4rem 1.6rem;
+  outline: none;
+}
+
+.rt-editor .ProseMirror:focus {
+  outline: none;
+}
+
+/* Placeholder */
+.rt-editor .ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+  color: rgba(16, 36, 63, 0.38);
+}
+
+/* Column editing affordances */
+.rt-editor .rt-columns {
+  position: relative;
+}
+
+.rt-editor .rt-column {
+  position: relative;
+  border: 1px dashed rgba(16, 36, 63, 0.14);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.7rem;
+}
+
+.rt-column-resizer {
+  position: absolute;
+  top: 0;
+  right: -0.85rem;
+  width: 0.85rem;
+  height: 100%;
+  cursor: col-resize;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rt-column-resizer::after {
+  content: "";
+  width: 3px;
+  height: 2.2rem;
+  border-radius: 999px;
+  background: rgba(16, 36, 63, 0.22);
+  transition: background 0.15s ease;
+}
+
+.rt-column-resizer:hover::after {
+  background: rgba(245, 191, 84, 1);
+}
+
+body.rt-resizing {
+  cursor: col-resize;
+  user-select: none;
+}
+
+/* ── Resizable images ──────────────────────────────────────────────── */
+
+.rt-editor .rt-image-wrap {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  line-height: 0;
+}
+
+.rt-editor .rt-image-wrap img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+}
+
+.rt-editor .rt-image-wrap[data-selected] img {
+  outline: 2px solid rgba(245, 191, 84, 0.9);
+  outline-offset: 2px;
+}
+
+.rt-image-handle {
+  position: absolute;
+  bottom: -7px;
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  border: 2px solid #f5bf54;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  z-index: 2;
+}
+
+.rt-image-wrap:hover .rt-image-handle,
+.rt-image-wrap[data-selected] .rt-image-handle {
+  opacity: 1;
+}
+
+.rt-image-handle--br {
+  right: -7px;
+  cursor: nwse-resize;
+}
+
+.rt-image-handle--bl {
+  left: -7px;
+  cursor: nesw-resize;
+}

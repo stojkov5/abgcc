@@ -14,6 +14,7 @@ import { Reveal } from "@/components/MotionReveal";
 
 import "@/styles/news.css";
 import "@/styles/puck-content.css";
+import "@/styles/rich-content.css";
 
 function formatDate(date) {
   return new Date(date).toLocaleDateString("en-US", {
@@ -113,7 +114,7 @@ export default async function ArticlePage({ params }) {
               </div>
             ) : (
               <div
-                className="puck-content"
+                className="puck-content rich-content"
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
             )}

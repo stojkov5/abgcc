@@ -42,6 +42,7 @@ export async function PUT(request, { params }) {
       description,
       location,
       image,
+      titleColor,
       nonMemberPrice,
       memberPrice,
       capacity,
@@ -58,6 +59,7 @@ export async function PUT(request, { params }) {
         description,
         location,
         image,
+        titleColor: titleColor || null,
         nonMemberPrice: Number(nonMemberPrice || 0),
         memberPrice:
           memberPrice === "" || memberPrice == null

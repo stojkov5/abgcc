@@ -1,9 +1,11 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import cloudinary from "@/lib/cloudinary";
+import { uploadImageFromRequest } from "@/lib/cloudinaryUpload";
 
 export const runtime = "nodejs";
 
+// Accepts either a multipart `file` upload or a JSON `{ url }` (remote image),
+// stores it in Cloudinary, and returns the secure URL.
 export async function POST(request) {
   try {
     const session = await getServerSession(authOptions);
@@ -12,46 +14,17 @@ export async function POST(request) {
       return Response.json({ message: "Unauthorized." }, { status: 401 });
     }
 
-    const formData = await request.formData();
-    const file = formData.get("file");
-
-    if (!file) {
-      return Response.json({ message: "No file uploaded." }, { status: 400 });
-    }
-
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-
-    const result = await new Promise((resolve, reject) => {
-      const uploadStream = cloudinary.uploader.upload_stream(
-        {
-          folder: "abgcc/events",
-          resource_type: "image",
-        },
-        (error, result) => {
-          if (error) {
-            reject(error);
-            return;
-          }
-
-          resolve(result);
-        }
-      );
-
-      uploadStream.end(buffer);
-    });
+    const url = await uploadImageFromRequest(request, "abgcc/events");
 
     return Response.json({
       message: "Image uploaded successfully.",
-      url: result.secure_url,
+      url,
     });
   } catch (error) {
     console.error("UPLOAD_ERROR:", error);
 
     return Response.json(
-      {
-        message: error?.message || "Image upload failed.",
-      },
+      { message: error?.message || "Image upload failed." },
       { status: 500 }
     );
   }

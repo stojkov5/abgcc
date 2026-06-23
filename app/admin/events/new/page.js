@@ -15,6 +15,7 @@ import {
   AdminPanel,
 } from "@/components/admin/AdminUI";
 
+import "@/styles/admin.css";
 import "@/styles/admin-events.css";
 
 export default async function NewEventPage() {

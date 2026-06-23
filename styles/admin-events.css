@@ -406,3 +406,49 @@
     text-align: left !important;
   }
 }
+/* Gallery "add by URL" row (New + Edit Event forms) */
+.admin-event-gallery-url {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+
+.admin-event-gallery-url input {
+  flex: 1;
+  min-width: 0;
+}
+
+.admin-event-gallery-url button {
+  flex: 0 0 auto;
+  border: none;
+  border-radius: 0.6rem;
+  padding: 0 1.3rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #10243f;
+  background: linear-gradient(135deg, #ffd889 0%, #f5bf54 100%);
+  cursor: pointer;
+}
+
+.admin-event-gallery-url button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* Event title color override control (New + Edit Event forms) */
+.admin-event-title-color {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.admin-event-color-input {
+  width: 3rem;
+  height: 2.2rem;
+  padding: 0;
+  border: 1px solid rgba(15, 35, 60, 0.2);
+  border-radius: 0.5rem;
+  background: none;
+  cursor: pointer;
+}

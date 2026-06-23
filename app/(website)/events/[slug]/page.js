@@ -11,18 +11,16 @@ import { authOptions } from "@/lib/auth";
 import { resolveMember, computeEventPrice } from "@/lib/events/pricing";
 
 import EventRSVPSection from "@/components/EventRSVPSection";
+import EventGallery from "@/components/EventGallery";
 import { Render } from "@puckeditor/core/rsc";
 import { puckConfig } from "@/components/puck/puck.config";
 import { parsePuckData } from "@/lib/puck/preview";
 
-import {
-  Reveal,
-  Stagger,
-  StaggerItem,
-} from "@/components/MotionReveal";
+import { Reveal } from "@/components/MotionReveal";
 
 import "@/styles/event-details.css";
 import "@/styles/puck-content.css";
+import "@/styles/rich-content.css";
 
 function formatEventDate(date) {
   return new Date(date).toLocaleDateString("en-US", {
@@ -106,7 +104,12 @@ export default async function EventDetailsPage({ params }) {
           </Reveal>
 
           <Reveal delay={0.16}>
-            <h1 className="event-detail-title">{event.title}</h1>
+            <h1
+              className="event-detail-title"
+              style={event.titleColor ? { color: event.titleColor } : undefined}
+            >
+              {event.title}
+            </h1>
           </Reveal>
 
           <Reveal delay={0.22}>
@@ -181,7 +184,7 @@ export default async function EventDetailsPage({ params }) {
               </div>
             ) : (
               <div
-                className="event-rich-content"
+                className="event-rich-content rich-content"
                 dangerouslySetInnerHTML={{ __html: event.description }}
               />
             )}
@@ -200,25 +203,7 @@ export default async function EventDetailsPage({ params }) {
               </h2>
             </Reveal>
 
-            <Stagger className="event-gallery-grid">
-              {event.images.map((image) => (
-                <StaggerItem
-                  as="article"
-                  key={image.id}
-                  className="event-gallery-card"
-                >
-                  <div className="event-gallery-img-wrap">
-                    <Image
-                      src={image.url}
-                      alt={event.title}
-                      fill
-                      sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw"
-                      className="event-gallery-img"
-                    />
-                  </div>
-                </StaggerItem>
-              ))}
-            </Stagger>
+            <EventGallery images={event.images} title={event.title} />
           </div>
         </section>
       )}

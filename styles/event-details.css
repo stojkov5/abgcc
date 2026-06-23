@@ -325,18 +325,145 @@
   box-shadow: 0 1.4rem 4rem rgba(46, 111, 160, 0.14);
 }
 
+/* Trigger button wrapping each gallery image (reset native button styles) */
+.event-gallery-trigger {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
 .event-gallery-img-wrap {
   position: relative;
   aspect-ratio: 4 / 5;
+  background: linear-gradient(
+    180deg,
+    rgba(16, 36, 63, 0.05),
+    rgba(16, 36, 63, 0.1)
+  );
 }
 
 .event-gallery-img {
-  object-fit: cover;
-  transition: transform 0.7s ease;
+  object-fit: contain; /* show the whole image, no cropping */
+  transition: transform 0.6s ease;
 }
 
 .event-gallery-card:hover .event-gallery-img {
-  transform: scale(1.06);
+  transform: scale(1.03);
+}
+
+/* Hover "Preview" overlay */
+.event-gallery-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: rgba(16, 36, 63, 0.5);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.event-gallery-card:hover .event-gallery-overlay,
+.event-gallery-trigger:focus-visible .event-gallery-overlay {
+  opacity: 1;
+}
+
+/* ── Fullscreen lightbox ───────────────────────────────────────────── */
+.event-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 4vw, 3rem);
+  background: rgba(8, 18, 33, 0.92);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.event-lightbox-stage {
+  position: relative;
+  width: min(92vw, 1200px);
+  height: min(86vh, 900px);
+}
+
+.event-lightbox-img {
+  object-fit: contain; /* fit the full image to the screen */
+}
+
+.event-lightbox-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: grid;
+  place-items: center;
+  width: 2.8rem;
+  height: 2.8rem;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.event-lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.event-lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.event-lightbox-nav:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.event-lightbox-prev {
+  left: clamp(0.5rem, 3vw, 2rem);
+}
+
+.event-lightbox-next {
+  right: clamp(0.5rem, 3vw, 2rem);
+}
+
+.event-lightbox-count {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 43.75em) {
+  .event-lightbox-nav {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
 }
 
 .event-rsvp-card {

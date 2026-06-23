@@ -78,6 +78,9 @@
 }
 
 .event-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   overflow: hidden;
   border: 0.0625rem solid rgba(100, 181, 246, 0.22);
   border-radius: 1.5rem;
@@ -143,6 +146,9 @@
 }
 
 .event-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   padding: clamp(1.35rem, 2.4vw, 2rem);
 }
 
@@ -177,18 +183,25 @@
   font-weight: 800;
   letter-spacing: -0.045em;
   text-wrap: balance;
+  /* Keep titles to two lines so every card lines up */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
 }
 
 .event-content p {
   display: -webkit-box;
-  margin: 1.2rem 0 0;
+  margin: 1.2rem 0 1.5rem;
   overflow: hidden;
   color: rgba(16, 36, 63, 0.7);
   font-size: 0.98rem;
   line-height: 1.75;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
+  /* Single line, truncated with an ellipsis */
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
 }
 
 .event-btn {
@@ -197,7 +210,9 @@
   justify-content: center;
   gap: 0.55rem;
   min-height: 3.15rem;
-  margin-top: 2rem;
+  /* Pin to the bottom so the button lines up across all cards */
+  margin-top: auto;
+  align-self: flex-start;
   padding: 0.85rem 1.4rem;
   border: 0.0625rem solid rgba(245, 191, 84, 0.7);
   border-radius: 999rem;
