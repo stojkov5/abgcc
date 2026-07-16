@@ -95,13 +95,13 @@ export default function Footer() {
           <div className="footer-follow">
             <h3>Follow Us</h3>
 
-            <a href="#" className="footer-social-row" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/company/abgchamber/" target="_blank" className="footer-social-row" aria-label="LinkedIn">
               <FaLinkedinIn /> LinkedIn
             </a>
-            <a href="#" className="footer-social-row" aria-label="Instagram">
+            <a href="https://www.instagram.com/abgchamber/?hl=en"  target="_blank" className="footer-social-row" aria-label="Instagram">
               <FaInstagram /> Instagram
             </a>
-            <a href="#" className="footer-social-row" aria-label="Facebook">
+            <a href="https://www.facebook.com/abgchamber" target="_blank" className="footer-social-row" aria-label="Facebook">
               <FaFacebookF /> Facebook
             </a>
           </div>
