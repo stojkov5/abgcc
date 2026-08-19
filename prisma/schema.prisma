@@ -16,7 +16,7 @@ model User {
   createdAt     DateTime     @default(now())
   organization  String?
   position      String?
-  phone         String?
+  phone         String?      @unique
   bio           String?
   photo         String?
   profileCompleted Boolean @default(false)

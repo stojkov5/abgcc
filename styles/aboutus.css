@@ -170,6 +170,10 @@
 .team-img-eliza   { object-position: center top; }
 .team-img-lenard  { object-position: center center; }
 .team-img-charles { object-position: center 18%; }
+.team-img-natasha { object-position: center top; }
+.team-img-gloria  { object-position: center top; }
+.team-img-thakur  { object-position: center top; }
+.team-img-chioma  { object-position: center top; }
 
 .team-info {
   display: flex;

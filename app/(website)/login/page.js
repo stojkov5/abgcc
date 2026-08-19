@@ -4,6 +4,7 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import PasswordInput from "@/components/PasswordInput";
 import "@/styles/auth.css";
 
 const cardReveal = {
@@ -117,13 +118,11 @@ export default function LoginPage() {
             className="auth-input"
           />
 
-          <motion.input
-            whileFocus={{ scale: 1.01 }}
-            type="password"
+          <PasswordInput
             placeholder="Password"
             value={form.password}
             onChange={(e) => setForm({ ...form, password: e.target.value })}
-            className="auth-input"
+            autoComplete="current-password"
           />
 
           <motion.button

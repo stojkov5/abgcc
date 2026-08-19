@@ -53,7 +53,7 @@ export async function PUT(request) {
         name,
         organization: organization || null,
         position: position || null,
-        phone: phone || null,
+        phone: phone?.trim() || null,
         bio: bio || null,
         photo: photo || null,
         logo: logo || null,
@@ -84,6 +84,31 @@ export async function PUT(request) {
     });
   } catch (error) {
     console.error("UPDATE_PROFILE_ERROR:", error);
+
+    // Prisma unique-constraint violation → give a clear, field-specific message.
+    if (error?.code === "P2002") {
+      const target = error?.meta?.target;
+      const fields = Array.isArray(target) ? target.join(",") : String(target || "");
+
+      if (fields.includes("phone")) {
+        return Response.json(
+          { message: "This phone number is already registered to another account." },
+          { status: 409 }
+        );
+      }
+
+      if (fields.includes("email")) {
+        return Response.json(
+          { message: "This email is already registered to another account." },
+          { status: 409 }
+        );
+      }
+
+      return Response.json(
+        { message: "That value is already in use on another account." },
+        { status: 409 }
+      );
+    }
 
     return Response.json(
       { message: error?.message || "Something went wrong." },

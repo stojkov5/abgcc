@@ -3,6 +3,8 @@ import bcrypt from "bcrypt";
 import { prisma } from "@/lib/prisma";
 import { sendEmail } from "@/lib/email/sendEmail";
 import { verificationEmail } from "@/lib/email/templates/verificationEmail";
+import { adminNewMemberEmail } from "@/lib/email/templates/adminNewMemberEmail";
+import { signupRecipients } from "@/lib/email/recipients";
 
 export async function POST(request) {
   try {
@@ -48,6 +50,19 @@ export async function POST(request) {
       subject: "Verify your ABGCC email address",
       html: verificationEmail({ name: user.name, verificationUrl }),
     }).catch((err) => console.error("VERIFICATION_EMAIL_ERROR", err));
+
+    const signupAdmins = signupRecipients();
+    if (signupAdmins.length > 0) {
+      sendEmail({
+        to: signupAdmins,
+        subject: `New ABGCC account: ${user.name}`,
+        html: adminNewMemberEmail({
+          userName: user.name,
+          userEmail: user.email,
+          createdAt: new Date().toLocaleString("en-US"),
+        }),
+      }).catch((err) => console.error("ADMIN_NEW_MEMBER_EMAIL_ERROR", err));
+    }
 
     return Response.json(
       {

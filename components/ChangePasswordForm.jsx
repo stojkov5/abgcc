@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import PasswordInput from "@/components/PasswordInput";
 
 export default function ChangePasswordForm({ emailVerified }) {
   const [form, setForm] = useState({
@@ -66,35 +67,32 @@ export default function ChangePasswordForm({ emailVerified }) {
       )}
 
       <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-        <input
-          type="password"
+        <PasswordInput
           placeholder="Current password"
           value={form.currentPassword}
           onChange={(e) => setForm({ ...form, currentPassword: e.target.value })}
-          className="auth-input"
           required
           disabled={!emailVerified}
+          autoComplete="current-password"
         />
 
-        <input
-          type="password"
+        <PasswordInput
           placeholder="New password (min. 8 characters)"
           value={form.newPassword}
           onChange={(e) => setForm({ ...form, newPassword: e.target.value })}
-          className="auth-input"
           required
           minLength={8}
           disabled={!emailVerified}
+          autoComplete="new-password"
         />
 
-        <input
-          type="password"
+        <PasswordInput
           placeholder="Confirm new password"
           value={form.confirmPassword}
           onChange={(e) => setForm({ ...form, confirmPassword: e.target.value })}
-          className="auth-input"
           required
           disabled={!emailVerified}
+          autoComplete="new-password"
         />
 
         <motion.button

@@ -50,6 +50,37 @@ const team = [
   },
 ];
 
+const advisoryBoard = [
+  {
+    name: "Natasha Sivevska",
+    role: "Sustainable Fashion, Circular Economy, Social Compliance",
+    image: "/Natasha-Sivevska.webp",
+    imageClass: "team-img-natasha",
+    linkedin: "https://www.linkedin.com/in/natasha-sivevska",
+  },
+  {
+    name: "Dame Gloria Starr Kins",
+    role: "Business Diplomacy",
+    image: "/Gloria-Starr-Kins.webp",
+    imageClass: "team-img-gloria",
+    linkedin: null,
+  },
+  {
+    name: "Thakur Aggarwal",
+    role: "Government Relations",
+    image: "/Thakur-Aggarwal.webp",
+    imageClass: "team-img-thakur",
+    linkedin: null,
+  },
+  {
+    name: "Chioma Eze",
+    role: "Arts and Business Development",
+    image: "/Chioma-Eze.webp",
+    imageClass: "team-img-chioma",
+    linkedin: "https://www.linkedin.com/in/chioma",
+  },
+];
+
 const industries = [
   { title: "Agrofood", image: "/about/agrofood.webp" },
   { title: "Banking & Finance", image: "/about/banking.webp" },
@@ -220,6 +251,45 @@ export default function AboutPage() {
                   >
                     LinkedIn Profile
                   </a>
+                </div>
+              </StaggerItem>
+            ))}
+          </Stagger>
+        </div>
+      </section>
+
+      <section className="team-section advisory-section" id="advisory-board">
+        <div className="page-container">
+          <Reveal className="section-heading">
+            <span className="section-label">Advisory Board</span>
+          </Reveal>
+
+          <Stagger className="team-grid">
+            {advisoryBoard.map((person) => (
+              <StaggerItem className="team-card" key={person.name}>
+                <div className="team-image-wrap">
+                  <Image
+                    src={person.image}
+                    alt={person.name}
+                    fill
+                    sizes="(max-width: 900px) min(92vw, 26rem), 33vw"
+                    className={`team-img ${person.imageClass}`}
+                  />
+                </div>
+
+                <div className="team-info">
+                  <h3>{person.name}</h3>
+                  <span>{person.role}</span>
+                  {person.linkedin && (
+                    <a
+                      href={person.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="team-linkedin"
+                    >
+                      LinkedIn Profile
+                    </a>
+                  )}
                 </div>
               </StaggerItem>
             ))}
