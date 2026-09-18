@@ -7,6 +7,7 @@ import {
   Mail,
   Users,
   Newspaper,
+  UsersRound,
 } from "lucide-react";
 
 import { authOptions } from "@/lib/auth";
@@ -43,6 +44,12 @@ const adminCards = [
     text: "Write, publish, and manage news articles and blog posts.",
     href: "/admin/posts",
     icon: Newspaper,
+  },
+  {
+    title: "Team & Advisory Board",
+    text: "Manage the About page's Meet the Team and Advisory Board cards.",
+    href: "/admin/team",
+    icon: UsersRound,
   },
   {
     title: "Contact Messages",

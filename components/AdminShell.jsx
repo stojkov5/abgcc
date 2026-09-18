@@ -17,6 +17,7 @@ import {
   CreditCard,
   Newspaper,
   Megaphone,
+  UsersRound,
 } from "lucide-react";
 import { useState } from "react";
 import "@/styles/admin-layout.css";
@@ -46,6 +47,11 @@ const navItems = [
     label: "News",
     href: "/admin/posts",
     icon: Newspaper,
+  },
+  {
+    label: "Team & Advisors",
+    href: "/admin/team",
+    icon: UsersRound,
   },
   {
     label: "Memberships",

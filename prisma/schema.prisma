@@ -183,6 +183,34 @@ model Subscriber {
   createdAt DateTime @default(now())
 }
 
+// About-page people cards ("Meet the Team" and "Advisory Board"), managed by
+// admins. `section` decides which About section a card appears in, and
+// `visible` controls whether it shows on the public page at all.
+model TeamMember {
+  id            String      @id @default(cuid())
+  name          String
+  role          String
+  image         String
+  bio           String?
+  linkedin      String?
+
+  section       TeamSection @default(TEAM)
+
+  // CSS object-position for the photo crop (e.g. "center top", "center 18%").
+  imagePosition String      @default("center top")
+
+  visible       Boolean     @default(true)
+  order         Int         @default(0)
+
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+enum TeamSection {
+  TEAM
+  ADVISORY
+}
+
 enum Role {
   SUPER_ADMIN
   EDITOR

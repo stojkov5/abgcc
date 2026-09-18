@@ -14,6 +14,7 @@ export const metadata = {
 import "@/styles/aboutus.css";
 import Image from "next/image";
 import HeroVideo from "@/components/HeroVideo";
+import { prisma } from "@/lib/prisma";
 
 import {
   Reveal,
@@ -23,63 +24,9 @@ import {
   StaggerItem,
 } from "@/components/MotionReveal";
 
-const team = [
-  {
-    name: "Eliza Prendzov - President",
-    role: "CEO & Co-Founder of Prend Capital",
-    image: "/Eliza-Prendzov.webp",
-    imageClass: "team-img-eliza",
-    bio: "A leader in sustainable finance and infrastructure partnership building, with over 20 years of experience across consulting, asset management, finance, sustainability, government, and multilateral relations.",
-    linkedin: "https://www.linkedin.com/in/eliza-prendzov/",
-  },
-  {
-    name: "Lenard Moxley - Vice President",
-    role: "Renewable Energy and Infrastructure",
-    image: "/Lenard Moxley.webp",
-    imageClass: "team-img-lenard",
-    bio: "Comes from a renewable energy development and policy background, with experience in wind, solar, and battery storage. He speaks Macedonian fluently and has strong international experience.",
-    linkedin: "https://www.linkedin.com/in/lenardcmoxley/",
-  },
-  {
-    name: "Charles Moxley - Vice President",
-    role: "Finance & Capital Markets",
-    image: "/Charles Moxley.webp",
-    imageClass: "team-img-charles",
-    bio: "A finance professional with experience in asset management, financial analysis, capital markets, electricity, and energy markets.",
-    linkedin: "https://www.linkedin.com/in/charlesdmoxley/",
-  },
-];
-
-const advisoryBoard = [
-  {
-    name: "Natasha Sivevska",
-    role: "Sustainable Fashion, Circular Economy, Social Compliance",
-    image: "/Natasha-Sivevska.webp",
-    imageClass: "team-img-natasha",
-    linkedin: "https://www.linkedin.com/in/natasha-sivevska",
-  },
-  {
-    name: "Dame Gloria Starr Kins",
-    role: "Business Diplomacy",
-    image: "/Gloria-Starr-Kins.webp",
-    imageClass: "team-img-gloria",
-    linkedin: null,
-  },
-  {
-    name: "Thakur Aggarwal",
-    role: "Government Relations",
-    image: "/Thakur-Aggarwal.webp",
-    imageClass: "team-img-thakur",
-    linkedin: null,
-  },
-  {
-    name: "Chioma Eze",
-    role: "Arts and Business Development",
-    image: "/Chioma-Eze.webp",
-    imageClass: "team-img-chioma",
-    linkedin: "https://www.linkedin.com/in/chioma",
-  },
-];
+// Cached for 60s — fresh enough, avoids a DB hit on every visit. The admin Team
+// routes also call revalidatePath("/about") on any change so edits show at once.
+export const revalidate = 60;
 
 const industries = [
   { title: "Agrofood", image: "/about/agrofood.webp" },
@@ -111,7 +58,15 @@ const pillars = [
   },
 ];
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const members = await prisma.teamMember.findMany({
+    where: { visible: true },
+    orderBy: [{ order: "asc" }, { createdAt: "asc" }],
+  });
+
+  const team = members.filter((m) => m.section === "TEAM");
+  const advisoryBoard = members.filter((m) => m.section === "ADVISORY");
+
   return (
     <main className="about-page">
       <section className="page-hero">
@@ -221,81 +176,91 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="team-section" id="meet-the-team">
-        <div className="page-container">
-          <Reveal className="section-heading">
-            <span className="section-label">Meet the Team</span>
-          </Reveal>
+      {team.length > 0 && (
+        <section className="team-section" id="meet-the-team">
+          <div className="page-container">
+            <Reveal className="section-heading">
+              <span className="section-label">Meet the Team</span>
+            </Reveal>
 
-          <Stagger className="team-grid">
-            {team.map((person) => (
-              <StaggerItem className="team-card" key={person.name}>
-                <div className="team-image-wrap">
-                  <Image
-                    src={person.image}
-                    alt={person.name}
-                    fill
-                    sizes="(max-width: 900px) min(92vw, 26rem), 33vw"
-                    className={`team-img ${person.imageClass}`}
-                  />
-                </div>
+            <Stagger className="team-grid">
+              {team.map((person) => (
+                <StaggerItem className="team-card" key={person.id}>
+                  <div className="team-image-wrap">
+                    <Image
+                      src={person.image}
+                      alt={person.name}
+                      fill
+                      sizes="(max-width: 900px) min(92vw, 26rem), 33vw"
+                      className="team-img"
+                      style={{ objectPosition: person.imagePosition }}
+                    />
+                  </div>
 
-                <div className="team-info">
-                  <h3>{person.name}</h3>
-                  <span>{person.role}</span>
-                  <a
-                    href={person.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="team-linkedin"
-                  >
-                    LinkedIn Profile
-                  </a>
-                </div>
-              </StaggerItem>
-            ))}
-          </Stagger>
-        </div>
-      </section>
+                  <div className="team-info">
+                    <h3>{person.name}</h3>
+                    <span>{person.role}</span>
+                    {person.bio && <p>{person.bio}</p>}
+                    {person.linkedin && (
+                      <a
+                        href={person.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="team-linkedin"
+                      >
+                        LinkedIn Profile
+                      </a>
+                    )}
+                  </div>
+                </StaggerItem>
+              ))}
+            </Stagger>
+          </div>
+        </section>
+      )}
 
-      <section className="team-section advisory-section" id="advisory-board">
-        <div className="page-container">
-          <Reveal className="section-heading">
-            <span className="section-label">Advisory Board</span>
-          </Reveal>
+      {advisoryBoard.length > 0 && (
+        <section className="team-section advisory-section" id="advisory-board">
+          <div className="page-container">
+            <Reveal className="section-heading">
+              <span className="section-label">Advisory Board</span>
+            </Reveal>
 
-          <Stagger className="team-grid">
-            {advisoryBoard.map((person) => (
-              <StaggerItem className="team-card" key={person.name}>
-                <div className="team-image-wrap">
-                  <Image
-                    src={person.image}
-                    alt={person.name}
-                    fill
-                    sizes="(max-width: 900px) min(92vw, 26rem), 33vw"
-                    className={`team-img ${person.imageClass}`}
-                  />
-                </div>
+            <Stagger className="team-grid">
+              {advisoryBoard.map((person) => (
+                <StaggerItem className="team-card" key={person.id}>
+                  <div className="team-image-wrap">
+                    <Image
+                      src={person.image}
+                      alt={person.name}
+                      fill
+                      sizes="(max-width: 900px) min(92vw, 26rem), 33vw"
+                      className="team-img"
+                      style={{ objectPosition: person.imagePosition }}
+                    />
+                  </div>
 
-                <div className="team-info">
-                  <h3>{person.name}</h3>
-                  <span>{person.role}</span>
-                  {person.linkedin && (
-                    <a
-                      href={person.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="team-linkedin"
-                    >
-                      LinkedIn Profile
-                    </a>
-                  )}
-                </div>
-              </StaggerItem>
-            ))}
-          </Stagger>
-        </div>
-      </section>
+                  <div className="team-info">
+                    <h3>{person.name}</h3>
+                    <span>{person.role}</span>
+                    {person.bio && <p>{person.bio}</p>}
+                    {person.linkedin && (
+                      <a
+                        href={person.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="team-linkedin"
+                      >
+                        LinkedIn Profile
+                      </a>
+                    )}
+                  </div>
+                </StaggerItem>
+              ))}
+            </Stagger>
+          </div>
+        </section>
+      )}
 
       <section className="pillars-section" id="core-pillars">
         <div className="page-container">
