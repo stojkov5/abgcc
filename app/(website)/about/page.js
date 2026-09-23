@@ -113,11 +113,38 @@ export default async function AboutPage() {
           </Reveal>
 
           <Reveal delay={0.08} className="intro-content">
+            <p className="intro-lead">
+              The American Balkan Global Chamber of Commerce is built on a
+              distinctive proposition: connecting American capital, enterprise,
+              and innovation with the wealth of opportunities emerging across
+              Southeast Europe.
+            </p>
+
             <p>
-              ABGCC serves American companies seeking opportunities in the
-              Balkan markets, Balkan-based businesses expanding into North
-              America, and globally, as well as Balkan-American entrepreneurs
-              building across both regions.
+              Across the Balkans, substantial investment is being directed
+              toward infrastructure modernization, energy transition,
+              transportation networks, digital connectivity, manufacturing,
+              critical minerals, logistics, and industrial development.
+            </p>
+          </Reveal>
+        </div>
+
+        <div className="page-container">
+          <Reveal delay={0.12} className="intro-columns">
+            <p>
+              The region also occupies one of Europe’s most important strategic
+              crossroads, linking Central Europe, the Adriatic, the Eastern
+              Mediterranean, the Black Sea region, and commercial routes
+              extending further east. This geography has made the Balkans
+              increasingly important to transportation, energy, supply-chain,
+              and cross-border investment strategies.
+            </p>
+
+            <p>
+              Through a network of executives, investors, and entrepreneurs,
+              the Chamber provides the relationships, local knowledge, strategic
+              introductions, and cross-border connections necessary to identify
+              and pursue opportunities throughout the region.
             </p>
 
             <p>
@@ -125,6 +152,10 @@ export default async function AboutPage() {
               conferences, and one-on-one support, ABGCC creates high-value
               connections for companies, founders, investors, and institutions.
             </p>
+          </Reveal>
+
+          <Reveal delay={0.16}>
+            <p className="intro-tagline">Two engines of growth. One network.</p>
           </Reveal>
         </div>
       </section>
